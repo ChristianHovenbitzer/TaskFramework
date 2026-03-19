@@ -1,0 +1,5 @@
+{
+    "CRS.NamespacePrefixToIgnore": "Techdays.TaskFramework",
+    "CRS.ReorganizeByNamespace": true,
+    "CRS.FileNamePattern": "<ObjectNameShort>.<ObjectType>.al"
+}

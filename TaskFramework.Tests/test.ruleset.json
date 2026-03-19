@@ -1,0 +1,12 @@
+{
+    "name": "Task Framework Tests Ruleset",
+    "rules": [
+        { "id": "DC0004", "action": "None" },
+        { "id": "AC0031", "action": "None" },
+        { "id": "AC0030", "action": "None" },
+        { "id": "AC0010", "action": "None" },
+        { "id": "LC0048", "action": "None" },
+        { "id": "LC0040", "action": "None" },
+        { "id": "TQ0003", "action": "None" }
+    ]
+}
