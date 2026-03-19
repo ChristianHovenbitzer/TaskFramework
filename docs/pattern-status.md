@@ -1,11 +1,15 @@
 # Pattern Status — Task Framework Workshop
 
-Maps every workshop pattern and anti-pattern to its current location in the codebase,
-and tracks what is still missing (i.e. added during the hands-on steps).
+Maps every pattern and anti-pattern from the catalog to its current location in the
+codebase, plus what is still missing (added during the hands-on steps).
 
 > **Legend**
 > - ✅ Present — intentionally baked in (anti-pattern) or already implemented
 > - ❌ Missing — will be added / fixed during the corresponding workshop step
+> - ⏭ Buffer — optional content if time allows
+> - 🚫 Dropped — out of scope, not covered in workshop
+
+Pattern numbers (1.1, 2.3, …) refer to `docs/patterns/pattern-catalog.md`.
 
 ---
 
@@ -13,17 +17,18 @@ and tracks what is still missing (i.e. added during the hands-on steps).
 
 These problems are **intentionally baked in** so the audience can spot them.
 
-| Anti-Pattern | File | Notes |
-|---|---|---|
-| `SingleInstance` codeunit storing mutable state | `src/Processing/TaskProcessingState.Codeunit.al` | ✅ State lost on session end; breaks Job Queue |
-| Publishing **and** subscribing own events in same app | `src/Processing/TaskProcessor.Codeunit.al:19–31` | ✅ Zero benefit — just call the function directly |
-| Monster `CASE` routing — framework knows all task types | `src/Processing/TaskProcessor.Codeunit.al:62–71` | ✅ Adding task type 4 requires editing the framework |
-| No error isolation in batch loop | `src/Processing/TaskProcessor.Codeunit.al:37–45` | ✅ Entry 3 of 10 throws → entries 4–10 never run |
-| Business logic in page trigger (`OnAction` processes inline) | `src/Core/TaskLogEntryCard.page.al:44–68` | ✅ Duplicated, untestable, bypasses processor |
-| `ERROR()` stops on first problem, no detail | `src/Vouchers/PostVouchers.Codeunit.al:12–18` | ✅ Customer missing AND amount zero → only see Customer error |
-| Posting is a status flip — no ledger, no register | `src/Vouchers/PostVouchers.Codeunit.al:22–25` | ✅ "Posted" record is still editable |
-| Hardcoded retention period (30 days), ignores Setup | `src/Processing/TaskProcessor.Codeunit.al:116` | ✅ Setup table exists but is not read |
-| Impl app nearly empty — all logic wrongly in framework | `TaskFramework.Impl/src/install/InstallTaskFrameworkImpl.Codeunit.al` | ✅ VendorImport, LogRetention, DocumentImport belong in Impl |
+| # | Anti-Pattern | File | Status |
+|---|---|---|:---:|
+| 1.6 | `SingleInstance` codeunit storing mutable state | `src/Processing/TaskProcessingState.Codeunit.al` | ✅ |
+| 2.1 | Publishing **and** subscribing own events in same app | `src/Processing/TaskProcessor.Codeunit.al:19–31` | ✅ |
+| — | Monster `CASE` routing — framework knows all task types | `src/Processing/TaskProcessor.Codeunit.al:62–71` | ✅ |
+| — | No error isolation in batch loop | `src/Processing/TaskProcessor.Codeunit.al:37–45` | ✅ |
+| 4.4 | Business logic in page trigger (`OnAction` processes inline) | `src/Core/TaskLogEntryCard.page.al:44–68` | ✅ |
+| 6.1 | `ERROR()` stops on first problem, no detail | `src/Vouchers/PostVouchers.Codeunit.al:12–18` | ✅ |
+| 4.1 | Posting is a status flip — no ledger, no register | `src/Vouchers/PostVouchers.Codeunit.al:22–25` | ✅ |
+| 3.2 | Hardcoded retention period (30 days), ignores Setup | `src/Processing/TaskProcessor.Codeunit.al:116` | ✅ |
+| 4.6 | Impl app nearly empty — all logic wrongly in framework | `TaskFramework.Impl/src/install/InstallTaskFrameworkImpl.Codeunit.al` | ✅ |
+| 2.1 | Event subscriber ordering dependency (App ID–based, unstable) | `src/Processing/TaskProcessor.Codeunit.al:24–31` | ✅ |
 
 ---
 
@@ -31,14 +36,15 @@ These problems are **intentionally baked in** so the audience can spot them.
 
 **Patterns: 3.2 Setup Table · 4.4 Layered Architecture · 1.3 Facade**
 
-| Item | File | Status |
-|---|---|:---:|
-| Setup Table with all config fields (Verbosity, Batch Size, Archive, Retry…) | `src/Setup/TaskFrameworkSetup.Table.al` | ✅ |
-| Setup Page with grouped layout | `src/Setup/TaskFrameworkSetup.Page.al` | ✅ |
-| Setup table seeded on install | `src/Install/InstallTaskFramework.codeunit.al` | ✅ |
-| Facade codeunit — single entry point for pages | `src/Processing/` — `Task Framework Facade` | ❌ |
-| `ProcessLogRetention` reads retention days from Setup | `src/Processing/TaskProcessor.Codeunit.al:116` | ❌ (hardcoded 30) |
-| Business logic extracted from `OnAction` page trigger | `src/Core/TaskLogEntryCard.page.al:44–68` | ❌ |
+| # | Item | File | Status |
+|---|---|---|:---:|
+| 3.2 | Setup table with all config fields (Verbosity, Batch Size, Archive, Retry…) | `src/Setup/TaskFrameworkSetup.Table.al` | ✅ |
+| 3.2 | Setup page with grouped layout | `src/Setup/TaskFrameworkSetup.Page.al` | ✅ |
+| 3.2 | Setup seeded on install | `src/Install/InstallTaskFramework.codeunit.al` | ✅ |
+| 1.3 | Facade codeunit — single entry point pages call | `src/Processing/` — `Task Framework Facade` | ❌ |
+| 3.2 | `ProcessLogRetention` reads retention days from Setup | `src/Processing/TaskProcessor.Codeunit.al:116` | ❌ (hardcoded 30) |
+| 4.4 | Business logic extracted from `OnAction` page trigger | `src/Core/TaskLogEntryCard.page.al:44–68` | ❌ |
+| 1.4 | Guard clauses replacing nested IF blocks in processing | mentioned when coding | ⏭ |
 
 ---
 
@@ -46,16 +52,19 @@ These problems are **intentionally baked in** so the audience can spot them.
 
 **Patterns: 1.1 DI/Strategy · 1.7 Enum · 1.8 Method Codeunit (before) · 2.2 Handled Pattern (before)**
 
-| Item | File | Status |
-|---|---|:---:|
-| `TaskType` enum — discriminator for factory + interface binding | `src/Core/TaskType.Enum.al` | ✅ |
-| `TaskStatus` enum | `src/Core/TaskStatus.Enum.al` | ✅ |
-| `TaskVerbosity` enum | `src/Core/TaskVerbosity.enum.al` | ✅ |
-| `OnBeforeProcessTask(var Handled)` — the "before" (Method Codeunit / Handled Pattern) | `src/Processing/TaskProcessor.Codeunit.al:19–31` | ✅ (anti-pattern, shown as "before") |
-| `ITaskProcessor` interface | `src/Processing/` — `ITaskProcessor.Interface.al` | ❌ |
-| `VendorImport Processor` implementing `ITaskProcessor` | `TaskFramework.Impl/src/` | ❌ |
-| `LogRetention Processor` implementing `ITaskProcessor` | `TaskFramework.Impl/src/` | ❌ |
-| `DocumentImport Processor` implementing `ITaskProcessor` | `TaskFramework.Impl/src/` | ❌ |
+| # | Item | File | Status |
+|---|---|---|:---:|
+| 1.7 | `TaskType` enum — discriminator for factory + interface binding | `src/Core/TaskType.Enum.al` | ✅ |
+| 1.7 | `TaskStatus` enum | `src/Core/TaskStatus.Enum.al` | ✅ |
+| 1.7 | `TaskVerbosity` enum | `src/Core/TaskVerbosity.enum.al` | ✅ |
+| 1.7 | `TaskErrorHandler` enum | `src/Core/Errors/TaskErrorHandler.enum.al` | ✅ |
+| 1.7 | `TaskArchiveReason` enum | `src/Core/Archive/TaskArchiveReason.enum.al` | ✅ |
+| 1.8 | `OnBeforeProcessTask(var IsHandled)` — the "before" story | `src/Processing/TaskProcessor.Codeunit.al:19–31` | ✅ (anti-pattern, shown as "before") |
+| 2.2 | `IsHandled` subscriber claiming task type — silent conflicts | `src/Processing/TaskProcessor.Codeunit.al:24–31` | ✅ (anti-pattern, shown as "before") |
+| 1.1 | `ITaskProcessor` interface | `src/Processing/` — `ITaskProcessor.Interface.al` | ❌ |
+| 1.1 | `VendorImport Processor` implementing `ITaskProcessor` | `TaskFramework.Impl/src/` | ❌ |
+| 1.1 | `LogRetention Processor` implementing `ITaskProcessor` | `TaskFramework.Impl/src/` | ❌ |
+| 1.1 | `DocumentImport Processor` implementing `ITaskProcessor` | `TaskFramework.Impl/src/` | ❌ |
 
 ---
 
@@ -63,10 +72,10 @@ These problems are **intentionally baked in** so the audience can spot them.
 
 **Pattern: 1.2 Factory**
 
-| Item | File | Status |
-|---|---|:---:|
-| `Task Processor Factory` — maps `TaskType` enum → `ITaskProcessor` impl | `src/Processing/` — `TaskProcessorFactory.Codeunit.al` | ❌ |
-| `CASE` routing removed from `TaskProcessor` | `src/Processing/TaskProcessor.Codeunit.al:62–71` | ❌ |
+| # | Item | File | Status |
+|---|---|---|:---:|
+| 1.2 | `Task Processor Factory` — maps `TaskType` enum → `ITaskProcessor` impl | `src/Processing/` — `TaskProcessorFactory.Codeunit.al` | ❌ |
+| 1.2 | `CASE` routing removed from `Task Processor` | `src/Processing/TaskProcessor.Codeunit.al:62–71` | ❌ |
 
 ---
 
@@ -74,22 +83,21 @@ These problems are **intentionally baked in** so the audience can spot them.
 
 **Patterns: 4.1 Journal → Posting → Ledger Entry · 1.5 Builder · 3.1 Archiving**
 
-| Item | File | Status |
-|---|---|:---:|
-| `Task Log Archive` table (all new fields incl. Verbosity, Correlation Id, Archive Reason) | `src/Core/Archive/TaskLogArchive.table.al` | ✅ |
-| `Task Log Archive` page | `src/Core/Archive/TaskLogArchive.page.al` | ✅ |
-| `Archive After Processing` flag triggers `ArchiveEntry` on complete | `src/Processing/TaskProcessor.Codeunit.al:77–102` | ✅ |
-| `Earliest Processing DateTime` filter in batch loop | `src/Processing/TaskProcessor.Codeunit.al:41` | ✅ |
-| `TaskArchiveReason` enum | `src/Core/Archive/TaskArchiveReason.enum.al` | ✅ |
-| `Voucher Entry` table (draft staging, anti-pattern placeholder) | `src/Vouchers/VoucherEntry.Table.al` | ✅ (replaced in Step 5) |
-| `Post Vouchers` codeunit (stub — status flip, no ledger) | `src/Vouchers/PostVouchers.Codeunit.al` | ✅ (replaced in Step 5) |
-| `Voucher Journal Line` table | `src/Vouchers/` | ❌ |
-| `Voucher Ledger Entry` table | `src/Vouchers/` | ❌ |
-| `Voucher Register` table | `src/Vouchers/` | ❌ |
-| `Voucher Jnl.-Check Line` codeunit | `src/Vouchers/` | ❌ |
-| `Voucher Jnl.-Post Line` codeunit | `src/Vouchers/` | ❌ |
-| `Voucher Jnl.-Post Batch` codeunit | `src/Vouchers/` | ❌ |
-| `Voucher Journal Line Builder` codeunit | `src/Vouchers/` | ❌ |
+| # | Item | File | Status |
+|---|---|---|:---:|
+| 3.1 | `Task Log Archive` table (all fields incl. Verbosity, Correlation Id, Archive Reason) | `src/Core/Archive/TaskLogArchive.table.al` | ✅ |
+| 3.1 | `Task Log Archive` page | `src/Core/Archive/TaskLogArchive.page.al` | ✅ |
+| 3.1 | `Archive After Processing` flag triggers `ArchiveEntry` on complete | `src/Processing/TaskProcessor.Codeunit.al:77–102` | ✅ |
+| — | `Earliest Processing DateTime` filter in batch loop | `src/Processing/TaskProcessor.Codeunit.al:41` | ✅ |
+| 4.1 | `Voucher Entry` table (draft staging, anti-pattern placeholder) | `src/Vouchers/VoucherEntry.Table.al` | ✅ (replaced in Step 5) |
+| 4.1 | `Post Vouchers` codeunit (stub — status flip, no ledger) | `src/Vouchers/PostVouchers.Codeunit.al` | ✅ (replaced in Step 5) |
+| 4.1 | `Voucher Journal Line` table | `src/Vouchers/` | ❌ |
+| 4.1 | `Voucher Ledger Entry` table | `src/Vouchers/` | ❌ |
+| 4.1 | `Voucher Register` table | `src/Vouchers/` | ❌ |
+| 4.1 | `Voucher Jnl.-Check Line` codeunit | `src/Vouchers/` | ❌ |
+| 4.1 | `Voucher Jnl.-Post Line` codeunit | `src/Vouchers/` | ❌ |
+| 4.1 | `Voucher Jnl.-Post Batch` codeunit | `src/Vouchers/` | ❌ |
+| 1.5 | `Voucher Journal Line Builder` codeunit | `src/Vouchers/` | ❌ |
 
 ---
 
@@ -97,13 +105,12 @@ These problems are **intentionally baked in** so the audience can spot them.
 
 **Patterns: 6.1 Collectible Errors · 6.2 Notification Pattern**
 
-| Item | File | Status |
-|---|---|:---:|
-| `Task Error Log` table (structure: Entry No., Line No., Error Message, Is Blocking, Correlation Id…) | `src/Core/Errors/TaskErrorLog.table.al` | ✅ |
-| `Task Error Handler` enum | `src/Core/Errors/TaskErrorHandler.enum.al` | ✅ |
-| Error collector codeunit — writes to `Task Error Log` | `src/Core/Errors/` | ❌ |
-| Processor / posting use collector instead of `ERROR()` | `src/Processing/TaskProcessor.Codeunit.al` | ❌ |
-| Notification shown after batch (Error / Message / Notification) | `src/Processing/` | ❌ |
+| # | Item | File | Status |
+|---|---|---|:---:|
+| 6.1 | `Task Error Log` table (Entry No., Line No., Error Message, Is Blocking, Correlation Id…) | `src/Core/Errors/TaskErrorLog.table.al` | ✅ |
+| 6.1 | Error collector codeunit — writes to `Task Error Log` | `src/Core/Errors/` | ❌ |
+| 6.1 | Processor / posting use collector instead of `ERROR()` | `src/Processing/TaskProcessor.Codeunit.al` | ❌ |
+| 6.2 | Notification shown after batch (Error / Message / Notification distinction) | `src/Processing/` | ❌ |
 
 ---
 
@@ -111,12 +118,14 @@ These problems are **intentionally baked in** so the audience can spot them.
 
 **Pattern: 2.1 Publisher/Subscriber**
 
-| Item | File | Status |
-|---|---|:---:|
-| `OnBeforeProcessTask` integration event declared | `src/Processing/TaskProcessor.Codeunit.al:19–22` | ✅ (but self-consumed — anti-pattern) |
-| Self-consumption removed (subscriber moved to Impl or deleted) | `src/Processing/TaskProcessor.Codeunit.al:24–31` | ❌ |
-| `OnAfterProcessTask` integration event | `src/Processing/TaskProcessor.Codeunit.al` | ❌ |
-| `OnBeforePost` / `OnAfterPost` in posting pipeline | `src/Vouchers/` | ❌ |
+| # | Item | File | Status |
+|---|---|---|:---:|
+| 2.1 | `OnBeforeProcessTask` integration event declared | `src/Processing/TaskProcessor.Codeunit.al:19–22` | ✅ (self-consumed — anti-pattern) |
+| 2.1 | Self-consumption removed (subscriber moved to Impl or deleted) | `src/Processing/TaskProcessor.Codeunit.al:24–31` | ❌ |
+| 2.3 | `OnAfterProcessTask` integration event (code-level process event) | `src/Processing/TaskProcessor.Codeunit.al` | ❌ |
+| 2.3 | `OnBeforePost` / `OnAfterPost` in posting pipeline | `src/Vouchers/` | ❌ |
+| 2.4 | Discovery event — task type self-registration | Step 7 buffer | ⏭ |
+| 2.5 | Manual event subscriber (`BindSubscription` / `UnbindSubscription`) | Step 7 buffer | ⏭ |
 
 ---
 
@@ -124,11 +133,11 @@ These problems are **intentionally baked in** so the audience can spot them.
 
 **Patterns: 5.3 Mock via Interface · 5.1 Test Isolation**
 
-| Item | File | Status |
-|---|---|:---:|
-| Test app project | `TaskFramework.Tests/` | ❌ |
-| Mock `ITaskProcessor` implementation | `TaskFramework.Tests/src/` | ❌ |
-| Test codeunit — processes task via injected mock | `TaskFramework.Tests/src/` | ❌ |
+| # | Item | File | Status |
+|---|---|---|:---:|
+| 5.1 | Test app project | `TaskFramework.Tests/` | ❌ |
+| 5.3 | Mock `ITaskProcessor` implementation | `TaskFramework.Tests/src/` | ❌ |
+| 5.3 | Test codeunit — processes task via injected mock | `TaskFramework.Tests/src/` | ❌ |
 
 ---
 
@@ -136,11 +145,34 @@ These problems are **intentionally baked in** so the audience can spot them.
 
 **Patterns: 4.5 Internal Modularization · 6.3 Telemetry · 4.6 App Composition**
 
-| Item | File | Status |
-|---|---|:---:|
-| Namespace structure (`Core`, `Core.Archive`, `Core.Errors`, `Processing`, `Setup`, `Vouchers`) | All `*.al` files | ✅ |
-| Three-app split (Framework · Impl · Tests) | Repo root | ✅ structure, ❌ content split |
-| Telemetry emitted inside `ITaskProcessor` contract | `ITaskProcessor.Interface.al` | ❌ (depends on Step 3) |
+| # | Item | File | Status |
+|---|---|---|:---:|
+| 4.5 | Namespace structure (`Core`, `Core.Archive`, `Core.Errors`, `Processing`, `Setup`, `Vouchers`) | All `*.al` files | ✅ |
+| 4.6 | Three-app structure (Framework · Impl · Tests) | Repo root | ✅ structure, ❌ content split |
+| 6.3 | Telemetry emitted inside `ITaskProcessor` interface contract | depends on Step 3 | ❌ |
+| D.1 | Companion Table vs. Table Extension — audience discussion point | Step 9 buffer | ⏭ |
+| N.1 | Seams (Vieko/Directions) — defined swap points, AI relevance | Step 9 buffer | ⏭ |
+
+---
+
+## Dropped Patterns
+
+These are in the catalog but explicitly out of scope for the workshop.
+
+| # | Pattern | Reason |
+|---|---|---|
+| 2.3 | ~~Process Events~~ (as standalone) | Covered within 2.1 — not a distinct pattern |
+| 5.2 | ~~Test Library / Helper~~ | Christian not a fan; deprioritised |
+| 6.4 | ~~Assisted Setup / Wizard~~ | Christian strongly against |
+| 1.9 | ~~Temp Table as Data Structure~~ | Audience likely knows; low score (12) |
+| 3.3 | Header / Line | Quick mention only — no hands-on |
+| 3.4 | Supplemental / Related Table | Catalog only — not in shortlist |
+| 4.2 | Document → Posted Document | Slide / analogy only |
+| 4.3 | Management / Helper Codeunit | "Not as important anymore" — covered by 1.3 |
+| 6.5 | Number Series | Catalog only — not in shortlist |
+| N.2 | ~~Transactions / Data Consistency~~ | "That's Day 2" — fills its own workshop |
+| N.3 | ~~Queries~~ | Own topic, out of scope |
+| N.4 | Page Background Tasks | Out of scope |
 
 ---
 
