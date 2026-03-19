@@ -23,6 +23,9 @@ page 50000 "Task Log Entries"
                 field(Status; Rec.Status) { ApplicationArea = All; }
                 field(Description; Rec.Description) { ApplicationArea = All; }
                 field("Created At"; Rec."Created At") { ApplicationArea = All; }
+                field(Verbosity; Rec.Verbosity) { ApplicationArea = All; }
+                field("Correlation Id"; Rec."Correlation Id") { ApplicationArea = All; }
+                field("Retry Count"; Rec."Retry Count") { ApplicationArea = All; }
                 field("Last Error Message"; Rec."Last Error Message") { ApplicationArea = All; }
             }
         }

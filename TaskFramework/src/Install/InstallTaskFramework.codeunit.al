@@ -24,6 +24,11 @@ codeunit 50002 "Install Task Framework"
             SetupRec."Primary Key" := '';
             SetupRec.Enabled := true;
             SetupRec."Max Retry Count" := 3;
+            SetupRec."Execution Interval (Seconds)" := 60;
+            SetupRec."Default Verbosity" := SetupRec."Default Verbosity"::Normal;
+            SetupRec."Enable Batches" := true;
+            SetupRec."Batch Size" := 10;
+            SetupRec."Archive Enabled" := true;
             SetupRec.Insert();
         end;
     end;
@@ -96,11 +101,14 @@ codeunit 50002 "Install Task Framework"
 
         // Entry 1: Pending vendor import
         TaskLogEntry.Init();
-        TaskLogEntry."Entry No." := 0; // Reset auto-increment to avoid conflict
+        TaskLogEntry."Entry No." := 0;
         TaskLogEntry."Task Type" := "Task Type"::VendorImport;
         TaskLogEntry.Status := "Task Status"::Pending;
         TaskLogEntry.Description := 'Import vendor from webshop';
         TaskLogEntry."Created At" := CurrentDateTime;
+        TaskLogEntry.Verbosity := TaskLogEntry.Verbosity::Normal;
+        TaskLogEntry."Correlation Id" := CreateGuid();
+        TaskLogEntry."Archive After Processing" := true;
         TaskLogEntry.Insert(true);
         TaskLogEntry.CalcFields(Payload);
         TaskLogEntry.Payload.CreateOutStream(OutStr, TextEncoding::UTF8);
@@ -109,12 +117,15 @@ codeunit 50002 "Install Task Framework"
 
         // Entry 2: Completed document import
         TaskLogEntry.Init();
-        TaskLogEntry."Entry No." := 0; // Reset auto-increment to avoid conflict
+        TaskLogEntry."Entry No." := 0;
         TaskLogEntry."Task Type" := "Task Type"::DocumentImport;
         TaskLogEntry.Status := "Task Status"::Complete;
         TaskLogEntry.Description := 'Voucher import batch 2026-03-01';
         TaskLogEntry."Created At" := CurrentDateTime;
         TaskLogEntry."Processing Completed At" := CurrentDateTime;
+        TaskLogEntry.Verbosity := TaskLogEntry.Verbosity::Detailed;
+        TaskLogEntry."Correlation Id" := CreateGuid();
+        TaskLogEntry."Archive After Processing" := true;
         TaskLogEntry.Insert(true);
         TaskLogEntry.CalcFields(Payload);
         TaskLogEntry.Payload.CreateOutStream(OutStr, TextEncoding::UTF8);
@@ -123,12 +134,30 @@ codeunit 50002 "Install Task Framework"
 
         // Entry 3: Failed log retention
         TaskLogEntry.Init();
-        TaskLogEntry."Entry No." := 0; // Reset auto-increment to avoid conflict
+        TaskLogEntry."Entry No." := 0;
         TaskLogEntry."Task Type" := "Task Type"::LogRetention;
         TaskLogEntry.Status := "Task Status"::Failed;
         TaskLogEntry.Description := 'Weekly cleanup';
         TaskLogEntry."Created At" := CurrentDateTime;
         TaskLogEntry."Last Error Message" := 'An error occurred.';
+        TaskLogEntry.Verbosity := TaskLogEntry.Verbosity::Minimal;
+        TaskLogEntry."Correlation Id" := CreateGuid();
         TaskLogEntry.Insert(true);
+
+        // Entry 4: Pending vendor import scheduled for the future
+        TaskLogEntry.Init();
+        TaskLogEntry."Entry No." := 0;
+        TaskLogEntry."Task Type" := "Task Type"::VendorImport;
+        TaskLogEntry.Status := "Task Status"::Pending;
+        TaskLogEntry.Description := 'Scheduled nightly import';
+        TaskLogEntry."Created At" := CurrentDateTime;
+        TaskLogEntry.Verbosity := TaskLogEntry.Verbosity::Normal;
+        TaskLogEntry."Correlation Id" := CreateGuid();
+        TaskLogEntry."Earliest Processing DateTime" := CreateDateTime(CalcDate('<+1D>', Today()), 020000T);
+        TaskLogEntry.Insert(true);
+        TaskLogEntry.CalcFields(Payload);
+        TaskLogEntry.Payload.CreateOutStream(OutStr, TextEncoding::UTF8);
+        OutStr.WriteText('NAME=Nightly Import Vendor;CITY=Berlin;COUNTRY=DE');
+        TaskLogEntry.Modify();
     end;
 }

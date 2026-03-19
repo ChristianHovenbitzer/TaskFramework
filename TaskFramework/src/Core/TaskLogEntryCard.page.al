@@ -22,6 +22,11 @@ page 50001 "Task Log Entry Card"
                 field("Processing Completed At"; Rec."Processing Completed At") { ApplicationArea = All; }
                 field("Last Error Message"; Rec."Last Error Message") { ApplicationArea = All; }
                 field("Retry Count"; Rec."Retry Count") { ApplicationArea = All; }
+                field("Error Handler"; Rec."Error Handler") { ApplicationArea = All; }
+                field(Verbosity; Rec.Verbosity) { ApplicationArea = All; }
+                field("Correlation Id"; Rec."Correlation Id") { ApplicationArea = All; Editable = false; }
+                field("Archive After Processing"; Rec."Archive After Processing") { ApplicationArea = All; }
+                field("Earliest Processing DateTime"; Rec."Earliest Processing DateTime") { ApplicationArea = All; }
             }
         }
     }

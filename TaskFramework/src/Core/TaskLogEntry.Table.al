@@ -1,5 +1,7 @@
 namespace Techdays.TaskFramework.Core;
 
+using Techdays.TaskFramework.Core.Errors;
+
 table 50000 "Task Log Entry"
 {
     Caption = 'Task Log Entry';
@@ -17,6 +19,14 @@ table 50000 "Task Log Entry"
         field(8; "Processing Completed At"; DateTime) { Caption = 'Processing Completed At'; }
         field(9; "Last Error Message"; Text[250]) { Caption = 'Last Error Message'; }
         field(10; "Retry Count"; Integer) { Caption = 'Retry Count'; }
+        field(11; "Error Handler"; Enum "Task Error Handler")
+        {
+            Caption = 'Error Handler';
+        }
+        field(12; Verbosity; Enum "Task Verbosity") { Caption = 'Verbosity'; }
+        field(13; "Correlation Id"; Guid) { Caption = 'Correlation Id'; }
+        field(14; "Archive After Processing"; Boolean) { Caption = 'Archive After Processing'; }
+        field(15; "Earliest Processing DateTime"; DateTime) { Caption = 'Earliest Processing DateTime'; }
     }
 
     keys
@@ -24,4 +34,25 @@ table 50000 "Task Log Entry"
         key(PK; "Entry No.") { Clustered = true; }
         key(StatusKey; Status, "Entry No.") { }
     }
+
+    /// <summary>Returns the Payload BLOB as UTF-8 text.</summary>
+    procedure GetPayloadText(): Text
+    var
+        InStream: InStream;
+        PayloadText: Text;
+    begin
+        Rec.CalcFields(Payload);
+        Rec.Payload.CreateInStream(InStream, TextEncoding::UTF8);
+        InStream.ReadText(PayloadText);
+        exit(PayloadText);
+    end;
+
+    /// <summary>Writes a UTF-8 text value into the Payload BLOB.</summary>
+    procedure SetPayloadText(PayloadText: Text)
+    var
+        OutStream: OutStream;
+    begin
+        Rec.Payload.CreateOutStream(OutStream, TextEncoding::UTF8);
+        OutStream.WriteText(PayloadText);
+    end;
 }

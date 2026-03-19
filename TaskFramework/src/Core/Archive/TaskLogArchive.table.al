@@ -1,6 +1,6 @@
 namespace Techdays.TaskFramework.Core.Archive;
 
-using Microsoft.CRM.Task;
+using Techdays.TaskFramework.Core;
 
 table 50001 "Task Log Archive"
 {
@@ -19,7 +19,15 @@ table 50001 "Task Log Archive"
         field(8; "Processing Completed At"; DateTime) { Caption = 'Processing Completed At'; }
         field(9; "Last Error Message"; Text[250]) { Caption = 'Last Error Message'; }
         field(10; "Retry Count"; Integer) { Caption = 'Retry Count'; }
+        field(11; Verbosity; Enum "Task Verbosity") { Caption = 'Verbosity'; }
+        field(12; "Correlation Id"; Guid) { Caption = 'Correlation Id'; }
+        field(13; "Archive After Processing"; Boolean) { Caption = 'Archive After Processing'; }
+        field(14; "Earliest Processing DateTime"; DateTime) { Caption = 'Earliest Processing DateTime'; }
         field(100; "Archived At"; DateTime) { Caption = 'Archived At'; }
+        field(101; "Archive Reason"; Enum "Task Archive Reason")
+        {
+            Caption = 'Archive Reason';
+        }
     }
 
     keys

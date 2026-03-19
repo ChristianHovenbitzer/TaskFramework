@@ -18,8 +18,11 @@ page 50002 "Task Log Archive"
                 field("Entry No."; Rec."Entry No.") { ApplicationArea = All; }
                 field("Task Type"; Rec."Task Type") { ApplicationArea = All; }
                 field(Status; Rec.Status) { ApplicationArea = All; }
+                field("Archive Reason"; Rec."Archive Reason") { ApplicationArea = All; }
                 field(Description; Rec.Description) { ApplicationArea = All; }
                 field("Archived At"; Rec."Archived At") { ApplicationArea = All; }
+                field("Correlation Id"; Rec."Correlation Id") { ApplicationArea = All; }
+                field(Verbosity; Rec.Verbosity) { ApplicationArea = All; }
                 field("Created At"; Rec."Created At") { ApplicationArea = All; }
             }
         }

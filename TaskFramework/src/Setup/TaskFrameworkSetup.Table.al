@@ -1,5 +1,8 @@
 namespace Techdays.TaskFramework.Setup;
 
+using Techdays.TaskFramework.Core;
+using Techdays.TaskFramework.Core.Errors;
+
 table 50003 "Task Framework Setup"
 {
     Caption = 'Task Framework Setup';
@@ -16,6 +19,17 @@ table 50003 "Task Framework Setup"
             // ANTI-PATTERN: One hardcoded G/L field instead of proper account mapping per entry type.
             // TODO Step 2: Replace with proper voucher account mapping fields
         }
+        field(5; "Execution Interval (Seconds)"; Integer)
+        {
+            Caption = 'Execution Interval (Seconds)';
+            MinValue = 0;
+        }
+        field(6; "Last Processed At"; DateTime) { Caption = 'Last Processed At'; }
+        field(7; "Default Verbosity"; Enum "Task Verbosity") { Caption = 'Default Verbosity'; }
+        field(8; "Default Error Handler"; Enum "Task Error Handler") { Caption = 'Default Error Handler'; }
+        field(9; "Enable Batches"; Boolean) { Caption = 'Enable Batches'; }
+        field(10; "Batch Size"; Integer) { Caption = 'Batch Size'; MinValue = 1; }
+        field(11; "Archive Enabled"; Boolean) { Caption = 'Archive Enabled'; }
     }
 
     keys
