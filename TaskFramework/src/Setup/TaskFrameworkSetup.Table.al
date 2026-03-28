@@ -30,10 +30,19 @@ table 50003 "Task Framework Setup"
         field(9; "Enable Batches"; Boolean) { Caption = 'Enable Batches'; }
         field(10; "Batch Size"; Integer) { Caption = 'Batch Size'; MinValue = 1; }
         field(11; "Archive Enabled"; Boolean) { Caption = 'Archive Enabled'; }
+        field(12; "Retention Days"; Integer) { Caption = 'Retention Days'; InitValue = 30; MinValue = 1; }
     }
 
     keys
     {
         key(PK; "Primary Key") { Clustered = true; }
     }
+    procedure GetRecordOnce(): Record "Task Framework Setup"
+    begin
+        if not Get() then begin
+            Init();
+            Insert(true);
+        end;
+        exit(Rec);
+    end;
 }

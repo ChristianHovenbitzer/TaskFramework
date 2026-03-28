@@ -36,6 +36,7 @@ page 50003 "Task Framework Setup"
             {
                 Caption = 'Archive';
                 field("Archive Enabled"; Rec."Archive Enabled") { ApplicationArea = All; }
+                field("Retention Days"; Rec."Retention Days") { ApplicationArea = All; }
             }
         }
     }

@@ -135,12 +135,12 @@ codeunit 50000 "Task Processor"
     local procedure ProcessLogRetention(var TaskLogEntry: Record "Task Log Entry")
     var
         Archive: Record "Task Log Archive";
+        TaskFrameworkSetup: Record "Task Framework Setup";
         RetentionDays: Integer;
         CutoffDate: Date;
     begin
-        // ANTI-PATTERN: Hardcoded retention period — should come from Setup.
-        // Step 2 will move this to Setup Table.
-        RetentionDays := 30;
+        TaskFrameworkSetup.GetRecordOnce();
+        RetentionDays := TaskFrameworkSetup."Retention Days";
         CutoffDate := CalcDate('<-' + Format(RetentionDays) + 'D>', Today());
 
         Archive.SetFilter("Archived At", '<%1', CreateDateTime(CutoffDate, 0T));
