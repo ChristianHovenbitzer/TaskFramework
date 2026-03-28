@@ -4,7 +4,7 @@ using Techdays.TaskFramework.Core;
 using Techdays.TaskFramework.Setup;
 using Techdays.TaskFramework.Vouchers;
 
-codeunit 50002 "Install Task Framework"
+codeunit 60002 "Install Task Framework"
 {
     Subtype = Install;
 
