@@ -12,22 +12,19 @@ using Microsoft.Purchases.Vendor;
 // - Step 3 will replace this CASE routing with ITaskProcessor interface + enum-interface binding
 codeunit 50000 "Task Processor"
 {
-    // ANTI-PATTERN: Publishing an event AND subscribing to it in the same codeunit.
-    // There is zero benefit to this — just call the function directly.
-    // "Never publish and subscribe to events within the same app." — Christian
-    // Step 7 will show the correct pattern.
     [IntegrationEvent(false, false)]
-    local procedure OnBeforeProcessTask(var TaskLogEntry: Record "Task Log Entry"; var IsHandled: Boolean)
+    local procedure OnBeforeProcessTask(var TaskLogEntry: Record "Task Log Entry"; TaskProcessingState: Codeunit "Task Processing State"; var IsHandled: Boolean)
     begin
     end;
 
-    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Task Processor", 'OnBeforeProcessTask', '', false, false)]
-    local procedure HandleBeforeProcess(var TaskLogEntry: Record "Task Log Entry"; var IsHandled: Boolean)
+
+    #region Process Task Entry
     var
-        State: Codeunit "Task Processing State";
+        TaskProcessingState: Codeunit "Task Processing State";
+
+    procedure GetTaskProcessingState(): Codeunit "Task Processing State"
     begin
-        // ANTI-PATTERN: Calling into a SingleInstance codeunit for "tracking"
-        State.IncrementProcessedCount();
+        exit(TaskProcessingState);
     end;
 
     procedure ProcessAllPendingTasks()
@@ -37,11 +34,15 @@ codeunit 50000 "Task Processor"
         // ANTI-PATTERN: No error isolation.
         // If ProcessTaskEntry throws for entry 3 of 10, entries 4-10 never run.
         // Step 6 will fix this with proper error handling.
+        Clear(TaskProcessingState);
+
         TaskLogEntry.SetRange(Status, TaskLogEntry.Status::Pending);
         TaskLogEntry.SetFilter("Earliest Processing DateTime", '%1|<%2', 0DT, CurrentDateTime);
         if TaskLogEntry.FindSet(true) then
             repeat
                 ProcessTaskEntry(TaskLogEntry);
+                TaskProcessingState.IncrementProcessedCount();
+                TaskProcessingState.SetLastProcessed(TaskLogEntry."Entry No.");
             until TaskLogEntry.Next() = 0;
     end;
 
@@ -49,7 +50,7 @@ codeunit 50000 "Task Processor"
     var
         IsHandled: Boolean;
     begin
-        OnBeforeProcessTask(TaskLogEntry, IsHandled);
+        OnBeforeProcessTask(TaskLogEntry, TaskProcessingState, IsHandled);
         if IsHandled then
             exit;
 
@@ -78,6 +79,7 @@ codeunit 50000 "Task Processor"
         if TaskLogEntry."Archive After Processing" then
             ArchiveEntry(TaskLogEntry);
     end;
+    #endregion Process Task Entry
 
     local procedure ArchiveEntry(var TaskLogEntry: Record "Task Log Entry")
     var

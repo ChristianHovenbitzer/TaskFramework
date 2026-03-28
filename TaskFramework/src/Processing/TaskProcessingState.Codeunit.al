@@ -1,13 +1,7 @@
 namespace Techdays.TaskFramework.Processing;
 
-// ANTI-PATTERN: SingleInstance codeunit storing mutable state.
-// State is lost when session ends. Breaks completely with background sessions and Job Queue.
-// Christian: "A hint that something in the architecture is wrong."
-// Step 2/3 will remove this — state belongs in tables or procedure parameters.
 codeunit 50003 "Task Processing State"
 {
-    SingleInstance = true;
-
     var
         LastProcessedEntryNo: Integer;
         ProcessedCount: Integer;
