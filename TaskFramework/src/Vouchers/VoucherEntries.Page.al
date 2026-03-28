@@ -38,39 +38,14 @@ page 50004 "Voucher Entries"
                 trigger OnAction()
                 var
                     VoucherEntry: Record "Voucher Entry";
-                    PostCount: Integer;
-                begin
-                    // ANTI-PATTERN: Business logic inline in page trigger.
-                    // This is also inconsistent with the Post Vouchers codeunit which does validation.
-                    // Posting here skips ALL validation — even the inline checks in PostVouchers.
-                    // Step 2 will extract to facade, Step 5 will rebuild with proper pipeline.
-                    CurrPage.SetSelectionFilter(VoucherEntry);
-                    VoucherEntry.SetRange(Status, VoucherEntry.Status::Draft);
-                    if VoucherEntry.FindSet(true) then
-                        repeat
-                            VoucherEntry.Status := VoucherEntry.Status::Posted;
-                            VoucherEntry."Posting Date" := WorkDate();
-                            VoucherEntry.Modify();
-                            PostCount += 1;
-                        until VoucherEntry.Next() = 0;
-                    Message('Posted %1 voucher(s).', PostCount);
-                end;
-            }
-
-            action(PostViaCodeunit)
-            {
-                Caption = 'Post (with Validation)';
-                Image = PostDocument;
-                ApplicationArea = All;
-
-                trigger OnAction()
-                var
                     PostVouchers: Codeunit "Post Vouchers";
                 begin
-                    // This one does validation (will error on missing Customer).
-                    // PostSelected above skips validation entirely.
-                    // Two paths, inconsistent behavior — another anti-pattern.
-                    PostVouchers.PostVoucher(Rec);
+                    CurrPage.SetSelectionFilter(VoucherEntry);
+                    VoucherEntry.ReadIsolation(IsolationLevel::UpdLock);
+                    if VoucherEntry.FindSet() then
+                        repeat
+                            PostVouchers.PostVoucher(VoucherEntry);
+                        until VoucherEntry.Next() = 0;
                 end;
             }
         }
