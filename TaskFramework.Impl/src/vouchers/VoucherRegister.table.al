@@ -9,7 +9,7 @@ table 60012 "Voucher Register"
 
     fields
     {
-        field(1; "No."; Integer) { Caption = 'No.'; AutoIncrement = true; }
+        field(1; "No."; Integer) { Caption = 'No.'; }
         field(2; "From Entry No."; Integer) { Caption = 'From Entry No.'; }
         field(3; "To Entry No."; Integer) { Caption = 'To Entry No.'; }
         field(4; "Creation Date"; Date) { Caption = 'Creation Date'; }

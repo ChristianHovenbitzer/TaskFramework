@@ -1,5 +1,7 @@
 namespace Techdays.TaskFramework.Impl.Vouchers;
 
+using Microsoft.Sales.Customer;
+
 table 60010 "Voucher Journal Line"
 {
     Caption = 'Voucher Journal Line';
@@ -9,7 +11,11 @@ table 60010 "Voucher Journal Line"
     {
         field(1; "Line No."; Integer) { Caption = 'Line No.'; }
         field(2; "Voucher No."; Code[20]) { Caption = 'Voucher No.'; }
-        field(3; "Customer No."; Code[20]) { Caption = 'Customer No.'; }
+        field(3; "Customer No."; Code[20])
+        {
+            Caption = 'Customer No.';
+            TableRelation = "Customer"."No.";
+        }
         field(4; Amount; Decimal) { Caption = 'Amount'; }
         field(5; "Posting Date"; Date) { Caption = 'Posting Date'; }
         field(6; Description; Text[100]) { Caption = 'Description'; }
