@@ -159,6 +159,7 @@ codeunit 50000 "Task Processor"
         VoucherNo: Code[20];
         CustomerNo: Code[20];
         Amount: Decimal;
+        PostingDate: Date;
     begin
         // ANTI-PATTERN: Document import logic inline in framework.
         // Parses payload, creates Voucher Entry, IMMEDIATELY posts it — no staging/review.
@@ -171,6 +172,7 @@ codeunit 50000 "Task Processor"
 
         VoucherNo := CopyStr(ExtractValue(PayloadText, 'VOUCHERNO'), 1, 20);
         CustomerNo := CopyStr(ExtractValue(PayloadText, 'CUSTOMERNO'), 1, 20);
+        Evaluate(PostingDate, ExtractValue(PayloadText, 'POSTINGDATE'));
         Evaluate(Amount, ExtractValue(PayloadText, 'AMOUNT'));
 
         if VoucherNo = '' then
@@ -181,6 +183,7 @@ codeunit 50000 "Task Processor"
         VoucherEntry."Customer No." := CustomerNo;
         VoucherEntry.Amount := Amount;
         VoucherEntry.Description := 'Imported via task ' + Format(TaskLogEntry."Entry No.");
+        VoucherEntry."Posting Date" := PostingDate;
         VoucherEntry.Insert(true);
 
         // Immediately post — no staging, no review, no batch validation
