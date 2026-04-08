@@ -1,26 +1,25 @@
-namespace Techdays.TaskFramework.Vouchers;
+namespace Techdays.TaskFramework.Impl.Vouchers;
 
-// ANTI-PATTERN: This page remains fully editable even after Status = Posted.
-// Posted records should be immutable — Step 5 will enforce this via separate Ledger Entry table.
-page 50005 "Voucher Entry Card"
+page 60010 "Voucher Journal Lines"
 {
-    PageType = Card;
-    SourceTable = "Voucher Entry";
-    Caption = 'Voucher Entry';
+    PageType = List;
+    SourceTable = "Voucher Journal Line";
+    Caption = 'Voucher Journal';
+    UsageCategory = Lists;
     ApplicationArea = All;
+    DelayedInsert = true;
 
     layout
     {
         area(Content)
         {
-            group(General)
+            repeater(Lines)
             {
-                field("Entry No."; Rec."Entry No.") { ApplicationArea = All; Editable = false; }
+                field("Line No."; Rec."Line No.") { ApplicationArea = All; }
                 field("Voucher No."; Rec."Voucher No.") { ApplicationArea = All; }
                 field("Customer No."; Rec."Customer No.") { ApplicationArea = All; }
                 field(Amount; Rec.Amount) { ApplicationArea = All; }
                 field("Posting Date"; Rec."Posting Date") { ApplicationArea = All; }
-                field(Status; Rec.Status) { ApplicationArea = All; }
                 field(Description; Rec.Description) { ApplicationArea = All; }
                 field("Document No."; Rec."Document No.") { ApplicationArea = All; }
             }
@@ -31,17 +30,20 @@ page 50005 "Voucher Entry Card"
     {
         area(Processing)
         {
-            action(PostViaCodeunit)
+            action(Post)
             {
-                Caption = 'Post (with Validation)';
-                Image = PostDocument;
+                Caption = 'Post';
+                Image = PostBatch;
                 ApplicationArea = All;
 
                 trigger OnAction()
                 var
-                    PostVouchers: Codeunit "Post Vouchers";
+                    VoucherJnlLine: Record "Voucher Journal Line";
+                    PostBatch: Codeunit "Voucher Jnl.-Post Batch Impl";
                 begin
-                    PostVouchers.PostVoucher(Rec);
+                    VoucherJnlLine.Copy(Rec);
+                    PostBatch.Run(VoucherJnlLine);
+                    CurrPage.Update(false);
                 end;
             }
         }

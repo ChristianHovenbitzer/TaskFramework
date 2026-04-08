@@ -2,7 +2,7 @@ namespace Techdays.TaskFramework.Impl.Processors;
 
 using Techdays.TaskFramework.Core;
 using Techdays.TaskFramework.Processing;
-using Techdays.TaskFramework.Vouchers;
+using Techdays.TaskFramework.Impl.Vouchers;
 
 codeunit 60003 "Document Import Processor" implements "ITask Processor"
 {
@@ -10,8 +10,8 @@ codeunit 60003 "Document Import Processor" implements "ITask Processor"
 
     procedure ProcessTask(var TaskLogEntry: Record "Task Log Entry")
     var
-        VoucherEntry: Record "Voucher Entry";
-        PostVouchers: Codeunit "Post Vouchers";
+        VoucherJnlLine: Record "Voucher Journal Line";
+        PostBatch: Codeunit "Voucher Jnl.-Post Batch Impl";
         PayloadText: Text;
         InStr: InStream;
         VoucherNo: Code[20];
@@ -31,14 +31,27 @@ codeunit 60003 "Document Import Processor" implements "ITask Processor"
         if VoucherNo = '' then
             VoucherNo := 'VOUCH-TASK-' + Format(TaskLogEntry."Entry No.");
 
-        VoucherEntry.Init();
-        VoucherEntry."Voucher No." := VoucherNo;
-        VoucherEntry."Customer No." := CustomerNo;
-        VoucherEntry.Amount := Amount;
-        VoucherEntry.Description := 'Imported via task ' + Format(TaskLogEntry."Entry No.");
-        VoucherEntry.Insert(true);
+        // Build journal line (staging)
+        VoucherJnlLine.Init();
+        VoucherJnlLine."Line No." := GetNextLineNo();
+        VoucherJnlLine."Voucher No." := VoucherNo;
+        VoucherJnlLine."Customer No." := CustomerNo;
+        VoucherJnlLine.Amount := Amount;
+        VoucherJnlLine."Posting Date" := WorkDate();
+        VoucherJnlLine.Description := 'Imported via task ' + Format(TaskLogEntry."Entry No.");
+        VoucherJnlLine.Insert(true);
 
-        PostVouchers.PostVoucher(VoucherEntry);
+        // Post through pipeline: Check → Post Line → Ledger Entry + Register
+        PostBatch.Run(VoucherJnlLine);
+    end;
+
+    local procedure GetNextLineNo(): Integer
+    var
+        VoucherJnlLine: Record "Voucher Journal Line";
+    begin
+        if VoucherJnlLine.FindLast() then
+            exit(VoucherJnlLine."Line No." + 10000);
+        exit(10000);
     end;
 
     local procedure ExtractValue(PayloadText: Text; FieldKey: Text): Text
