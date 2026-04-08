@@ -18,6 +18,6 @@ table 60010 "Voucher Journal Line"
 
     keys
     {
-        key(PK; "Line No.") { Clustered = true; }
+        key(PK; "Line No.") { Clustered = true; SumIndexFields = Amount; }
     }
 }

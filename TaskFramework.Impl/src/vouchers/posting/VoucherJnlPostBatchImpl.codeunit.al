@@ -15,8 +15,9 @@ codeunit 60012 "Voucher Jnl.-Post Batch Impl"
 
     procedure PostBatch(var VoucherJnlLine: Record "Voucher Journal Line")
     var
-        CheckLine: Codeunit "Voucher Jnl.-Check Line";
-        PostLine: Codeunit "Voucher Jnl.-Post Line";
+        CheckLine: Codeunit "Voucher Jnl.-Check Line Impl";
+        PostLine: Codeunit "Voucher Jnl.-Post Line Impl";
+        PostPreview: Codeunit "Voucher Jnl.-Post Preview";
         Register: Record "Voucher Register";
         NothingToPostErr: Label 'There is nothing to post.';
         FirstEntryNo: Integer;
@@ -51,6 +52,9 @@ codeunit 60012 "Voucher Jnl.-Post Batch Impl"
         Register.Modify(true);
 
         VoucherJnlLine.DeleteAll(true);
+
+        if PostPreview.IsActive() then
+            PostPreview.ThrowError();
     end;
 
 }

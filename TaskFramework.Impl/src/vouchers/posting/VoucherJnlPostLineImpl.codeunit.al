@@ -43,6 +43,13 @@ codeunit 60011 "Voucher Jnl.-Post Line Impl"
         LedgerEntry.Validate("Document No.", VoucherJnlLine."Document No.");
         LedgerEntry.Validate("Register No.", RegisterNo);
         LedgerEntry.Insert(true);
+
+        OnAfterPostVoucherLine(LedgerEntry);
+    end;
+
+    [IntegrationEvent(false, false)]
+    local procedure OnAfterPostVoucherLine(var VoucherLedgerEntry: Record "Voucher Ledger Entry")
+    begin
     end;
 
     procedure GetNextEntryNo(): Integer
