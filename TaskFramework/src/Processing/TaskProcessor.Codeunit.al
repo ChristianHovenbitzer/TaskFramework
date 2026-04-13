@@ -12,10 +12,15 @@ using Microsoft.Purchases.Vendor;
 // - Step 3 will replace this CASE routing with ITaskProcessor interface + enum-interface binding
 codeunit 50000 "Task Processor"
 {
-    // ANTI-PATTERN: Publishing an event AND subscribing to it in the same codeunit.
+    // HANDS-ON: This codeunit publishes an event AND subscribes to it in the same codeunit.
     // There is zero benefit to this — just call the function directly.
-    // "Never publish and subscribe to events within the same app." — Christian
-    // Step 7 will show the correct pattern.
+    // "Never publish and subscribe to events within the same app."
+    //
+    // TODO:
+    //   1. Remove the EventSubscriber (HandleBeforeProcess) entirely
+    //   2. Update the OnBeforeProcessTask signature to add TaskProcessingState parameter
+    //   3. Move the tracking logic (IncrementProcessedCount/SetLastProcessed) into
+    //      ProcessAllPendingTasks loop directly
     [IntegrationEvent(false, false)]
     local procedure OnBeforeProcessTask(var TaskLogEntry: Record "Task Log Entry"; var IsHandled: Boolean)
     begin
@@ -26,7 +31,6 @@ codeunit 50000 "Task Processor"
     var
         State: Codeunit "Task Processing State";
     begin
-        // ANTI-PATTERN: Calling into a SingleInstance codeunit for "tracking"
         State.IncrementProcessedCount();
     end;
 
@@ -138,8 +142,9 @@ codeunit 50000 "Task Processor"
         RetentionDays: Integer;
         CutoffDate: Date;
     begin
-        // ANTI-PATTERN: Hardcoded retention period — should come from Setup.
-        // Step 2 will move this to Setup Table.
+        // HANDS-ON: Hardcoded retention period — should come from Setup table.
+        // TODO: Replace with TaskFrameworkSetup.GetRecordOnce() and read "Retention Days" field.
+        //       You will also need to add the "Retention Days" field to the Setup table first.
         RetentionDays := 30;
         CutoffDate := CalcDate('<-' + Format(RetentionDays) + 'D>', Today());
 

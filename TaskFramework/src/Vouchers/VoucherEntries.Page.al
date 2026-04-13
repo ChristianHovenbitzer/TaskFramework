@@ -40,10 +40,15 @@ page 50004 "Voucher Entries"
                     VoucherEntry: Record "Voucher Entry";
                     PostCount: Integer;
                 begin
-                    // ANTI-PATTERN: Business logic inline in page trigger.
-                    // This is also inconsistent with the Post Vouchers codeunit which does validation.
-                    // Posting here skips ALL validation — even the inline checks in PostVouchers.
-                    // Step 2 will extract to facade, Step 5 will rebuild with proper pipeline.
+                    // HANDS-ON: This action posts vouchers inline — skipping ALL validation.
+                    // The "Post (with Validation)" action below uses a codeunit that validates.
+                    // Two posting paths with inconsistent behavior = anti-pattern.
+                    //
+                    // TODO: Remove the PostSelected action entirely (and PostViaCodeunit below).
+                    //       Replace with a single "Post Selected" action that:
+                    //       1. Gets selection filter on VoucherEntry
+                    //       2. Uses ReadIsolation(IsolationLevel::UpdLock) instead of FindSet(true)
+                    //       3. Calls PostVouchers.PostVoucher(VoucherEntry) for each record
                     CurrPage.SetSelectionFilter(VoucherEntry);
                     VoucherEntry.SetRange(Status, VoucherEntry.Status::Draft);
                     if VoucherEntry.FindSet(true) then
@@ -67,9 +72,8 @@ page 50004 "Voucher Entries"
                 var
                     PostVouchers: Codeunit "Post Vouchers";
                 begin
-                    // This one does validation (will error on missing Customer).
-                    // PostSelected above skips validation entirely.
-                    // Two paths, inconsistent behavior — another anti-pattern.
+                    // HANDS-ON: This is the second posting path — inconsistent with PostSelected above.
+                    // TODO: Remove this action. Merge into a single clean "Post Selected" action.
                     PostVouchers.PostVoucher(Rec);
                 end;
             }

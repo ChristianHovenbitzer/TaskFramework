@@ -43,9 +43,16 @@ page 50001 "Task Log Entry Card"
 
                 trigger OnAction()
                 begin
-                    // ANTI-PATTERN: Business logic directly in page trigger.
-                    // This bypasses the Task Processor codeunit entirely.
-                    // Step 2 will extract this to the facade codeunit.
+                    // HANDS-ON: This action has business logic directly in the page trigger.
+                    // It bypasses the Task Processor codeunit entirely and duplicates logic.
+                    //
+                    // TODO: Replace ALL of this inline code with a single call to
+                    //       TaskProcessor.ProcessTaskEntry(Rec)
+                    // You will need to:
+                    //   1. Add a "using" for Techdays.TaskFramework.Processing
+                    //   2. Declare a local variable: TaskProcessor: Codeunit "Task Processor"
+                    //   3. Replace the body with: TaskProcessor.ProcessTaskEntry(Rec);
+
                     if Rec.Status <> Rec.Status::Pending then
                         Error('Only Pending tasks can be processed.');
 
@@ -53,8 +60,6 @@ page 50001 "Task Log Entry Card"
                     Rec."Processing Started At" := CurrentDateTime;
                     Rec.Modify();
 
-                    // Inline task processing — duplicated from Task Processor codeunit
-                    // And it only handles VendorImport, the others just get marked Complete
                     case Rec."Task Type" of
                         Rec."Task Type"::VendorImport:
                             Message('Vendor import would run here. Check Task Log Entries list to run all.');
