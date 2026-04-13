@@ -1,0 +1,43 @@
+{
+  "id": "a1b2c3d4-0003-4000-8000-000000000003",
+  "name": "Task Framework Tests",
+  "publisher": "Techdays Workshop",
+  "version": "0.1.0.0",
+  "brief": "Tests for Task Framework - Step 0 prototype",
+  "description": "Step 0: Minimal fragile tests that demonstrate the testing limitations of anti-pattern code. No mocking possible. Step 8 will rebuild these properly.",
+  "privacyStatement": "",
+  "EULA": "",
+  "help": "",
+  "url": "",
+  "logo": "",
+  "dependencies": [
+    {
+      "id": "a1b2c3d4-0001-4000-8000-000000000001",
+      "name": "Task Framework",
+      "publisher": "Techdays Workshop",
+      "version": "0.1.0.0"
+    },
+    {
+      "id": "a1b2c3d4-0002-4000-8000-000000000002",
+      "name": "Task Framework Implementation",
+      "publisher": "Techdays Workshop",
+      "version": "0.1.0.0"
+    }
+  ],
+  "screenshots": [],
+  "platform": "27.0.0.0",
+  "runtime": "16.0",
+  "idRanges": [
+    {
+      "from": 70000,
+      "to": 79999
+    }
+  ],
+  "resourceExposurePolicy": {
+    "allowDebugging": true,
+    "allowDownloadingSource": true,
+    "includeSourceInSymbolFile": true
+  },
+  "target": "Cloud",
+  "application": "27.0.0.0"
+}
