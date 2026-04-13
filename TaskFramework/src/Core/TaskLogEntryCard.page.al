@@ -47,15 +47,6 @@ page 50001 "Task Log Entry Card"
                 var
                     TaskProcessor: Codeunit "Task Processor";
                 begin
-                    // HANDS-ON: This action has business logic directly in the page trigger.
-                    // It bypasses the Task Processor codeunit entirely and duplicates logic.
-                    //
-                    // TODO: Replace ALL of this inline code with a single call to
-                    //       TaskProcessor.ProcessTaskEntry(Rec)
-                    // You will need to:
-                    //   1. Add a "using" for Techdays.TaskFramework.Processing
-                    //   2. Declare a local variable: TaskProcessor: Codeunit "Task Processor"
-                    //   3. Replace the body with: TaskProcessor.ProcessTaskEntry(Rec);
                     TaskProcessor.ProcessTaskEntry(Rec);
                 end;
             }

@@ -36,7 +36,6 @@ page 50003 "Task Framework Setup"
             {
                 Caption = 'Archive';
                 field("Archive Enabled"; Rec."Archive Enabled") { ApplicationArea = All; }
-                // TODO: Add a field for "Retention Days" here once you've added the table field
                 field("Retention Days"; Rec."Retention Days") { ApplicationArea = All; }
             }
         }

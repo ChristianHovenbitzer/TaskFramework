@@ -12,15 +12,6 @@ using Microsoft.Purchases.Vendor;
 // - Step 3 will replace this CASE routing with ITaskProcessor interface + enum-interface binding
 codeunit 50000 "Task Processor"
 {
-    // HANDS-ON: This codeunit publishes an event AND subscribes to it in the same codeunit.
-    // There is zero benefit to this — just call the function directly.
-    // "Never publish and subscribe to events within the same app."
-    //
-    // TODO:
-    //   1. Remove the EventSubscriber (HandleBeforeProcess) entirely
-    //   2. Update the OnBeforeProcessTask signature to add TaskProcessingState parameter
-    //   3. Move the tracking logic (IncrementProcessedCount/SetLastProcessed) into
-    //      ProcessAllPendingTasks loop directly
     [IntegrationEvent(false, false)]
     local procedure OnBeforeProcessTask(var TaskLogEntry: Record "Task Log Entry"; TaskProcessingState: Codeunit "Task Processing State"; var IsHandled: Boolean)
     begin
@@ -67,9 +58,14 @@ codeunit 50000 "Task Processor"
         TaskLogEntry."Processing Started At" := CurrentDateTime;
         TaskLogEntry.Modify();
 
-        // THE MONSTER CASE
-        // ANTI-PATTERN: Framework app knows about VendorImport, LogRetention, DocumentImport.
-        // Adding task type 4 means editing this file in the framework app.
+        // HANDS-ON: Replace this entire CASE block with interface-based dispatch.
+        // The framework should NOT know about specific task types.
+        // TODO:
+        //   1. Declare a local var: Processor: Interface "ITask Processor"
+        //   2. Assign it from the enum: Processor := TaskLogEntry."Task Type";
+        //   3. Call: Processor.ProcessTask(TaskLogEntry);
+        //   4. Delete ALL the Process* local procedures below (VendorImport, LogRetention, DocumentImport)
+        //   5. Remove the "using" statements for Vouchers and Vendor — framework no longer needs them
         case TaskLogEntry."Task Type" of
             "Task Type"::VendorImport:
                 ProcessVendorImport(TaskLogEntry);
@@ -150,9 +146,6 @@ codeunit 50000 "Task Processor"
         RetentionDays: Integer;
         CutoffDate: Date;
     begin
-        // HANDS-ON: Hardcoded retention period — should come from Setup table.
-        // TODO: Replace with TaskFrameworkSetup.GetRecordOnce() and read "Retention Days" field.
-        //       You will also need to add the "Retention Days" field to the Setup table first.
         TaskFrameworkSetup.GetRecordOnce();
         RetentionDays := TaskFrameworkSetup."Retention Days";
         CutoffDate := CalcDate('<-' + Format(RetentionDays) + 'D>', Today());

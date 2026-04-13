@@ -30,10 +30,6 @@ table 50003 "Task Framework Setup"
         field(9; "Enable Batches"; Boolean) { Caption = 'Enable Batches'; }
         field(10; "Batch Size"; Integer) { Caption = 'Batch Size'; MinValue = 1; }
         field(11; "Archive Enabled"; Boolean) { Caption = 'Archive Enabled'; }
-        // HANDS-ON: The retention period is hardcoded as 30 days in TaskProcessor.
-        // TODO: Add a "Retention Days" field (field 12, Integer, InitValue = 30, MinValue = 1)
-        //       Then add a GetRecordOnce() procedure that returns the setup record
-        //       (Get or Init+Insert pattern — ensures record always exists).
         field(12; "Retention Days"; Integer) { Caption = 'Retention Days'; InitValue = 30; MinValue = 1; }
     }
 

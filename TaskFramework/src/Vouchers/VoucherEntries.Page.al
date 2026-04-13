@@ -40,15 +40,6 @@ page 50004 "Voucher Entries"
                     VoucherEntry: Record "Voucher Entry";
                     PostVouchers: Codeunit "Post Vouchers";
                 begin
-                    // HANDS-ON: This action posts vouchers inline — skipping ALL validation.
-                    // The "Post (with Validation)" action below uses a codeunit that validates.
-                    // Two posting paths with inconsistent behavior = anti-pattern.
-                    //
-                    // TODO: Remove the PostSelected action entirely (and PostViaCodeunit below).
-                    //       Replace with a single "Post Selected" action that:
-                    //       1. Gets selection filter on VoucherEntry
-                    //       2. Uses ReadIsolation(IsolationLevel::UpdLock) instead of FindSet(true)
-                    //       3. Calls PostVouchers.PostVoucher(VoucherEntry) for each record
                     CurrPage.SetSelectionFilter(VoucherEntry);
                     VoucherEntry.ReadIsolation(IsolationLevel::UpdLock);
                     if VoucherEntry.FindSet() then
