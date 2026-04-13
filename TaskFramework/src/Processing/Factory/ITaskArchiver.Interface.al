@@ -6,4 +6,5 @@ using Techdays.TaskFramework.Core;
 // TODO: Add a procedure signature: Archive(var TaskLogEntry: Record "Task Log Entry")
 interface "ITask Archiver"
 {
+    procedure Archive(var TaskLogEntry: Record "Task Log Entry");
 }

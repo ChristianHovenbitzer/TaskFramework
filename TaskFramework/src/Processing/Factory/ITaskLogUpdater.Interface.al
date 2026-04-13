@@ -6,4 +6,5 @@ using Techdays.TaskFramework.Core;
 // TODO: Add a procedure signature: UpdateStatus(var TaskLogEntry: Record "Task Log Entry"; NewStatus: Enum "Task Status")
 interface "ITask Log Updater"
 {
+    procedure UpdateStatus(var TaskLogEntry: Record "Task Log Entry"; NewStatus: Enum "Task Status");
 }

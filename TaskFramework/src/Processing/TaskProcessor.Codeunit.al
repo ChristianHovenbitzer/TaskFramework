@@ -2,6 +2,7 @@ namespace Techdays.TaskFramework.Processing;
 
 using Techdays.TaskFramework.Core;
 using Techdays.TaskFramework.Core.Archive;
+using Techdays.TaskFramework.Processing.Factory;
 using Techdays.TaskFramework.Setup;
 
 // HANDS-ON: This codeunit needs to become the default implementation for the factory.
@@ -13,7 +14,7 @@ using Techdays.TaskFramework.Setup;
 //   3. Extract UpdateStatus into its own procedure (ITask Log Updater implementation)
 //   4. Rename ArchiveEntry to Archive (ITask Archiver implementation)
 //   5. Add a ProcessTask procedure (ITask Processor implementation) that does the enum dispatch
-codeunit 50000 "Task Processor"
+codeunit 50000 "Task Processor" implements "ITask Log Updater", "ITask Archiver", "ITask Processor"
 {
     [IntegrationEvent(false, false)]
     local procedure OnBeforeProcessTask(var TaskLogEntry: Record "Task Log Entry"; TaskProcessingState: Codeunit "Task Processing State"; var IsHandled: Boolean)
@@ -34,14 +35,21 @@ codeunit 50000 "Task Processor"
     var
         TaskLogEntry: Record "Task Log Entry";
     begin
+        TaskLogEntry.SetRange(Status, TaskLogEntry.Status::Pending);
+        TaskLogEntry.SetFilter("Earliest Processing DateTime", '%1|<%2', 0DT, CurrentDateTime);
+
+        ProcessAllPendingTasks(TaskLogEntry);
+    end;
+
+    procedure ProcessAllPendingTasks(var TaskLogEntry: Record "Task Log Entry")
+    begin
         // ANTI-PATTERN: No error isolation.
         // If ProcessTaskEntry throws for entry 3 of 10, entries 4-10 never run.
         // Step 6 will fix this with proper error handling.
         Clear(TaskProcessingState);
 
-        TaskLogEntry.SetRange(Status, TaskLogEntry.Status::Pending);
-        TaskLogEntry.SetFilter("Earliest Processing DateTime", '%1|<%2', 0DT, CurrentDateTime);
-        if TaskLogEntry.FindSet(true) then
+        TaskLogEntry.ReadIsolation(IsolationLevel::UpdLock);
+        if TaskLogEntry.FindSet() then
             repeat
                 ProcessTaskEntry(TaskLogEntry);
                 TaskProcessingState.IncrementProcessedCount();
@@ -51,49 +59,72 @@ codeunit 50000 "Task Processor"
 
     procedure ProcessTaskEntry(var TaskLogEntry: Record "Task Log Entry")
     var
+        Factory: Codeunit "Task Processor Factory";
+    begin
+        ProcessTaskEntry(TaskLogEntry, Factory);
+    end;
+
+    procedure ProcessTaskEntry(var TaskLogEntry: Record "Task Log Entry"; Factory: Interface "ITask Processor Factory")
+    var
         IsHandled: Boolean;
-        Processor: Interface "ITask Processor";
     begin
         OnBeforeProcessTask(TaskLogEntry, TaskProcessingState, IsHandled);
         if IsHandled then
             exit;
 
-        TaskLogEntry.Status := TaskLogEntry.Status::Processing;
-        TaskLogEntry."Processing Started At" := CurrentDateTime;
-        TaskLogEntry.Modify();
-
-        Processor := TaskLogEntry."Task Type";
-        Processor.ProcessTask(TaskLogEntry);
-
-        TaskLogEntry.Status := TaskLogEntry.Status::Complete;
-        TaskLogEntry."Processing Completed At" := CurrentDateTime;
-        TaskLogEntry.Modify();
+        Factory.GetUpdater().UpdateStatus(TaskLogEntry, TaskLogEntry.Status::Processing);
+        Factory.GetProcessor().ProcessTask(TaskLogEntry);
+        Factory.GetUpdater().UpdateStatus(TaskLogEntry, TaskLogEntry.Status::Complete);
 
         if TaskLogEntry."Archive After Processing" then
-            ArchiveEntry(TaskLogEntry);
+            Factory.GetArchiver().Archive(TaskLogEntry);
     end;
+
     #endregion Process Task Entry
 
-    local procedure ArchiveEntry(var TaskLogEntry: Record "Task Log Entry")
-    var
-        Archive: Record "Task Log Archive";
+    #region ITask Log Updater
+    procedure UpdateStatus(var TaskLogEntry: Record "Task Log Entry"; NewStatus: Enum "Task Status")
     begin
-        Archive.Init();
-        Archive."Entry No." := TaskLogEntry."Entry No.";
-        Archive."Task Type" := TaskLogEntry."Task Type";
-        Archive.Status := TaskLogEntry.Status;
-        Archive.Description := TaskLogEntry.Description;
-        Archive."Created At" := TaskLogEntry."Created At";
-        Archive."Processing Started At" := TaskLogEntry."Processing Started At";
-        Archive."Processing Completed At" := TaskLogEntry."Processing Completed At";
-        Archive."Last Error Message" := TaskLogEntry."Last Error Message";
-        Archive."Retry Count" := TaskLogEntry."Retry Count";
-        Archive.Verbosity := TaskLogEntry.Verbosity;
-        Archive."Correlation Id" := TaskLogEntry."Correlation Id";
-        Archive."Archive After Processing" := TaskLogEntry."Archive After Processing";
-        Archive."Earliest Processing DateTime" := TaskLogEntry."Earliest Processing DateTime";
-        Archive."Archived At" := CurrentDateTime;
-        Archive."Archive Reason" := Archive."Archive Reason"::Processed;
-        Archive.Insert();
+        TaskLogEntry.Status := NewStatus;
+        if NewStatus = TaskLogEntry.Status::Processing then
+            TaskLogEntry."Processing Started At" := CurrentDateTime
+        else
+            TaskLogEntry."Processing Completed At" := CurrentDateTime;
+        TaskLogEntry.Modify();
+    end;
+    #endregion
+
+    #region ITask Archiver
+    procedure Archive(var TaskLogEntry: Record "Task Log Entry")
+    var
+        ArchiveEntry: Record "Task Log Archive";
+    begin
+        ArchiveEntry.Init();
+        ArchiveEntry."Entry No." := TaskLogEntry."Entry No.";
+        ArchiveEntry."Task Type" := TaskLogEntry."Task Type";
+        ArchiveEntry.Status := TaskLogEntry.Status;
+        ArchiveEntry.Description := TaskLogEntry.Description;
+        ArchiveEntry."Created At" := TaskLogEntry."Created At";
+        ArchiveEntry."Processing Started At" := TaskLogEntry."Processing Started At";
+        ArchiveEntry."Processing Completed At" := TaskLogEntry."Processing Completed At";
+        ArchiveEntry."Last Error Message" := TaskLogEntry."Last Error Message";
+        ArchiveEntry."Retry Count" := TaskLogEntry."Retry Count";
+        ArchiveEntry.Verbosity := TaskLogEntry.Verbosity;
+        ArchiveEntry."Correlation Id" := TaskLogEntry."Correlation Id";
+        ArchiveEntry."Archive After Processing" := TaskLogEntry."Archive After Processing";
+        ArchiveEntry."Earliest Processing DateTime" := TaskLogEntry."Earliest Processing DateTime";
+        ArchiveEntry."Archived At" := CurrentDateTime;
+        ArchiveEntry."Archive Reason" := ArchiveEntry."Archive Reason"::Processed;
+        ArchiveEntry.Insert();
+    end;
+    #endregion
+
+
+    procedure ProcessTask(var TaskLogEntry: Record "Task Log Entry")
+    var
+        Processor: Interface "ITask Processor";
+    begin
+        Processor := TaskLogEntry."Task Type";
+        Processor.ProcessTask(TaskLogEntry);
     end;
 }
