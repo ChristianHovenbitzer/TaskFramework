@@ -5,15 +5,6 @@ using Techdays.TaskFramework.Core.Archive;
 using Techdays.TaskFramework.Processing.Factory;
 using Techdays.TaskFramework.Setup;
 
-// HANDS-ON: This codeunit needs to become the default implementation for the factory.
-// TODO:
-//   1. Add "implements "ITask Log Updater", "ITask Archiver", "ITask Processor""
-//   2. Add a DI overload: ProcessTaskEntry(var TaskLogEntry; Factory: Interface "ITask Processor Factory")
-//      - The public ProcessTaskEntry creates a default Factory, then calls the overload
-//      - The overload uses Factory.GetUpdater(), Factory.GetProcessor(), Factory.GetArchiver()
-//   3. Extract UpdateStatus into its own procedure (ITask Log Updater implementation)
-//   4. Rename ArchiveEntry to Archive (ITask Archiver implementation)
-//   5. Add a ProcessTask procedure (ITask Processor implementation) that does the enum dispatch
 codeunit 50000 "Task Processor" implements "ITask Log Updater", "ITask Archiver", "ITask Processor"
 {
     [IntegrationEvent(false, false)]
