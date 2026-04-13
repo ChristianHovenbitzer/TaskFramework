@@ -34,10 +34,19 @@ table 50003 "Task Framework Setup"
         // TODO: Add a "Retention Days" field (field 12, Integer, InitValue = 30, MinValue = 1)
         //       Then add a GetRecordOnce() procedure that returns the setup record
         //       (Get or Init+Insert pattern — ensures record always exists).
+        field(12; "Retention Days"; Integer) { Caption = 'Retention Days'; InitValue = 30; MinValue = 1; }
     }
 
     keys
     {
         key(PK; "Primary Key") { Clustered = true; }
     }
+    procedure GetRecordOnce(): Record "Task Framework Setup"
+    begin
+        if not Get() then begin
+            Init();
+            Insert(true);
+        end;
+        exit(Rec);
+    end;
 }

@@ -38,7 +38,7 @@ page 50004 "Voucher Entries"
                 trigger OnAction()
                 var
                     VoucherEntry: Record "Voucher Entry";
-                    PostCount: Integer;
+                    PostVouchers: Codeunit "Post Vouchers";
                 begin
                     // HANDS-ON: This action posts vouchers inline — skipping ALL validation.
                     // The "Post (with Validation)" action below uses a codeunit that validates.
@@ -50,31 +50,11 @@ page 50004 "Voucher Entries"
                     //       2. Uses ReadIsolation(IsolationLevel::UpdLock) instead of FindSet(true)
                     //       3. Calls PostVouchers.PostVoucher(VoucherEntry) for each record
                     CurrPage.SetSelectionFilter(VoucherEntry);
-                    VoucherEntry.SetRange(Status, VoucherEntry.Status::Draft);
-                    if VoucherEntry.FindSet(true) then
+                    VoucherEntry.ReadIsolation(IsolationLevel::UpdLock);
+                    if VoucherEntry.FindSet() then
                         repeat
-                            VoucherEntry.Status := VoucherEntry.Status::Posted;
-                            VoucherEntry."Posting Date" := WorkDate();
-                            VoucherEntry.Modify();
-                            PostCount += 1;
+                            PostVouchers.PostVoucher(VoucherEntry);
                         until VoucherEntry.Next() = 0;
-                    Message('Posted %1 voucher(s).', PostCount);
-                end;
-            }
-
-            action(PostViaCodeunit)
-            {
-                Caption = 'Post (with Validation)';
-                Image = PostDocument;
-                ApplicationArea = All;
-
-                trigger OnAction()
-                var
-                    PostVouchers: Codeunit "Post Vouchers";
-                begin
-                    // HANDS-ON: This is the second posting path — inconsistent with PostSelected above.
-                    // TODO: Remove this action. Merge into a single clean "Post Selected" action.
-                    PostVouchers.PostVoucher(Rec);
                 end;
             }
         }

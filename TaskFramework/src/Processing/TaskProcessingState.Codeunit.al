@@ -10,8 +10,6 @@ namespace Techdays.TaskFramework.Processing;
 //      and pass state through procedure parameters or local variables.
 codeunit 50003 "Task Processing State"
 {
-    SingleInstance = true;
-
     var
         LastProcessedEntryNo: Integer;
         ProcessedCount: Integer;

@@ -1,5 +1,7 @@
 namespace Techdays.TaskFramework.Core;
 
+using Techdays.TaskFramework.Processing;
+
 page 50001 "Task Log Entry Card"
 {
     PageType = Card;
@@ -42,6 +44,8 @@ page 50001 "Task Log Entry Card"
                 ApplicationArea = All;
 
                 trigger OnAction()
+                var
+                    TaskProcessor: Codeunit "Task Processor";
                 begin
                     // HANDS-ON: This action has business logic directly in the page trigger.
                     // It bypasses the Task Processor codeunit entirely and duplicates logic.
@@ -52,24 +56,7 @@ page 50001 "Task Log Entry Card"
                     //   1. Add a "using" for Techdays.TaskFramework.Processing
                     //   2. Declare a local variable: TaskProcessor: Codeunit "Task Processor"
                     //   3. Replace the body with: TaskProcessor.ProcessTaskEntry(Rec);
-
-                    if Rec.Status <> Rec.Status::Pending then
-                        Error('Only Pending tasks can be processed.');
-
-                    Rec.Status := Rec.Status::Processing;
-                    Rec."Processing Started At" := CurrentDateTime;
-                    Rec.Modify();
-
-                    case Rec."Task Type" of
-                        Rec."Task Type"::VendorImport:
-                            Message('Vendor import would run here. Check Task Log Entries list to run all.');
-                        else
-                            Message('Task type %1 processed (simulated).', Rec."Task Type");
-                    end;
-
-                    Rec.Status := Rec.Status::Complete;
-                    Rec."Processing Completed At" := CurrentDateTime;
-                    Rec.Modify();
+                    TaskProcessor.ProcessTaskEntry(Rec);
                 end;
             }
         }
