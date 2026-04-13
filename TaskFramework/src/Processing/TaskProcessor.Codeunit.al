@@ -4,6 +4,15 @@ using Techdays.TaskFramework.Core;
 using Techdays.TaskFramework.Core.Archive;
 using Techdays.TaskFramework.Setup;
 
+// HANDS-ON: This codeunit needs to become the default implementation for the factory.
+// TODO:
+//   1. Add "implements "ITask Log Updater", "ITask Archiver", "ITask Processor""
+//   2. Add a DI overload: ProcessTaskEntry(var TaskLogEntry; Factory: Interface "ITask Processor Factory")
+//      - The public ProcessTaskEntry creates a default Factory, then calls the overload
+//      - The overload uses Factory.GetUpdater(), Factory.GetProcessor(), Factory.GetArchiver()
+//   3. Extract UpdateStatus into its own procedure (ITask Log Updater implementation)
+//   4. Rename ArchiveEntry to Archive (ITask Archiver implementation)
+//   5. Add a ProcessTask procedure (ITask Processor implementation) that does the enum dispatch
 codeunit 50000 "Task Processor"
 {
     [IntegrationEvent(false, false)]
@@ -53,14 +62,6 @@ codeunit 50000 "Task Processor"
         TaskLogEntry."Processing Started At" := CurrentDateTime;
         TaskLogEntry.Modify();
 
-        // HANDS-ON: Replace this entire CASE block with interface-based dispatch.
-        // The framework should NOT know about specific task types.
-        // TODO:
-        //   1. Declare a local var: Processor: Interface "ITask Processor"
-        //   2. Assign it from the enum: Processor := TaskLogEntry."Task Type";
-        //   3. Call: Processor.ProcessTask(TaskLogEntry);
-        //   4. Delete ALL the Process* local procedures below (VendorImport, LogRetention, DocumentImport)
-        //   5. Remove the "using" statements for Vouchers and Vendor — framework no longer needs them
         Processor := TaskLogEntry."Task Type";
         Processor.ProcessTask(TaskLogEntry);
 
