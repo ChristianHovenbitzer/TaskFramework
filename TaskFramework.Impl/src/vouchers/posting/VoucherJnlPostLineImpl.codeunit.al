@@ -21,17 +21,38 @@ codeunit 60011 "Voucher Jnl.-Post Line Impl"
 
     procedure RunPosting(VoucherJnlLine: Record "Voucher Journal Line")
     begin
-        // TODO: Create Voucher Ledger Entry from journal line
+        RunPosting(VoucherJnlLine, NextRegisterNo);
     end;
 
     procedure InitNextEntryNo()
+    var
+        LedgerEntry: Record "Voucher Ledger Entry";
     begin
-        // TODO: Find last entry, set NextEntryNo
+        LedgerEntry.ReadIsolation := IsolationLevel::UpdLock;
+        if LedgerEntry.FindLast() then
+            NextEntryNo := LedgerEntry."Entry No."
+        else
+            NextEntryNo := 0;
     end;
 
     procedure RunPosting(VoucherJnlLine: Record "Voucher Journal Line"; RegisterNo: Integer)
+    var
+        LedgerEntry: Record "Voucher Ledger Entry";
     begin
-        // TODO: Post with specific register number
+        NextEntryNo += 1;
+
+        LedgerEntry.Init();
+        LedgerEntry.Validate("Entry No.", NextEntryNo);
+        LedgerEntry.Validate("Voucher No.", VoucherJnlLine."Voucher No.");
+        LedgerEntry.Validate("Customer No.", VoucherJnlLine."Customer No.");
+        LedgerEntry.Validate(Amount, VoucherJnlLine.Amount);
+        LedgerEntry.Validate("Posting Date", VoucherJnlLine."Posting Date");
+        LedgerEntry.Validate(Description, VoucherJnlLine.Description);
+        LedgerEntry.Validate("Document No.", VoucherJnlLine."Document No.");
+        LedgerEntry.Validate("Register No.", RegisterNo);
+        LedgerEntry.Insert(true);
+
+        OnAfterPostVoucherLine(LedgerEntry);
     end;
 
     [IntegrationEvent(false, false)]

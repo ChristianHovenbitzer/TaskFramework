@@ -8,7 +8,7 @@ using Techdays.TaskFramework.Setup;
 codeunit 50000 "Task Processor" implements "ITask Log Updater", "ITask Archiver", "ITask Processor"
 {
     [IntegrationEvent(false, false)]
-    local procedure OnBeforeProcessTask(var TaskLogEntry: Record "Task Log Entry"; TaskProcessingState: Codeunit "Task Processing State"; var IsHandled: Boolean)
+    local procedure OnBeforeProcessTask(var TaskLogEntry: Record "Task Log Entry"; TaskProcessingState: Codeunit "Task Processing State"; var Factory: Interface "ITask Processor Factory"; var IsHandled: Boolean)
     begin
     end;
 
@@ -55,20 +55,24 @@ codeunit 50000 "Task Processor" implements "ITask Log Updater", "ITask Archiver"
         ProcessTaskEntry(TaskLogEntry, Factory);
     end;
 
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Task Processor", OnBeforeProcessTask, '', false, false)]
+    local procedure MyProcedure(var Factory: Interface "ITask Processor Factory")
+    begin
+        Factory.SetArchiver(this);
+    end;
+
     procedure ProcessTaskEntry(var TaskLogEntry: Record "Task Log Entry"; Factory: Interface "ITask Processor Factory")
     var
         IsHandled: Boolean;
     begin
-        OnBeforeProcessTask(TaskLogEntry, TaskProcessingState, IsHandled);
+        OnBeforeProcessTask(TaskLogEntry, TaskProcessingState, Factory, IsHandled);
         if IsHandled then
             exit;
 
         Factory.GetUpdater().UpdateStatus(TaskLogEntry, TaskLogEntry.Status::Processing);
         Factory.GetProcessor().ProcessTask(TaskLogEntry);
         Factory.GetUpdater().UpdateStatus(TaskLogEntry, TaskLogEntry.Status::Complete);
-
-        if TaskLogEntry."Archive After Processing" then
-            Factory.GetArchiver().Archive(TaskLogEntry);
+        Factory.GetArchiver().Archive(TaskLogEntry);
     end;
 
     #endregion Process Task Entry
@@ -90,6 +94,9 @@ codeunit 50000 "Task Processor" implements "ITask Log Updater", "ITask Archiver"
     var
         ArchiveEntry: Record "Task Log Archive";
     begin
+        if not TaskLogEntry."Archive After Processing" then
+            exit;
+
         ArchiveEntry.Init();
         ArchiveEntry."Entry No." := TaskLogEntry."Entry No.";
         ArchiveEntry."Task Type" := TaskLogEntry."Task Type";

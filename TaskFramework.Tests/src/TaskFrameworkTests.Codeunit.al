@@ -1,7 +1,7 @@
 namespace Techdays.TaskFramework.Tests;
 
 using Techdays.TaskFramework.Core;
-using Techdays.TaskFramework.Vouchers;
+using Techdays.TaskFramework.Impl.Vouchers;
 using Techdays.TaskFramework.Processing;
 
 // ANTI-PATTERN: These tests demonstrate what happens when code is untestable.
@@ -51,23 +51,24 @@ codeunit 70000 "Task Framework Tests"
     [Test]
     procedure TestPostVoucherStopsOnFirstError()
     var
-        VoucherEntry: Record "Voucher Entry";
-        PostVouchers: Codeunit "Post Vouchers";
+        VoucherJnlLine: Record "Voucher Journal Line";
+        CheckLine: Codeunit "Voucher Jnl.-Check Line";
     begin
-        // Arrange: Create a voucher entry with missing Customer No.
-        VoucherEntry.Init();
-        VoucherEntry."Voucher No." := 'TEST-001';
-        VoucherEntry."Customer No." := '';  // Missing!
-        VoucherEntry.Amount := 100.00;
-        VoucherEntry."Posting Date" := WorkDate();
-        VoucherEntry.Insert(true);
+        // Arrange: Create a journal line with missing Customer No.
+        VoucherJnlLine.Init();
+        VoucherJnlLine."Line No." := 10000;
+        VoucherJnlLine."Voucher No." := 'TEST-001';
+        VoucherJnlLine."Customer No." := '';  // Missing!
+        VoucherJnlLine.Amount := 100.00;
+        VoucherJnlLine."Posting Date" := WorkDate();
+        VoucherJnlLine.Insert(true);
 
         // Act + Assert
         // ANTI-PATTERN: asserterror only tests the FIRST error.
         // We can't verify that Amount = 0 also produces an error in the same call
         // because ERROR() stops on the first failure.
         // Step 6 will fix this: all errors will be collected before reporting.
-        asserterror PostVouchers.PostVoucher(VoucherEntry);
+        asserterror CheckLine.RunCheck(VoucherJnlLine);
         Assert.IsTrue(
             GetLastErrorText().Contains('Customer No.'),
             'Expected error about Customer No. to be raised');

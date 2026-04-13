@@ -17,7 +17,12 @@ page 60012 "Voucher Registers"
         {
             repeater(Lines)
             {
-                // TODO: Add fields
+                field("No."; Rec."No.") { ApplicationArea = All; }
+                field("From Entry No."; Rec."From Entry No.") { ApplicationArea = All; }
+                field("To Entry No."; Rec."To Entry No.") { ApplicationArea = All; }
+                field("Creation Date"; Rec."Creation Date") { ApplicationArea = All; }
+                field("Source Code"; Rec."Source Code") { ApplicationArea = All; }
+                field("User ID"; Rec."User ID") { ApplicationArea = All; }
             }
         }
     }

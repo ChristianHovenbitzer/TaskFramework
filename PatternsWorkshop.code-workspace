@@ -15,27 +15,41 @@
     ],
     "settings": {
         "al.codeAnalyzers": [
-        ]
+            "${CodeCop}",
+            "${UICop}",
+            "${PerTenantExtensionCop}",
+            "${analyzerFolder}ALCops.ApplicationCop.dll",
+            "${analyzerFolder}ALCops.FormattingCop.dll",
+            "${analyzerFolder}ALCops.PlatformCop.dll",
+            "${analyzerFolder}ALCops.TestAutomationCop.dll",
+            "${analyzerFolder}ALCops.Common.dll",
+            "${analyzerFolder}Socitas.ReviewerCop.dll",
+            "${analyzerFolder}Socitas.ReviewerCop.Common.dll"
+        ],
+        "CRS.NamespacePrefixToIgnore": "Techdays.TaskFramework",
+        "CRS.ReorganizeByNamespace": true,
+        "CRS.FileNamePattern": "<ObjectNameShort>.<ObjectType>.al"
     },
     "launch": {
         "version": "0.2.0",
         "configurations": [
-        {
-            "name": "demo-hoch-27-5",
-            "request": "launch",
-            "type": "al",
-            "environmentType": "OnPrem",
-            "server": "https://docker.socitas.de",
-            "serverInstance": "demo-hoch-27-5-dev",
-            "authentication": "UserPassword",
-            "breakOnError": "All",
-            "launchBrowser": true,
-            "enableLongRunningSqlStatements": true,
-            "enableSqlInformationDebugger": true,
-            "tenant": "default",
-            "usePublicURLFromServer": true,
-            "port": 56565
-        }
+            {
+                "name": "demo-hoch-27-5",
+                "request": "launch",
+                "type": "al",
+                "environmentType": "OnPrem",
+                "server": "https://docker.socitas.de",
+                "serverInstance": "demo-hoch-27-5-dev",
+                "authentication": "UserPassword",
+                "breakOnError": "All",
+                "launchBrowser": true,
+                "enableLongRunningSqlStatements": true,
+                "enableSqlInformationDebugger": true,
+                "tenant": "default",
+                "usePublicURLFromServer": true,
+                "port": 56565,
+                "schemaUpdateMode": "ForceSync"
+            }
         ],
         "compounds": []
     }

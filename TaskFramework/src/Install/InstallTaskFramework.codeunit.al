@@ -1,8 +1,8 @@
 namespace Techdays.TaskFramework.Install;
 
 using Techdays.TaskFramework.Core;
+using Techdays.TaskFramework.Impl.Vouchers;
 using Techdays.TaskFramework.Setup;
-using Techdays.TaskFramework.Vouchers;
 
 codeunit 50002 "Install Task Framework"
 {
@@ -11,7 +11,7 @@ codeunit 50002 "Install Task Framework"
     trigger OnInstallAppPerCompany()
     begin
         SeedSetup();
-        SeedVoucherEntries();
+        SeedVoucherJournalLines();
         SeedTaskLogEntries();
     end;
 
@@ -33,62 +33,68 @@ codeunit 50002 "Install Task Framework"
         end;
     end;
 
-    local procedure SeedVoucherEntries()
+    local procedure SeedVoucherJournalLines()
     var
-        VoucherEntry: Record "Voucher Entry";
+        VoucherJnlLine: Record "Voucher Journal Line";
+        LineNo: Integer;
     begin
-        if not VoucherEntry.IsEmpty() then
+        if not VoucherJnlLine.IsEmpty() then
             exit;
 
-        // Entry 1: Valid draft voucher
-        VoucherEntry.Init();
-        VoucherEntry."Voucher No." := 'VOUCH-001';
-        VoucherEntry."Customer No." := '10000';
-        VoucherEntry.Amount := 100.00;
-        VoucherEntry.Status := VoucherEntry.Status::Draft;
-        VoucherEntry.Description := 'Gift Card Purchase - Web Order 1001';
-        VoucherEntry.Insert(true);
+        LineNo := 10000;
 
-        // Entry 2: Already posted voucher
-        VoucherEntry.Init();
-        VoucherEntry."Entry No." := 0; // Reset auto-increment to avoid conflict
-        VoucherEntry."Voucher No." := 'VOUCH-002';
-        VoucherEntry."Customer No." := '20000';
-        VoucherEntry.Amount := 250.00;
-        VoucherEntry.Status := VoucherEntry.Status::Posted;
-        VoucherEntry."Posting Date" := WorkDate();
-        VoucherEntry.Description := 'Gift Card Purchase - Web Order 1002';
-        VoucherEntry.Insert(true);
+        // Line 1: Valid voucher
+        VoucherJnlLine.Init();
+        VoucherJnlLine.Validate("Line No.", LineNo);
+        VoucherJnlLine.Validate("Voucher No.", 'VOUCH-001');
+        VoucherJnlLine.Validate("Customer No.", '10000');
+        VoucherJnlLine.Validate(Amount, 100.00);
+        VoucherJnlLine.Validate("Posting Date", WorkDate());
+        VoucherJnlLine.Validate(Description, 'Gift Card Purchase - Web Order 1001');
+        VoucherJnlLine.Insert(true);
 
-        // Entry 3: Missing Customer No. (invalid)
-        VoucherEntry.Init();
-        VoucherEntry."Entry No." := 0; // Reset auto-increment to avoid conflict
-        VoucherEntry."Voucher No." := 'VOUCH-003';
-        VoucherEntry."Customer No." := '';
-        VoucherEntry.Amount := 50.00;
-        VoucherEntry.Status := VoucherEntry.Status::Draft;
-        VoucherEntry.Description := 'Gift Card Purchase - Web Order 1003';
-        VoucherEntry.Insert(true);
+        // Line 2: Valid voucher
+        LineNo += 10000;
+        VoucherJnlLine.Init();
+        VoucherJnlLine.Validate("Line No.", LineNo);
+        VoucherJnlLine.Validate("Voucher No.", 'VOUCH-002');
+        VoucherJnlLine.Validate("Customer No.", '20000');
+        VoucherJnlLine.Validate(Amount, 250.00);
+        VoucherJnlLine.Validate("Posting Date", WorkDate());
+        VoucherJnlLine.Validate(Description, 'Gift Card Purchase - Web Order 1002');
+        VoucherJnlLine.Insert(true);
 
-        // Entry 4: Zero amount (invalid)
-        VoucherEntry.Init();
-        VoucherEntry."Entry No." := 0; // Reset auto-increment to avoid conflict
-        VoucherEntry."Voucher No." := 'VOUCH-004';
-        VoucherEntry."Customer No." := '10000';
-        VoucherEntry.Amount := 0.00;
-        VoucherEntry.Status := VoucherEntry.Status::Draft;
-        VoucherEntry.Description := 'Adjustment';
-        VoucherEntry.Insert(true);
+        // Line 3: Missing Customer No. (invalid - for testing)
+        LineNo += 10000;
+        VoucherJnlLine.Init();
+        VoucherJnlLine.Validate("Line No.", LineNo);
+        VoucherJnlLine.Validate("Voucher No.", 'VOUCH-003');
+        VoucherJnlLine.Validate(Amount, 50.00);
+        VoucherJnlLine.Validate("Posting Date", WorkDate());
+        VoucherJnlLine.Validate(Description, 'Gift Card Purchase - Web Order 1003');
+        VoucherJnlLine.Insert(true);
 
-        // Entry 5: Negative amount (redemption)
-        VoucherEntry.Init();
-        VoucherEntry."Entry No." := 0; // Reset auto-increment to avoid conflict
-        VoucherEntry."Voucher No." := 'VOUCH-005';
-        VoucherEntry."Customer No." := '30000';
-        VoucherEntry.Amount := -75.00;
-        VoucherEntry.Status := VoucherEntry.Status::Draft;
-        VoucherEntry.Description := 'Gift Card Redemption';
-        VoucherEntry.Insert(true);
+        // Line 4: Zero amount (invalid - for testing)
+        LineNo += 10000;
+        VoucherJnlLine.Init();
+        VoucherJnlLine.Validate("Line No.", LineNo);
+        VoucherJnlLine.Validate("Voucher No.", 'VOUCH-004');
+        VoucherJnlLine.Validate("Customer No.", '10000');
+        VoucherJnlLine.Validate(Amount, 0.00);
+        VoucherJnlLine.Validate("Posting Date", WorkDate());
+        VoucherJnlLine.Validate(Description, 'Adjustment');
+        VoucherJnlLine.Insert(true);
+
+        // Line 5: Negative amount (redemption)
+        LineNo += 10000;
+        VoucherJnlLine.Init();
+        VoucherJnlLine.Validate("Line No.", LineNo);
+        VoucherJnlLine.Validate("Voucher No.", 'VOUCH-005');
+        VoucherJnlLine.Validate("Customer No.", '30000');
+        VoucherJnlLine.Validate(Amount, -75.00);
+        VoucherJnlLine.Validate("Posting Date", WorkDate());
+        VoucherJnlLine.Validate(Description, 'Gift Card Redemption');
+        VoucherJnlLine.Insert(true);
     end;
 
     local procedure SeedTaskLogEntries()
@@ -113,7 +119,7 @@ codeunit 50002 "Install Task Framework"
         TaskLogEntry.CalcFields(Payload);
         TaskLogEntry.Payload.CreateOutStream(OutStr, TextEncoding::UTF8);
         OutStr.WriteText('NAME=Workshop Vendor GmbH;CITY=Munich;COUNTRY=DE');
-        TaskLogEntry.Modify();
+        TaskLogEntry.Modify(true);
 
         // Entry 2: Completed document import
         TaskLogEntry.Init();
@@ -130,7 +136,7 @@ codeunit 50002 "Install Task Framework"
         TaskLogEntry.CalcFields(Payload);
         TaskLogEntry.Payload.CreateOutStream(OutStr, TextEncoding::UTF8);
         OutStr.WriteText('VOUCHERNO=VOUCH-010;CUSTOMERNO=10000;AMOUNT=100.00');
-        TaskLogEntry.Modify();
+        TaskLogEntry.Modify(true);
 
         // Entry 3: Failed log retention
         TaskLogEntry.Init();
@@ -158,6 +164,6 @@ codeunit 50002 "Install Task Framework"
         TaskLogEntry.CalcFields(Payload);
         TaskLogEntry.Payload.CreateOutStream(OutStr, TextEncoding::UTF8);
         OutStr.WriteText('NAME=Nightly Import Vendor;CITY=Berlin;COUNTRY=DE');
-        TaskLogEntry.Modify();
+        TaskLogEntry.Modify(true);
     end;
 }

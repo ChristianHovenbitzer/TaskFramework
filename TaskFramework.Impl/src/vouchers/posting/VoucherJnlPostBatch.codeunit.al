@@ -15,12 +15,12 @@ codeunit 60015 "Voucher Jnl.-Post Batch"
 
     trigger OnRun()
     begin
-        // TODO: PostBatchImpl.Run(Rec);
+        PostBatchImpl.Run(Rec);
     end;
 
     procedure PostBatch(var VoucherJnlLine: Record "Voucher Journal Line")
     begin
-        // TODO: PostBatchImpl.PostBatch(VoucherJnlLine);
+        PostBatchImpl.PostBatch(VoucherJnlLine);
     end;
 
     var

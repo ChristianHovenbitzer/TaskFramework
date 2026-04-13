@@ -12,12 +12,12 @@ codeunit 60013 "Voucher Jnl.-Check Line"
 
     trigger OnRun()
     begin
-        // TODO: CheckLineImpl.Run(Rec);
+        CheckLineImpl.Run(Rec);
     end;
 
     procedure RunCheck(VoucherJnlLine: Record "Voucher Journal Line")
     begin
-        // TODO: CheckLineImpl.RunCheck(VoucherJnlLine);
+        CheckLineImpl.RunCheck(VoucherJnlLine);
     end;
 
     var

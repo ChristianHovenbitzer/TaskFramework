@@ -12,32 +12,32 @@ codeunit 60014 "Voucher Jnl.-Post Line"
 
     trigger OnRun()
     begin
-        // TODO: PostLineImpl.Run(Rec);
+        PostLineImpl.Run(Rec);
     end;
 
     procedure InitNextEntryNo()
     begin
-        // TODO: PostLineImpl.InitNextEntryNo();
+        PostLineImpl.InitNextEntryNo();
     end;
 
     procedure RunPosting(VoucherJnlLine: Record "Voucher Journal Line")
     begin
-        // TODO: PostLineImpl.RunPosting(VoucherJnlLine);
+        PostLineImpl.RunPosting(VoucherJnlLine);
     end;
 
     procedure RunPosting(VoucherJnlLine: Record "Voucher Journal Line"; RegisterNo: Integer)
     begin
-        // TODO: PostLineImpl.RunPosting(VoucherJnlLine, RegisterNo);
+        PostLineImpl.RunPosting(VoucherJnlLine, RegisterNo);
     end;
 
     procedure GetNextEntryNo(): Integer
     begin
-        // TODO: exit(PostLineImpl.GetNextEntryNo());
+        exit(PostLineImpl.GetNextEntryNo());
     end;
 
     procedure SetNextRegisterNo(RegisterNo: Integer)
     begin
-        // TODO: PostLineImpl.SetNextRegisterNo(RegisterNo);
+        PostLineImpl.SetNextRegisterNo(RegisterNo);
     end;
 
     var
