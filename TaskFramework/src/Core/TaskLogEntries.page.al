@@ -61,7 +61,7 @@ page 50000 "Task Log Entries"
                     TaskLogEntry: Record "Task Log Entry";
                 begin
                     TaskLogEntry.Init();
-                    TaskLogEntry."Task Type" := TaskLogEntry."Task Type"::VendorImport;
+                    TaskLogEntry."Task Type" := TaskLogEntry."Task Type"::LogRetention;
                     TaskLogEntry.Status := TaskLogEntry.Status::Pending;
                     TaskLogEntry.Description := 'Sample Task';
                     TaskLogEntry."Created At" := CurrentDateTime;

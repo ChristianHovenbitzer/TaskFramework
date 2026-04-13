@@ -1,4 +1,5 @@
 namespace Techdays.TaskFramework.Core;
+using Techdays.TaskFramework.Processing;
 
 // HANDS-ON: This enum needs to implement "ITask Processor" via enum-interface binding.
 // TODO:
@@ -9,12 +10,19 @@ namespace Techdays.TaskFramework.Core;
 //   5. For each value, add Implementation = "ITask Processor" = <CorrespondingProcessor>
 //   6. Move VendorImport and DocumentImport values to the enum extension in the impl app
 //      (only None and LogRetention stay in the framework app)
-enum 50000 "Task Type"
+enum 50000 "Task Type" implements "ITask Processor"
 {
-    Extensible = false;
+    Extensible = true;
+    DefaultImplementation = "ITask Processor" = "Default Task Processor";
 
-    value(0; None) { Caption = 'None'; }
-    value(1; VendorImport) { Caption = 'Vendor Import'; }
-    value(2; LogRetention) { Caption = 'Log Retention'; }
-    value(3; DocumentImport) { Caption = 'Document Import'; }
+    value(0; None)
+    {
+        Caption = 'None';
+        Implementation = "ITask Processor" = "Default Task Processor";
+    }
+    value(1; LogRetention)
+    {
+        Caption = 'Log Retention';
+        Implementation = "ITask Processor" = "Log Retention Processor";
+    }
 }

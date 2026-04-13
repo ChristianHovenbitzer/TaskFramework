@@ -6,4 +6,5 @@ using Techdays.TaskFramework.Core;
 // TODO: Add a procedure signature: ProcessTask(var TaskLogEntry: Record "Task Log Entry")
 interface "ITask Processor"
 {
+    procedure ProcessTask(var TaskLogEntry: Record "Task Log Entry");
 }

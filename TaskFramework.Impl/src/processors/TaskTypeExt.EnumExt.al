@@ -9,4 +9,14 @@ using Techdays.TaskFramework.Processing;
 //   2. Add DocumentImport (60001) with Implementation = "ITask Processor" = "Document Import Processor"
 enumextension 60000 "Task Type Ext." extends "Task Type"
 {
+    value(60000; VendorImport)
+    {
+        Caption = 'Vendor Import';
+        Implementation = "ITask Processor" = "Vendor Import Processor";
+    }
+    value(60001; DocumentImport)
+    {
+        Caption = 'Document Import';
+        Implementation = "ITask Processor" = "Document Import Processor";
+    }
 }
