@@ -17,7 +17,7 @@ table 50003 "Task Framework Setup"
         {
             Caption = 'Default G/L Account';
             // ANTI-PATTERN: One hardcoded G/L field instead of proper account mapping per entry type.
-            // TODO Step 2: Replace with proper voucher account mapping fields
+            // (Not in scope for the workshop — left here as a code smell to discuss.)
         }
         field(5; "Execution Interval (Seconds)"; Integer)
         {
@@ -30,6 +30,12 @@ table 50003 "Task Framework Setup"
         field(9; "Enable Batches"; Boolean) { Caption = 'Enable Batches'; }
         field(10; "Batch Size"; Integer) { Caption = 'Batch Size'; MinValue = 1; }
         field(11; "Archive Enabled"; Boolean) { Caption = 'Archive Enabled'; }
+
+        // TODO (Step 2 - Separation of Concerns): add
+        //   field(12; "Retention Days"; Integer) { InitValue = 30; MinValue = 1; }
+        // and a GetRecordOnce() helper (Init + Insert if not Get) so the rest of the
+        // framework can pull configuration from here instead of hardcoding values.
+        // Also surface the new field on "Task Framework Setup" page under Archive.
     }
 
     keys

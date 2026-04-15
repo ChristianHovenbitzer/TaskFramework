@@ -45,7 +45,12 @@ page 50001 "Task Log Entry Card"
                 begin
                     // ANTI-PATTERN: Business logic directly in page trigger.
                     // This bypasses the Task Processor codeunit entirely.
-                    // Step 2 will extract this to the facade codeunit.
+                    //
+                    // TODO (Step 2 - Separation of Concerns): remove ALL of the body
+                    // below and replace with a single line:
+                    //     TaskProcessor.ProcessTaskEntry(Rec);
+                    // Pages call codeunits — never the other way around. No business
+                    // logic in OnAction / OnInsertRecord / OnModifyRecord.
                     if Rec.Status <> Rec.Status::Pending then
                         Error('Only Pending tasks can be processed.');
 
