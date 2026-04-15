@@ -1,9 +1,13 @@
 namespace Techdays.TaskFramework.Impl;
 
 // This install codeunit is intentionally minimal.
-// ANTI-PATTERN: The impl app exists structurally but is nearly empty.
-// All task type logic that belongs here is incorrectly placed in the framework app.
-// Steps 2-5 will move objects here as part of the workshop evolution.
+// Step 3 already landed the concrete processors + Task Type enum extension here.
+//
+// TODO (Step 5 - Journal → Posting → Ledger Entry): this app will also receive
+// the voucher posting pipeline (Check Line, Post Line, Post Batch) and the
+// Voucher Journal Line / Ledger Entry / Register tables.
+// By the end of the workshop, the framework app will know nothing about
+// vendors, documents, or accounting — all of that lives here.
 codeunit 60000 "Install Task Framework Impl"
 {
     Subtype = Install;
