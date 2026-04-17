@@ -38,7 +38,7 @@ codeunit 50000 "Task Processor"
         State: Codeunit "Task Processing State";
     begin
         // ANTI-PATTERN: Calling into a SingleInstance codeunit for "tracking".
-        // TODO (Step 2 - Separation of Concerns): delete this subscriber together with
+        // TODO: (Step 2 - Separation of Concerns): delete this subscriber together with
         // Codeunit "Task Processing State" (see that file for details).
         State.IncrementProcessedCount();
     end;
@@ -170,7 +170,7 @@ codeunit 50000 "Task Processor"
     begin
         // ANTI-PATTERN: Hardcoded retention period — should come from Setup.
         //
-        // TODO (Step 2 - Separation of Concerns)
+        // TODO: (Step 2 - Separation of Concerns)
         RetentionDays := 30;
         CutoffDate := CalcDate('<-' + Format(RetentionDays) + 'D>', Today());
 

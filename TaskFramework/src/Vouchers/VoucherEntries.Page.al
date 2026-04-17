@@ -44,10 +44,7 @@ page 50004 "Voucher Entries"
                     // This is also inconsistent with the Post Vouchers codeunit which does validation.
                     // Posting here skips ALL validation — even the inline checks in PostVouchers.
                     //
-                    // TODO (Step 2 - Separation of Concerns): delete this entire
-                    // "Post Selected" action. One posting path only — use
-                    // "Post (with Validation)" below. No bypass buttons, no
-                    // inconsistent behavior.
+                    // TODO: (Step 2 - Separation of Concerns)
                     // TODO (Step 5 - Journal → Posting → Ledger Entry): after Step 2,
                     // the remaining posting path will be replaced by
                     // "Voucher Jnl.-Post Batch" against Voucher Journal Lines.
