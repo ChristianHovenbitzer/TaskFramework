@@ -67,6 +67,7 @@ codeunit 50000 "Task Processor"
     var
         IsHandled: Boolean;
     begin
+        //TODO: (Step 2 - Task Processing State)
         OnBeforeProcessTask(TaskLogEntry, IsHandled);
         if IsHandled then
             exit;
@@ -169,9 +170,7 @@ codeunit 50000 "Task Processor"
     begin
         // ANTI-PATTERN: Hardcoded retention period — should come from Setup.
         //
-        // TODO (Step 2 - Separation of Concerns): replace the hardcoded 30 with a
-        // Setup.Get() call reading "Task Framework Setup"."Retention Days". Never
-        // hardcode a value that belongs to the customer.
+        // TODO (Step 2 - Separation of Concerns)
         RetentionDays := 30;
         CutoffDate := CalcDate('<-' + Format(RetentionDays) + 'D>', Today());
 
