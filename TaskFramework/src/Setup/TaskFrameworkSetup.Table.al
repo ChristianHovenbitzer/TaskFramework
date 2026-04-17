@@ -17,7 +17,6 @@ table 50003 "Task Framework Setup"
         {
             Caption = 'Default G/L Account';
             // ANTI-PATTERN: One hardcoded G/L field instead of proper account mapping per entry type.
-            // TODO Step 2: Replace with proper voucher account mapping fields
         }
         field(5; "Execution Interval (Seconds)"; Integer)
         {
