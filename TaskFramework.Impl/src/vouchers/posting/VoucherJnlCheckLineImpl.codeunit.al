@@ -10,14 +10,7 @@ codeunit 60010 "Voucher Jnl.-Check Line Impl"
         RunCheck(Rec);
     end;
 
-    // TODO (Step 6 - Collectible Errors):
-    // This procedure currently stops at the first validation failure, so the user only
-    // sees one error per posting attempt. Convert it to collect ALL errors for a line
-    // using the standard BC pattern:
-    //   - Mark the procedure with [ErrorBehavior(ErrorBehavior::Collect)]
-    //   - Use Codeunit "Error Message Management".LogErrorMessage(...) instead of Error()
-    //   - Use LogWarning(...) for the Description check (warning, not blocker)
-    // The Description field should become a warning, not a hard error.
+    // TODO: (Step 6 - Collectible Errors)
     procedure RunCheck(VoucherJnlLine: Record "Voucher Journal Line")
     var
         FieldMustNotBeEmptyErr: Label '%1 is required on line %2.';

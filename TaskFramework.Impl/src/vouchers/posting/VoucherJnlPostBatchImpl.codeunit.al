@@ -13,16 +13,7 @@ codeunit 60012 "Voucher Jnl.-Post Batch Impl"
         PostBatch(Rec);
     end;
 
-    // TODO (Step 6 - Collectible Errors):
-    // Phase 1 below currently stops at the first invalid line. Switch to collecting
-    // errors across ALL lines so the user can fix them in one pass:
-    //   - Mark this procedure with [ErrorBehavior(ErrorBehavior::Collect)]
-    //   - Declare local vars for Codeunit "Error Message Management" and
-    //     Codeunit "Error Message Handler"
-    //   - Call ErrorMessageMgt.Activate(ErrorMessageHandler) before the check loop
-    //   - After the loop, if ErrorMessageHandler.HasErrors() then call ShowErrors()
-    //     and Error('') to abort posting without throwing an extra message
-    // Phases 2-5 should not change.
+    // TODO: (Step 6 - Collectible Errors)
     procedure PostBatch(var VoucherJnlLine: Record "Voucher Journal Line")
     var
         CheckLine: Codeunit "Voucher Jnl.-Check Line Impl";
