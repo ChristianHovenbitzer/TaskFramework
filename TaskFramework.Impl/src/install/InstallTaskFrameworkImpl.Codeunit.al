@@ -3,7 +3,7 @@ namespace Techdays.TaskFramework.Impl;
 // This install codeunit is intentionally minimal.
 // Step 3 already landed the concrete processors + Task Type enum extension here.
 //
-// TODO (Step 5 - Journal → Posting → Ledger Entry): this app will also receive
+// TODO: (Step 5 - Journal → Posting → Ledger Entry): this app will also receive
 // the voucher posting pipeline (Check Line, Post Line, Post Batch) and the
 // Voucher Journal Line / Ledger Entry / Register tables.
 // By the end of the workshop, the framework app will know nothing about

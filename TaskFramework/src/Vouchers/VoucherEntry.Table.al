@@ -2,7 +2,7 @@ namespace Techdays.TaskFramework.Vouchers;
 
 // ANTI-PATTERN: Staging area and posted records in same table.
 //
-// TODO (Step 5 - Journal → Posting → Ledger Entry): delete this table entirely
+// TODO: (Step 5 - Journal → Posting → Ledger Entry): delete this table entirely
 // and split its responsibilities across three tables following the BC standard:
 //   - "Voucher Journal Line" (50010) — staging / editable before posting
 //   - "Voucher Ledger Entry" (50011) — posted, immutable audit record

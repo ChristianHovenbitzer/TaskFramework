@@ -28,7 +28,7 @@ codeunit 50000 "Task Processor"
         // ANTI-PATTERN: No error isolation.
         // If ProcessTaskEntry throws for entry 3 of 10, entries 4-10 never run.
         //
-        // TODO (Step 6 - Collectible Errors): change Check Line's Error() calls to
+        // TODO: (Step 6 - Collectible Errors): change Check Line's Error() calls to
         // LogError(ErrorLog, ..., IsBlocking) writing to the "Task Error Log" table,
         // and have Post Batch collect all errors before deciding whether to post.
         // Show the full error list (Message or Error Log page) instead of stopping
@@ -45,16 +45,7 @@ codeunit 50000 "Task Processor"
             until TaskLogEntry.Next() = 0;
     end;
 
-    // TODO (Step 4 - Factory Pattern):
-    //   1. Create codeunit "Task Processor Factory" with a GetProcessor(TaskType)
-    //      method returning Interface "ITask Processor" (resolve via enum binding).
-    //   2. Split this procedure into two overloads:
-    //        - public  procedure ProcessTaskEntry(var TaskLogEntry) — resolves the
-    //          processor through the Factory and calls the internal overload.
-    //        - internal procedure ProcessTaskEntry(var TaskLogEntry;
-    //          Processor: Interface "ITask Processor") — does the actual work.
-    //   3. The internal DI overload is what makes Step 8 testable (you can inject
-    //      a Mock Task Processor in your test app).
+    // TODO: (Step 4 - Factory Pattern)
     procedure ProcessTaskEntry(var TaskLogEntry: Record "Task Log Entry")
     var
         IsHandled: Boolean;
