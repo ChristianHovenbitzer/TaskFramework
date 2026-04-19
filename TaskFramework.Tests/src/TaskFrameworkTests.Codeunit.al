@@ -3,15 +3,10 @@ namespace Techdays.TaskFramework.Tests;
 using Techdays.TaskFramework.Core;
 using Techdays.TaskFramework.Impl.Vouchers;
 using Techdays.TaskFramework.Processing;
+using Techdays.TaskFramework.Processing.Factory;
+using Techdays.TaskFramework.Tests.Mocks;
+using System.Utilities;
 
-// ANTI-PATTERN: These tests demonstrate what happens when code is untestable.
-// Problems with these tests:
-// - They depend on real database records (Cronus vendors, customers)
-// - They can't mock anything — no interfaces exist
-// - They're tightly coupled to the monster codeunit
-// - Test 1 creates real Vendor records (side effects!)
-// - Test 2 can only verify the first error, not ALL errors
-// Step 8 will replace these with proper mock-based tests after interfaces are introduced.
 codeunit 70000 "Task Framework Tests"
 {
     Subtype = Test;
@@ -19,99 +14,117 @@ codeunit 70000 "Task Framework Tests"
     var
         Assert: Codeunit "Test Assert";
 
+    /// <summary>
+    /// Step 0 version: needed real DB state and could not assert the Vendor side effect
+    /// because the processor was hard-wired into the monster codeunit.
+    /// Step 8 version: TaskType-driven processing is verified through the factory seam —
+    /// a mock processor records that the vendor-import task was forwarded to it,
+    /// and a mock updater confirms the entry reached Complete. No DB interaction.
+    /// </summary>
     [Test]
     procedure TestProcessVendorImportTask()
     var
         TaskLogEntry: Record "Task Log Entry";
         TaskProcessor: Codeunit "Task Processor";
+        Factory: Codeunit "Task Processor Factory";
+        MockUpdater: Codeunit "Mock Task TaskRunner";
+        Recorder: Codeunit "Call Recorder";
     begin
         // Arrange
-        // ANTI-PATTERN: Creating real database state in a test, no cleanup/isolation
+        Recorder.Reset();
+
         TaskLogEntry.Init();
         TaskLogEntry."Entry No." := 1;
         TaskLogEntry."Task Type" := TaskLogEntry."Task Type"::VendorImport;
         TaskLogEntry.Status := TaskLogEntry.Status::Pending;
         TaskLogEntry.Description := 'Test vendor import';
-        TaskLogEntry.Insert(true);
 
-        // Write payload to BLOB
-        WritePayloadToEntry(TaskLogEntry, 'NAME=Test Vendor AutoTest;CITY=Berlin');
+        Factory.SetProcessor(MockUpdater);
+        Factory.SetUpdater(MockUpdater);
+        Factory.SetArchiver(MockUpdater);
 
         // Act
-        // ANTI-PATTERN: Calling the monster codeunit directly — no way to inject a mock
-        TaskProcessor.ProcessTaskEntry(TaskLogEntry);
+        TaskProcessor.ProcessTaskEntry(TaskLogEntry, Factory);
 
-        // Assert
-        // Re-read the record to get updated status
-        TaskLogEntry.Get(TaskLogEntry."Entry No.");
-        Assert.AreEqual(TaskLogEntry.Status::Complete, TaskLogEntry.Status, 'Task should be Complete after processing');
-        // PROBLEM: We can't assert anything about the Vendor that was created
-        // without querying the database directly — side effects are invisible here
+        // Assert — the vendor-import entry reached the processor and was marked Complete.
+        Assert.AreEqual('Processor.ProcessTask:1', Recorder.GetCall(2), 'Processor should run for entry 1');
+        Assert.AreEqual('Updater.UpdateStatus:Complete', Recorder.GetCall(3), 'Entry should reach Complete');
     end;
 
+    /// <summary>
+    /// Step 0 version: only asserted that timestamps were set — call order between
+    /// updater, processor, and archiver was unobservable inside the monster codeunit.
+    /// Step 8 version: the spy proves the exact sequence
+    /// Updater(Processing) → Processor → Updater(Complete) → Archiver.
+    /// </summary>
     [Test]
     procedure TestProcessTaskRecordsTimestampsButHidesCallOrder()
     var
         TaskLogEntry: Record "Task Log Entry";
         TaskProcessor: Codeunit "Task Processor";
+        Factory: Codeunit "Task Processor Factory";
+        MockUpdater: Codeunit "Mock Task TaskRunner";
+        Recorder: Codeunit "Call Recorder";
     begin
         // Arrange
-        // ANTI-PATTERN: Same coupling as Test 1 — real DB state, real Vendor side effect.
+        Recorder.Reset();
+
         TaskLogEntry.Init();
         TaskLogEntry."Entry No." := 1;
         TaskLogEntry."Task Type" := TaskLogEntry."Task Type"::VendorImport;
         TaskLogEntry.Status := TaskLogEntry.Status::Pending;
         TaskLogEntry.Description := 'Test ordering';
         TaskLogEntry."Archive After Processing" := true;
-        TaskLogEntry.Insert(true);
-        WritePayloadToEntry(TaskLogEntry, 'NAME=Order Vendor;CITY=Hamburg');
+
+        Factory.SetProcessor(MockUpdater);
+        Factory.SetUpdater(MockUpdater);
+        Factory.SetArchiver(MockUpdater);
 
         // Act
-        TaskProcessor.ProcessTaskEntry(TaskLogEntry);
+        TaskProcessor.ProcessTaskEntry(TaskLogEntry, Factory);
 
-        // Assert
-        // Best we can do without mocks: prove timestamps were set.
-        // PROBLEM: We CANNOT observe whether Updater (Processing -> Complete) was
-        // called in the right order, or whether Archiver fired AFTER completion.
-        // The collaborators are baked into the monster codeunit — there are no seams
-        // to record calls. Step 8 will inject mocks via the factory and assert the sequence.
-        TaskLogEntry.Get(TaskLogEntry."Entry No.");
-        Assert.IsTrue(TaskLogEntry."Processing Started At" <> 0DT, 'Processing Started At should be set');
-        Assert.IsTrue(TaskLogEntry."Processing Completed At" <> 0DT, 'Processing Completed At should be set');
+        // Assert — full collaborator sequence is now exposed.
+        Assert.AreEqual(4, Recorder.GetCallCount(), 'Expected exactly 4 collaborator calls');
+        Assert.AreEqual('Updater.UpdateStatus:Processing', Recorder.GetCall(1), 'Step 1: Processing');
+        Assert.AreEqual('Processor.ProcessTask:1', Recorder.GetCall(2), 'Step 2: Processor');
+        Assert.AreEqual('Updater.UpdateStatus:Complete', Recorder.GetCall(3), 'Step 3: Complete');
+        Assert.AreEqual('Archiver.Archive:1', Recorder.GetCall(4), 'Step 4: Archive');
     end;
 
+    /// <summary>
+    /// Step 0 version: asserterror only ever caught the FIRST error — so the test
+    /// name described the bug, not the desired behaviour.
+    /// Step 6 fixed posting with ErrorBehavior::Collect + Error Message Management.
+    /// Step 8 version: this test now proves the inverse — posting does NOT stop on
+    /// the first error; all required-field violations surface in one pass.
+    /// </summary>
     [Test]
     procedure TestPostVoucherStopsOnFirstError()
     var
         VoucherJnlLine: Record "Voucher Journal Line";
+        TempErrorMessage: Record "Error Message" temporary;
         CheckLine: Codeunit "Voucher Jnl.-Check Line";
+        ErrorMessageMgt: Codeunit "Error Message Management";
+        ErrorMessageHandler: Codeunit "Error Message Handler";
     begin
-        // Arrange: Create a voucher entry with missing Customer No.
-        VoucherEntry.Init();
-        VoucherEntry."Entry No." := 1;
-        VoucherEntry."Voucher No." := 'TEST-001';
-        VoucherEntry."Customer No." := '';  // Missing!
-        VoucherEntry.Amount := 100.00;
-        VoucherEntry."Posting Date" := WorkDate();
-        VoucherEntry.Insert(true);
+        // Arrange — three independent hard violations on a single in-memory line.
+        VoucherJnlLine.Init();
+        VoucherJnlLine."Line No." := 10000;
+        VoucherJnlLine."Voucher No." := 'TEST-001';
+        VoucherJnlLine."Customer No." := '';
+        VoucherJnlLine.Amount := 0;
+        VoucherJnlLine."Posting Date" := 0D;
+        VoucherJnlLine.Description := '';
 
-        // Act + Assert
-        // ANTI-PATTERN: asserterror only tests the FIRST error.
-        // We can't verify that Amount = 0 also produces an error in the same call
-        // because ERROR() stops on the first failure.
-        // Step 6 will fix this: all errors will be collected before reporting.
-        asserterror CheckLine.RunCheck(VoucherJnlLine);
-        Assert.IsTrue(
-            GetLastErrorText().Contains('Customer No.'),
-            'Expected error about Customer No. to be raised');
-    end;
+        ErrorMessageMgt.Activate(ErrorMessageHandler);
 
-    local procedure WritePayloadToEntry(var TaskLogEntry: Record "Task Log Entry"; PayloadText: Text)
-    var
-        OutStr: OutStream;
-    begin
-        TaskLogEntry.Payload.CreateOutStream(OutStr, TextEncoding::UTF8);
-        OutStr.WriteText(PayloadText);
-        TaskLogEntry.Modify(false);
+        // Act
+        CheckLine.RunCheck(VoucherJnlLine);
+
+        // Assert — all three errors collected; the check no longer stops at the first.
+        Assert.IsTrue(ErrorMessageHandler.HasErrors(), 'Expected collected errors');
+        ErrorMessageHandler.AppendTo(TempErrorMessage);
+        TempErrorMessage.SetRange("Message Type", TempErrorMessage."Message Type"::Error);
+        Assert.AreEqual(3, TempErrorMessage.Count(), 'Expected 3 errors (Customer No., Amount, Posting Date)');
     end;
 }

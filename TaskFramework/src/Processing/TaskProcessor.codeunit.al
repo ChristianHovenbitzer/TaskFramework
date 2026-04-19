@@ -55,12 +55,6 @@ codeunit 50000 "Task Processor" implements "ITask Log Updater", "ITask Archiver"
         ProcessTaskEntry(TaskLogEntry, Factory);
     end;
 
-    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Task Processor", OnBeforeProcessTask, '', false, false)]
-    local procedure MyProcedure(var Factory: Interface "ITask Processor Factory")
-    begin
-        Factory.SetArchiver(this);
-    end;
-
     procedure ProcessTaskEntry(var TaskLogEntry: Record "Task Log Entry"; Factory: Interface "ITask Processor Factory")
     var
         IsHandled: Boolean;

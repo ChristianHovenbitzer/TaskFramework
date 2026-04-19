@@ -10,9 +10,9 @@ codeunit 60002 "Install Task Framework"
 
     trigger OnInstallAppPerCompany()
     begin
-        SeedSetup();
-        SeedVoucherJournalLines();
-        SeedTaskLogEntries();
+        // SeedSetup();
+        // SeedVoucherJournalLines();
+        // SeedTaskLogEntries();
     end;
 
     local procedure SeedSetup()
