@@ -55,6 +55,28 @@ codeunit 50000 "Task Processor" implements "ITask Log Updater", "ITask Archiver"
         ProcessTaskEntry(TaskLogEntry, Factory);
     end;
 
+
+    // ANTI-PATTERN: Dependency injection without a factory.
+    // procedure ProcessTaskEntry(
+    //     var TaskLogEntry: Record "Task Log Entry";
+    //     LogUpdater: Interface "ITask Log Updater";
+    //     Processor: Interface "ITask Processor";
+    //     Archiver: Interface "ITask Archiver")
+    // var
+    //     IsHandled: Boolean;
+    // begin
+    //     OnBeforeProcessTask(TaskLogEntry, TaskProcessingState, IsHandled);
+    //     if IsHandled then
+    //         exit;
+
+    //     LogUpdater.UpdateStatus(TaskLogEntry, TaskLogEntry.Status::Processing);
+    //     Processor.ProcessTask(TaskLogEntry);
+    //     LogUpdater.UpdateStatus(TaskLogEntry, TaskLogEntry.Status::Complete);
+
+    //     if TaskLogEntry."Archive After Processing" then
+    //         Archiver.Archive(TaskLogEntry);
+    // end;
+
     procedure ProcessTaskEntry(var TaskLogEntry: Record "Task Log Entry"; Factory: Interface "ITask Processor Factory")
     var
         IsHandled: Boolean;
