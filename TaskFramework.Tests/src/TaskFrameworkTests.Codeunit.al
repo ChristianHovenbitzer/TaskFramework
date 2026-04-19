@@ -28,6 +28,7 @@ codeunit 70000 "Task Framework Tests"
         // Arrange
         // ANTI-PATTERN: Creating real database state in a test, no cleanup/isolation
         TaskLogEntry.Init();
+        TaskLogEntry."Entry No." := 1;
         TaskLogEntry."Task Type" := TaskLogEntry."Task Type"::VendorImport;
         TaskLogEntry.Status := TaskLogEntry.Status::Pending;
         TaskLogEntry.Description := 'Test vendor import';
@@ -49,19 +50,50 @@ codeunit 70000 "Task Framework Tests"
     end;
 
     [Test]
+    procedure TestProcessTaskRecordsTimestampsButHidesCallOrder()
+    var
+        TaskLogEntry: Record "Task Log Entry";
+        TaskProcessor: Codeunit "Task Processor";
+    begin
+        // Arrange
+        // ANTI-PATTERN: Same coupling as Test 1 — real DB state, real Vendor side effect.
+        TaskLogEntry.Init();
+        TaskLogEntry."Entry No." := 1;
+        TaskLogEntry."Task Type" := TaskLogEntry."Task Type"::VendorImport;
+        TaskLogEntry.Status := TaskLogEntry.Status::Pending;
+        TaskLogEntry.Description := 'Test ordering';
+        TaskLogEntry."Archive After Processing" := true;
+        TaskLogEntry.Insert(true);
+        WritePayloadToEntry(TaskLogEntry, 'NAME=Order Vendor;CITY=Hamburg');
+
+        // Act
+        TaskProcessor.ProcessTaskEntry(TaskLogEntry);
+
+        // Assert
+        // Best we can do without mocks: prove timestamps were set.
+        // PROBLEM: We CANNOT observe whether Updater (Processing -> Complete) was
+        // called in the right order, or whether Archiver fired AFTER completion.
+        // The collaborators are baked into the monster codeunit — there are no seams
+        // to record calls. Step 8 will inject mocks via the factory and assert the sequence.
+        TaskLogEntry.Get(TaskLogEntry."Entry No.");
+        Assert.IsTrue(TaskLogEntry."Processing Started At" <> 0DT, 'Processing Started At should be set');
+        Assert.IsTrue(TaskLogEntry."Processing Completed At" <> 0DT, 'Processing Completed At should be set');
+    end;
+
+    [Test]
     procedure TestPostVoucherStopsOnFirstError()
     var
         VoucherJnlLine: Record "Voucher Journal Line";
         CheckLine: Codeunit "Voucher Jnl.-Check Line";
     begin
-        // Arrange: Create a journal line with missing Customer No.
-        VoucherJnlLine.Init();
-        VoucherJnlLine."Line No." := 10000;
-        VoucherJnlLine."Voucher No." := 'TEST-001';
-        VoucherJnlLine."Customer No." := '';  // Missing!
-        VoucherJnlLine.Amount := 100.00;
-        VoucherJnlLine."Posting Date" := WorkDate();
-        VoucherJnlLine.Insert(true);
+        // Arrange: Create a voucher entry with missing Customer No.
+        VoucherEntry.Init();
+        VoucherEntry."Entry No." := 1;
+        VoucherEntry."Voucher No." := 'TEST-001';
+        VoucherEntry."Customer No." := '';  // Missing!
+        VoucherEntry.Amount := 100.00;
+        VoucherEntry."Posting Date" := WorkDate();
+        VoucherEntry.Insert(true);
 
         // Act + Assert
         // ANTI-PATTERN: asserterror only tests the FIRST error.

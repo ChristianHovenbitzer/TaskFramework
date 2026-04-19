@@ -1,0 +1,30 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "AL Runner: Run Tests",
+            "type": "shell",
+            "command": "al-runner",
+            "args": [
+                "--packages",
+                "./TaskFramework.Tests/.alpackages",
+                "./TaskFramework/src",
+                "./TaskFramework.Impl/src",
+                "./TaskFramework.Tests/src"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}/.."
+            },
+            "group": {
+                "kind": "test",
+                "isDefault": true
+            },
+            "presentation": {
+                "reveal": "always",
+                "panel": "dedicated",
+                "clear": true
+            },
+            "problemMatcher": []
+        }
+    ]
+}
