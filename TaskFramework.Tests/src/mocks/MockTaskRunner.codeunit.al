@@ -5,10 +5,10 @@ using Techdays.TaskFramework.Processing;
 using Techdays.TaskFramework.Processing.Factory;
 
 /// <summary>
-/// Mock <c>ITask Log Updater</c> that records each status transition.
+/// Mock that implements all three collaborator interfaces and records every call.
 /// Does not modify the database — pure spy for orchestration tests.
 /// </summary>
-codeunit 70012 "Mock Task TaskRunner" implements "ITask Log Updater", "ITask Archiver", "ITask Processor"
+codeunit 70012 "Mock Task Runner" implements "ITask Log Updater", "ITask Archiver", "ITask Processor"
 {
     procedure UpdateStatus(var TaskLogEntry: Record "Task Log Entry"; NewStatus: Enum "Task Status")
     var

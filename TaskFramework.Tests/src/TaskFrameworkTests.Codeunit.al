@@ -27,7 +27,7 @@ codeunit 70000 "Task Framework Tests"
         TaskLogEntry: Record "Task Log Entry";
         TaskProcessor: Codeunit "Task Processor";
         Factory: Codeunit "Task Processor Factory";
-        MockUpdater: Codeunit "Mock Task TaskRunner";
+        MockRunner: Codeunit "Mock Task Runner";
         Recorder: Codeunit "Call Recorder";
     begin
         // Arrange
@@ -39,9 +39,9 @@ codeunit 70000 "Task Framework Tests"
         TaskLogEntry.Status := TaskLogEntry.Status::Pending;
         TaskLogEntry.Description := 'Test vendor import';
 
-        Factory.SetProcessor(MockUpdater);
-        Factory.SetUpdater(MockUpdater);
-        Factory.SetArchiver(MockUpdater);
+        Factory.SetProcessor(MockRunner);
+        Factory.SetUpdater(MockRunner);
+        Factory.SetArchiver(MockRunner);
 
         // Act
         TaskProcessor.ProcessTaskEntry(TaskLogEntry, Factory);
@@ -63,7 +63,7 @@ codeunit 70000 "Task Framework Tests"
         TaskLogEntry: Record "Task Log Entry";
         TaskProcessor: Codeunit "Task Processor";
         Factory: Codeunit "Task Processor Factory";
-        MockUpdater: Codeunit "Mock Task TaskRunner";
+        MockRunner: Codeunit "Mock Task Runner";
         Recorder: Codeunit "Call Recorder";
     begin
         // Arrange
@@ -76,9 +76,9 @@ codeunit 70000 "Task Framework Tests"
         TaskLogEntry.Description := 'Test ordering';
         TaskLogEntry."Archive After Processing" := true;
 
-        Factory.SetProcessor(MockUpdater);
-        Factory.SetUpdater(MockUpdater);
-        Factory.SetArchiver(MockUpdater);
+        Factory.SetProcessor(MockRunner);
+        Factory.SetUpdater(MockRunner);
+        Factory.SetArchiver(MockRunner);
 
         // Act
         TaskProcessor.ProcessTaskEntry(TaskLogEntry, Factory);
