@@ -29,7 +29,6 @@ codeunit 50000 "Task Processor" implements "ITask Log Updater", "ITask Archiver"
     begin
         // ANTI-PATTERN: No error isolation.
         // If ProcessTaskEntry throws for entry 3 of 10, entries 4-10 never run.
-        // Step 6 will fix this with proper error handling.
         Clear(TaskProcessingState);
 
         TaskLogEntry.ReadIsolation(IsolationLevel::UpdLock);

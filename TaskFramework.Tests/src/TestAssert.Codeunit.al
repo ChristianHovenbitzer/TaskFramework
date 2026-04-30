@@ -1,6 +1,6 @@
 // Minimal local Assert helper — replaces Library Assert dependency for the prototype.
 // Using Library Assert would require a BC server with test libraries installed.
-// Step 8 will evaluate whether to use Library Assert or keep this lightweight helper.
+// Kept as lightweight helper — no Library Assert dependency required.
 codeunit 70001 "Test Assert"
 {
     procedure AreEqual(Expected: Variant; Actual: Variant; Message: Text)
