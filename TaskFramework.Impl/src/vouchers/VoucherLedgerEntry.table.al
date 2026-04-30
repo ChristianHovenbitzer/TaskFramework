@@ -1,5 +1,3 @@
-namespace Techdays.TaskFramework.Impl.Vouchers;
-
 table 60011 "Voucher Ledger Entry"
 {
     Caption = 'Voucher Ledger Entry';

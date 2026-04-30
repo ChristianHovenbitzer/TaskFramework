@@ -1,8 +1,3 @@
-namespace Techdays.TaskFramework.Core.API;
-
-using Techdays.TaskFramework.Core;
-using Techdays.TaskFramework.Processing;
-
 // External callers create entries by POSTing to this API page.
 // The OnInsertRecord trigger delegates to Task Entry Facade — direct table writes are not supported.
 page 50045 "Task Entry API"
@@ -32,7 +27,7 @@ page 50045 "Task Entry API"
                     Caption = 'Entry No.';
                     Editable = false;
                 }
-                field(taskType; Rec."Task Type")
+                field(taskType; Rec."Task Processing Type")
                 {
                     Caption = 'Task Type';
                 }

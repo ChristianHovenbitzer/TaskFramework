@@ -1,5 +1,3 @@
-namespace Techdays.TaskFramework.Impl.Vouchers;
-
 table 60012 "Voucher Register"
 {
     Caption = 'Voucher Register';
