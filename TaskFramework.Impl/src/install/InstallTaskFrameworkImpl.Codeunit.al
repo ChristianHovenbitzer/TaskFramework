@@ -1,7 +1,5 @@
 // This install codeunit is intentionally minimal.
-// ANTI-PATTERN: The impl app exists structurally but is nearly empty.
-// All task type logic that belongs here is incorrectly placed in the framework app.
-// Steps 2-5 will move objects here as part of the workshop evolution.
+// Steps 3 and 4 landed concrete processors and the Task Processor Factory here.
 codeunit 60000 "Install Task Framework Impl"
 {
     Subtype = Install;
