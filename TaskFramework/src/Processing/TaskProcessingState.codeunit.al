@@ -1,5 +1,3 @@
-namespace Techdays.TaskFramework.Processing;
-
 codeunit 50003 "Task Processing State"
 {
     var

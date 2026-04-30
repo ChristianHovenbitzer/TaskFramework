@@ -1,5 +1,3 @@
-namespace Techdays.TaskFramework.Impl.Vouchers;
-
 using System.Utilities;
 
 codeunit 60010 "Voucher Jnl.-Check Line Impl"

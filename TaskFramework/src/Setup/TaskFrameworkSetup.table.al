@@ -1,8 +1,3 @@
-namespace Techdays.TaskFramework.Setup;
-
-using Techdays.TaskFramework.Core;
-using Techdays.TaskFramework.Core.Errors;
-
 table 50003 "Task Framework Setup"
 {
     Caption = 'Task Framework Setup';

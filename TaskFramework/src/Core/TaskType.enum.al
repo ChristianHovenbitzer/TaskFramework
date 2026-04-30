@@ -1,7 +1,4 @@
-namespace Techdays.TaskFramework.Core;
-using Techdays.TaskFramework.Processing;
-
-enum 50000 "Task Type" implements "ITask Processor"
+enum 50000 "Task Processing Type" implements "ITask Processor"
 {
     Extensible = true;
     DefaultImplementation = "ITask Processor" = "Default Task Processor";
