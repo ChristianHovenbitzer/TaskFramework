@@ -1,7 +1,3 @@
-namespace Techdays.TaskFramework.Processing;
-
-using Techdays.TaskFramework.Core;
-
 codeunit 50004 "Default Task Processor" implements "ITask Processor"
 {
     Access = Internal;
@@ -10,6 +6,6 @@ codeunit 50004 "Default Task Processor" implements "ITask Processor"
     var
         NoProcessorErr: Label 'No processor registered for task type %1.';
     begin
-        Error(NoProcessorErr, TaskLogEntry."Task Type");
+        Error(NoProcessorErr, TaskLogEntry."Task Processing Type");
     end;
 }

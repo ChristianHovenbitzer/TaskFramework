@@ -1,5 +1,3 @@
-namespace Techdays.TaskFramework.Impl.Vouchers;
-
 page 60011 "Voucher Ledger Entries"
 {
     PageType = List;

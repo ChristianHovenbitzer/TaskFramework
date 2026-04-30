@@ -1,5 +1,3 @@
-namespace Techdays.TaskFramework.Impl.Vouchers;
-
 page 60010 "Voucher Journal"
 {
     PageType = Worksheet;

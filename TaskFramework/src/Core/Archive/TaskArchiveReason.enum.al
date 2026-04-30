@@ -1,5 +1,3 @@
-namespace Techdays.TaskFramework.Core.Archive;
-
 enum 50004 "Task Archive Reason"
 {
     Extensible = false;

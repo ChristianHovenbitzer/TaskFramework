@@ -1,5 +1,3 @@
-namespace Techdays.TaskFramework.Impl.Vouchers;
-
 codeunit 60011 "Voucher Jnl.-Post Line Impl"
 {
     Access = Internal;
