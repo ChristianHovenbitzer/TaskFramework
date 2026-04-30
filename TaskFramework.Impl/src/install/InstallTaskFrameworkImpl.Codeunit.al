@@ -1,5 +1,3 @@
-namespace Techdays.TaskFramework.Impl;
-
 // This install codeunit is intentionally minimal.
 // Steps 3 and 4 already landed the concrete processors, Task Type enum extension,
 // and Task Processor Factory here.

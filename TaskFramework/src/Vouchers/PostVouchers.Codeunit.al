@@ -1,5 +1,3 @@
-namespace Techdays.TaskFramework.Vouchers;
-
 // ANTI-PATTERN: Everything in one procedure.
 //
 // TODO: (Step 5 - Journal → Posting → Ledger Entry)
@@ -9,16 +7,21 @@ namespace Techdays.TaskFramework.Vouchers;
 // post. Show the full error list instead of stopping on the first failure.
 codeunit 50001 "Post Vouchers"
 {
+    var
+        CustomerNoRequiredErr: Label 'Customer No. is required.';
+        AmountRequiredErr: Label 'Amount must not be zero.';
+        PostingDateRequiredErr: Label 'Posting Date is required.';
+
     procedure PostVoucher(var VoucherEntry: Record "Voucher Entry")
     begin
         // ANTI-PATTERN: Validates inline, stops on first error.
         // If Customer No. is missing AND Amount is zero, you only ever see the Customer error.
         if VoucherEntry."Customer No." = '' then
-            Error('Customer No. is required.');
+            Error(CustomerNoRequiredErr);
         if VoucherEntry.Amount = 0 then
-            Error('Amount must not be zero.');
+            Error(AmountRequiredErr);
         if VoucherEntry."Posting Date" = 0D then
-            Error('Posting Date is required.');
+            Error(PostingDateRequiredErr);
 
         // ANTI-PATTERN: Flips status on the same record (no journal/ledger separation).
         // The "posted" record is still editable in the client. See the Step 5 TODO
