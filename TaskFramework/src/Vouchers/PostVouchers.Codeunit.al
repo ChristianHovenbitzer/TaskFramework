@@ -1,5 +1,3 @@
-namespace Techdays.TaskFramework.Vouchers;
-
 // ANTI-PATTERN: Everything in one procedure.
 // Step 5 will replace with: Jnl.-Check Line + Jnl.-Post Line + Jnl.-Post Batch
 // Step 6 will replace Error() with Collectible Errors
