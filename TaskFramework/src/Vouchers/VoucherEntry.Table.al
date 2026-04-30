@@ -1,5 +1,3 @@
-namespace Techdays.TaskFramework.Vouchers;
-
 // ANTI-PATTERN: Staging area and posted records in same table.
 //
 // TODO (Step 5 - Journal → Posting → Ledger Entry): delete this table entirely

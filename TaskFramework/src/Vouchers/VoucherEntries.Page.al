@@ -1,5 +1,3 @@
-namespace Techdays.TaskFramework.Vouchers;
-
 page 50004 "Voucher Entries"
 {
     PageType = List;

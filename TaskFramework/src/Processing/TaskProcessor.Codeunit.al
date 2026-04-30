@@ -1,9 +1,3 @@
-namespace Techdays.TaskFramework.Processing;
-
-using Techdays.TaskFramework.Core;
-using Techdays.TaskFramework.Core.Archive;
-using Techdays.TaskFramework.Setup;
-using Techdays.TaskFramework.Vouchers;
 using Microsoft.Purchases.Vendor;
 
 // ANTI-PATTERN: This codeunit is the central problem.
@@ -16,7 +10,7 @@ using Microsoft.Purchases.Vendor;
 //      and bind each enum value to its concrete implementation.
 //   3. Move each ProcessXxxImport procedure into its own codeunit in TaskFramework.Impl
 //      (Access = Internal, implements "ITask Processor").
-//   4. Replace the CASE block below with: Processor := TaskLogEntry."Task Type";
+//   4. Replace the CASE block below with: Processor := TaskLogEntry."Task Processing Type";
 //      Processor.ProcessTask(TaskLogEntry);
 //   5. Remove the per-type local procedures and the self-subscribed event plumbing.
 codeunit 50000 "Task Processor"
@@ -81,21 +75,21 @@ codeunit 50000 "Task Processor"
         // Adding task type 4 means editing this file in the framework app.
         //
         // TODO (Step 3 - DI / Strategy via Interfaces): replace this entire CASE with
-        //      Processor := TaskLogEntry."Task Type";
+        //      Processor := TaskLogEntry."Task Processing Type";
         //      Processor.ProcessTask(TaskLogEntry);
         // TODO (Step 4 - Factory Pattern): add an internal overload
         //      procedure ProcessTaskEntry(var TaskLogEntry; Processor: Interface "ITask Processor")
         // and have the public entry resolve the processor via "Task Processor Factory".
         // This overload is what makes Step 8 testable.
-        case TaskLogEntry."Task Type" of
-            "Task Type"::VendorImport:
+        case TaskLogEntry."Task Processing Type" of
+            "Task Processing Type"::VendorImport:
                 ProcessVendorImport(TaskLogEntry);
-            "Task Type"::LogRetention:
+            "Task Processing Type"::LogRetention:
                 ProcessLogRetention(TaskLogEntry);
-            "Task Type"::DocumentImport:
+            "Task Processing Type"::DocumentImport:
                 ProcessDocumentImport(TaskLogEntry);
             else
-                Error('Unknown task type: %1', TaskLogEntry."Task Type");
+                Error('Unknown task type: %1', TaskLogEntry."Task Processing Type");
         end;
 
         TaskLogEntry.Status := TaskLogEntry.Status::Complete;
@@ -112,7 +106,7 @@ codeunit 50000 "Task Processor"
     begin
         Archive.Init();
         Archive."Entry No." := TaskLogEntry."Entry No.";
-        Archive."Task Type" := TaskLogEntry."Task Type";
+        Archive."Task Type" := TaskLogEntry."Task Processing Type";
         Archive.Status := TaskLogEntry.Status;
         Archive.Description := TaskLogEntry.Description;
         Archive."Created At" := TaskLogEntry."Created At";

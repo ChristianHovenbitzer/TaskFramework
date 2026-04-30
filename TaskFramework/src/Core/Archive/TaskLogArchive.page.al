@@ -1,5 +1,3 @@
-namespace Techdays.TaskFramework.Core.Archive;
-
 page 50002 "Task Log Archive"
 {
     PageType = List;

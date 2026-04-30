@@ -1,5 +1,3 @@
-namespace Techdays.TaskFramework.Vouchers;
-
 // ANTI-PATTERN: Everything in one procedure.
 //
 // TODO (Step 5 - Journal → Posting → Ledger Entry): delete this codeunit and

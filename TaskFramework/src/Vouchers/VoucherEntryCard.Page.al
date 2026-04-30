@@ -1,5 +1,3 @@
-namespace Techdays.TaskFramework.Vouchers;
-
 // ANTI-PATTERN: This page remains fully editable even after Status = Posted.
 //
 // TODO (Step 5 - Journal → Posting → Ledger Entry): this card will disappear
