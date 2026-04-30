@@ -1,7 +1,3 @@
-namespace Techdays.TaskFramework.Core;
-
-using Techdays.TaskFramework.Processing;
-
 page 50000 "Task Log Entries"
 {
     PageType = List;
@@ -19,7 +15,7 @@ page 50000 "Task Log Entries"
             repeater(Lines)
             {
                 field("Entry No."; Rec."Entry No.") { ApplicationArea = All; }
-                field("Task Type"; Rec."Task Type") { ApplicationArea = All; }
+                field("Task Processing Type"; Rec."Task Processing Type") { ApplicationArea = All; }
                 field(Status; Rec.Status) { ApplicationArea = All; }
                 field(Description; Rec.Description) { ApplicationArea = All; }
                 field("Created At"; Rec."Created At") { ApplicationArea = All; }
@@ -61,7 +57,7 @@ page 50000 "Task Log Entries"
                     TaskLogEntry: Record "Task Log Entry";
                 begin
                     TaskLogEntry.Init();
-                    TaskLogEntry."Task Type" := TaskLogEntry."Task Type"::LogRetention;
+                    TaskLogEntry."Task Processing Type" := TaskLogEntry."Task Processing Type"::LogRetention;
                     TaskLogEntry.Status := TaskLogEntry.Status::Pending;
                     TaskLogEntry.Description := 'Sample Task';
                     TaskLogEntry."Created At" := CurrentDateTime;

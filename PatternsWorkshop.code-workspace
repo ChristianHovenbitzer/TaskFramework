@@ -11,6 +11,9 @@
         {
             "name": "Task Framework Tests",
             "path": "TaskFramework.Tests"
+        },
+        {
+            "path": "../BCTechdays26"
         }
     ],
     "settings": {
@@ -21,20 +24,15 @@
         "version": "0.2.0",
         "configurations": [
         {
-            "name": "demo-hoch-27-5",
+            "name": "Publish: Cloud sandbox (configure tenant + environment)",
             "request": "launch",
             "type": "al",
-            "environmentType": "OnPrem",
-            "server": "https://docker.socitas.de",
-            "serverInstance": "demo-hoch-27-5-dev",
-            "authentication": "UserPassword",
+            "environmentType": "Sandbox",
+            "environmentName": "Sandbox",
             "breakOnError": "All",
             "launchBrowser": true,
             "enableLongRunningSqlStatements": true,
-            "enableSqlInformationDebugger": true,
-            "tenant": "default",
-            "usePublicURLFromServer": true,
-            "port": 56565
+            "enableSqlInformationDebugger": true
         }
         ],
         "compounds": []

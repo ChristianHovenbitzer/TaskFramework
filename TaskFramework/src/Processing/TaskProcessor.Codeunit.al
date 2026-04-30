@@ -1,9 +1,3 @@
-namespace Techdays.TaskFramework.Processing;
-
-using Techdays.TaskFramework.Core;
-using Techdays.TaskFramework.Core.Archive;
-using Techdays.TaskFramework.Setup;
-
 codeunit 50000 "Task Processor"
 {
     [IntegrationEvent(false, false)]
@@ -53,7 +47,7 @@ codeunit 50000 "Task Processor"
         TaskLogEntry."Processing Started At" := CurrentDateTime;
         TaskLogEntry.Modify();
 
-        Processor := TaskLogEntry."Task Type";
+        Processor := TaskLogEntry."Task Processing Type";
         Processor.ProcessTask(TaskLogEntry);
 
         TaskLogEntry.Status := TaskLogEntry.Status::Complete;
@@ -71,7 +65,7 @@ codeunit 50000 "Task Processor"
     begin
         Archive.Init();
         Archive."Entry No." := TaskLogEntry."Entry No.";
-        Archive."Task Type" := TaskLogEntry."Task Type";
+        Archive."Task Type" := TaskLogEntry."Task Processing Type";
         Archive.Status := TaskLogEntry.Status;
         Archive.Description := TaskLogEntry.Description;
         Archive."Created At" := TaskLogEntry."Created At";

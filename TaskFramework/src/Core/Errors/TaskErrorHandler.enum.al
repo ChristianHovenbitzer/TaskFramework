@@ -1,4 +1,3 @@
-namespace Techdays.TaskFramework.Core.Errors;
 enum 50002 "Task Error Handler"
 {
     Extensible = true;

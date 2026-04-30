@@ -1,5 +1,3 @@
-namespace Techdays.TaskFramework.Vouchers;
-
 // ANTI-PATTERN: Staging area and posted records in same table.
 // Step 5 will replace this with Voucher Journal Line + Voucher Ledger Entry + Voucher Register.
 table 50004 "Voucher Entry"

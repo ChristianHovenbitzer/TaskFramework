@@ -1,5 +1,3 @@
-namespace Techdays.TaskFramework.Vouchers;
-
 // ANTI-PATTERN: This page remains fully editable even after Status = Posted.
 // Posted records should be immutable — Step 5 will enforce this via separate Ledger Entry table.
 page 50005 "Voucher Entry Card"
