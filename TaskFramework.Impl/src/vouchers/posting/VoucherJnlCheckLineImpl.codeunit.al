@@ -1,5 +1,3 @@
-namespace Techdays.TaskFramework.Impl.Vouchers;
-
 using System.Utilities;
 
 // HANDS-ON: Internal implementation for journal line validation.

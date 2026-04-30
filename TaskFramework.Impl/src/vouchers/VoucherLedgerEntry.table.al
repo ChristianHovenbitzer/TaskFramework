@@ -1,5 +1,3 @@
-namespace Techdays.TaskFramework.Impl.Vouchers;
-
 // HANDS-ON: Define the Voucher Ledger Entry table.
 // Posted entries land here — one per journal line.
 // TODO: Add fields:

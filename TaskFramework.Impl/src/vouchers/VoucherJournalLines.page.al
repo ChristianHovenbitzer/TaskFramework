@@ -1,5 +1,3 @@
-namespace Techdays.TaskFramework.Impl.Vouchers;
-
 // HANDS-ON: Create the Voucher Journal page (Worksheet type).
 // TODO:
 //   1. Add fields for all journal line columns in a repeater

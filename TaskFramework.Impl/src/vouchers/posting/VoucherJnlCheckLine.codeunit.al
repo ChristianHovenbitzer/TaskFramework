@@ -1,5 +1,3 @@
-namespace Techdays.TaskFramework.Impl.Vouchers;
-
 // HANDS-ON: Public facade for line validation (delegates to Impl).
 // Pattern: TableNo trigger + public RunCheck procedure.
 // TODO:

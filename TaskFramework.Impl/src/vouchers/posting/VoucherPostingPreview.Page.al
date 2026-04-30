@@ -1,5 +1,3 @@
-namespace Techdays.TaskFramework.Impl.Vouchers;
-
 // HANDS-ON: Preview page showing temporary ledger entries from a simulated posting.
 // TODO: Add fields for all ledger entry columns
 page 60013 "Voucher Posting Preview"

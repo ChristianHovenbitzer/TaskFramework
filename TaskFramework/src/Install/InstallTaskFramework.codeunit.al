@@ -1,9 +1,3 @@
-namespace Techdays.TaskFramework.Install;
-
-using Techdays.TaskFramework.Core;
-using Techdays.TaskFramework.Impl.Vouchers;
-using Techdays.TaskFramework.Setup;
-
 codeunit 50002 "Install Task Framework"
 {
     Subtype = Install;
@@ -108,8 +102,8 @@ codeunit 50002 "Install Task Framework"
         // Entry 1: Pending vendor import
         TaskLogEntry.Init();
         TaskLogEntry."Entry No." := 0;
-        TaskLogEntry."Task Type" := "Task Type"::VendorImport;
-        TaskLogEntry.Status := "Task Status"::Pending;
+        TaskLogEntry."Task Processing Type" := "Task Processing Type"::VendorImport;
+        TaskLogEntry.Status := "Task Processing Status"::Pending;
         TaskLogEntry.Description := 'Import vendor from webshop';
         TaskLogEntry."Created At" := CurrentDateTime;
         TaskLogEntry.Verbosity := TaskLogEntry.Verbosity::Normal;
@@ -124,8 +118,8 @@ codeunit 50002 "Install Task Framework"
         // Entry 2: Completed document import
         TaskLogEntry.Init();
         TaskLogEntry."Entry No." := 0;
-        TaskLogEntry."Task Type" := "Task Type"::DocumentImport;
-        TaskLogEntry.Status := "Task Status"::Complete;
+        TaskLogEntry."Task Processing Type" := "Task Processing Type"::DocumentImport;
+        TaskLogEntry.Status := "Task Processing Status"::Complete;
         TaskLogEntry.Description := 'Voucher import batch 2026-03-01';
         TaskLogEntry."Created At" := CurrentDateTime;
         TaskLogEntry."Processing Completed At" := CurrentDateTime;
@@ -141,8 +135,8 @@ codeunit 50002 "Install Task Framework"
         // Entry 3: Failed log retention
         TaskLogEntry.Init();
         TaskLogEntry."Entry No." := 0;
-        TaskLogEntry."Task Type" := "Task Type"::LogRetention;
-        TaskLogEntry.Status := "Task Status"::Failed;
+        TaskLogEntry."Task Processing Type" := "Task Processing Type"::LogRetention;
+        TaskLogEntry.Status := "Task Processing Status"::Failed;
         TaskLogEntry.Description := 'Weekly cleanup';
         TaskLogEntry."Created At" := CurrentDateTime;
         TaskLogEntry."Last Error Message" := 'An error occurred.';
@@ -153,8 +147,8 @@ codeunit 50002 "Install Task Framework"
         // Entry 4: Pending vendor import scheduled for the future
         TaskLogEntry.Init();
         TaskLogEntry."Entry No." := 0;
-        TaskLogEntry."Task Type" := "Task Type"::VendorImport;
-        TaskLogEntry.Status := "Task Status"::Pending;
+        TaskLogEntry."Task Processing Type" := "Task Processing Type"::VendorImport;
+        TaskLogEntry.Status := "Task Processing Status"::Pending;
         TaskLogEntry.Description := 'Scheduled nightly import';
         TaskLogEntry."Created At" := CurrentDateTime;
         TaskLogEntry.Verbosity := TaskLogEntry.Verbosity::Normal;

@@ -1,5 +1,3 @@
-namespace Techdays.TaskFramework.Impl.Vouchers;
-
 // HANDS-ON: Manual event subscriber for the posting preview.
 // Captures posted ledger entries into a temporary table during preview.
 // TODO:

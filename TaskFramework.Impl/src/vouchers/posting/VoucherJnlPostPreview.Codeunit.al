@@ -1,5 +1,3 @@
-namespace Techdays.TaskFramework.Impl.Vouchers;
-
 // HANDS-ON: Posting preview codeunit.
 // Uses [CommitBehavior(CommitBehavior::Error)] to run posting in a rollback transaction.
 // TODO:

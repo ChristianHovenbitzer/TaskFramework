@@ -1,5 +1,3 @@
-namespace Techdays.TaskFramework.Impl.Vouchers;
-
 // HANDS-ON: Public facade for posting a single journal line (delegates to Impl).
 // TODO:
 //   1. Set TableNo = "Voucher Journal Line"

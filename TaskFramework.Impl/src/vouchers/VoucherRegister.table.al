@@ -1,5 +1,3 @@
-namespace Techdays.TaskFramework.Impl.Vouchers;
-
 // HANDS-ON: Define the Voucher Register table.
 // Groups posted ledger entries by batch — tracks From/To Entry No.
 // TODO: Add fields:

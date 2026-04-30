@@ -1,5 +1,3 @@
-namespace Techdays.TaskFramework.Impl.Vouchers;
-
 // HANDS-ON: Internal implementation for posting a single journal line to a ledger entry.
 // TODO:
 //   1. Set TableNo = "Voucher Journal Line", Access = Internal

@@ -1,5 +1,3 @@
-namespace Techdays.TaskFramework.Impl.Vouchers;
-
 using Microsoft.Sales.Customer;
 
 // HANDS-ON: Define the Voucher Journal Line table.
