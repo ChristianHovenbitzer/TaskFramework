@@ -1,7 +1,3 @@
-namespace Techdays.TaskFramework.Core;
-
-using Techdays.TaskFramework.Processing;
-
 page 50001 "Task Log Entry Card"
 {
     PageType = Card;
@@ -16,7 +12,7 @@ page 50001 "Task Log Entry Card"
             group(General)
             {
                 field("Entry No."; Rec."Entry No.") { ApplicationArea = All; Editable = false; }
-                field("Task Type"; Rec."Task Type") { ApplicationArea = All; }
+                field("Task Processing Type"; Rec."Task Processing Type") { ApplicationArea = All; }
                 field(Status; Rec.Status) { ApplicationArea = All; }
                 field(Description; Rec.Description) { ApplicationArea = All; }
                 field("Created At"; Rec."Created At") { ApplicationArea = All; }

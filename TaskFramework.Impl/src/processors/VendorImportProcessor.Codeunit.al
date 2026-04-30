@@ -1,7 +1,3 @@
-namespace Techdays.TaskFramework.Impl.Processors;
-
-using Techdays.TaskFramework.Core;
-using Techdays.TaskFramework.Processing;
 using Microsoft.Purchases.Vendor;
 
 codeunit 60001 "Vendor Import Processor" implements "ITask Processor"

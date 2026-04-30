@@ -1,9 +1,3 @@
-namespace Techdays.TaskFramework.Processing;
-
-using Techdays.TaskFramework.Core;
-using Techdays.TaskFramework.Core.Archive;
-using Techdays.TaskFramework.Setup;
-
 codeunit 50005 "Log Retention Processor" implements "ITask Processor"
 {
     Access = Internal;

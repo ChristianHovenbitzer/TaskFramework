@@ -1,9 +1,4 @@
-namespace Techdays.TaskFramework.Impl.Processors;
-
-using Techdays.TaskFramework.Core;
-using Techdays.TaskFramework.Processing;
-
-enumextension 60000 "Task Type Ext." extends "Task Type"
+enumextension 60000 "Task Type Ext." extends "Task Processing Type"
 {
     value(60000; VendorImport)
     {
