@@ -1,5 +1,3 @@
-namespace Techdays.TaskFramework.Impl.Vouchers;
-
 codeunit 60016 "Voucher Post. Preview Handler"
 {
     Access = Internal;
