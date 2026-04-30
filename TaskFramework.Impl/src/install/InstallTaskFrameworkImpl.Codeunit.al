@@ -1,5 +1,3 @@
-namespace Techdays.TaskFramework.Impl;
-
 // This install codeunit is intentionally minimal.
 // ANTI-PATTERN: The impl app exists structurally but is nearly empty.
 // All task type logic that belongs here is incorrectly placed in the framework app.

@@ -1,6 +1,4 @@
-namespace Techdays.TaskFramework.Core;
-
-enum 50000 "Task Type"
+enum 50000 "Task Processing Type"
 {
     // ANTI-PATTERN: Extensible = false — no other app can add task types.
     // Business-specific values belong in the impl app via enum extension.
