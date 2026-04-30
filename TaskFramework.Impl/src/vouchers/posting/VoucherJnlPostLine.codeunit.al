@@ -1,5 +1,3 @@
-namespace Techdays.TaskFramework.Impl.Vouchers;
-
 codeunit 60014 "Voucher Jnl.-Post Line"
 {
     TableNo = "Voucher Journal Line";

@@ -1,7 +1,3 @@
-namespace Techdays.TaskFramework.Impl;
-
-using Techdays.TaskFramework.Impl.Vouchers;
-
 permissionset 60000 "Task Framework Impl"
 {
     Caption = 'Task Framework Impl';

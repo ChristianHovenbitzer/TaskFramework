@@ -1,5 +1,3 @@
-namespace Techdays.TaskFramework.Impl.Vouchers;
-
 using System.Utilities;
 
 codeunit 60012 "Voucher Jnl.-Post Batch Impl"

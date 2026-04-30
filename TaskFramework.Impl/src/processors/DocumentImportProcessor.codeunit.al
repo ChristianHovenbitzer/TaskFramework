@@ -1,9 +1,3 @@
-namespace Techdays.TaskFramework.Impl.Processors;
-
-using Techdays.TaskFramework.Core;
-using Techdays.TaskFramework.Processing;
-using Techdays.TaskFramework.Impl.Vouchers;
-
 codeunit 60003 "Document Import Processor" implements "ITask Processor"
 {
     Access = Internal;
