@@ -1,5 +1,3 @@
-namespace Techdays.TaskFramework.Setup;
-
 page 50003 "Task Framework Setup"
 {
     PageType = Card;

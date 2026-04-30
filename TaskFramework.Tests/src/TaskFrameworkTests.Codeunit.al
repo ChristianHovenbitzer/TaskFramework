@@ -1,10 +1,4 @@
-namespace Techdays.TaskFramework.Tests;
-
-using Techdays.TaskFramework.Core;
-using Techdays.TaskFramework.Core.Archive;
-using Techdays.TaskFramework.Processing;
 using Microsoft.Purchases.Vendor;
-using Techdays.TaskFramework.Vouchers;
 
 // ANTI-PATTERN: These tests demonstrate what happens when code is untestable.
 // Problems:
@@ -41,7 +35,7 @@ codeunit 70000 "Task Framework Tests"
         VendorCount := Vendor.Count();
 
         TaskLogEntry.Init();
-        TaskLogEntry."Task Type" := TaskLogEntry."Task Type"::VendorImport;
+        TaskLogEntry."Task Processing Type" := TaskLogEntry."Task Processing Type"::VendorImport;
         TaskLogEntry.Status := TaskLogEntry.Status::Pending;
         TaskLogEntry.Description := 'Test vendor import';
         TaskLogEntry.Insert(true);
@@ -70,7 +64,7 @@ codeunit 70000 "Task Framework Tests"
     begin
         // Arrange
         TaskLogEntry.Init();
-        TaskLogEntry."Task Type" := TaskLogEntry."Task Type"::DocumentImport;
+        TaskLogEntry."Task Processing Type" := TaskLogEntry."Task Processing Type"::DocumentImport;
         TaskLogEntry.Status := TaskLogEntry.Status::Pending;
         TaskLogEntry.Description := 'Test document import';
         TaskLogEntry.Insert(true);
@@ -103,15 +97,15 @@ codeunit 70000 "Task Framework Tests"
         // Arrange: Create an old archive entry (60 days ago)
         Archive.Init();
         Archive."Entry No." := 99990;
-        Archive."Task Type" := "Task Type"::VendorImport;
-        Archive.Status := "Task Status"::Complete;
+        Archive."Task Type" := "Task Processing Type"::VendorImport;
+        Archive.Status := "Task Processing Status"::Complete;
         Archive.Description := 'Old entry for retention test';
         Archive."Archived At" := CreateDateTime(CalcDate('<-60D>', Today()), 0T);
         Archive."Archive Reason" := Archive."Archive Reason"::Processed;
         Archive.Insert();
 
         TaskLogEntry.Init();
-        TaskLogEntry."Task Type" := TaskLogEntry."Task Type"::LogRetention;
+        TaskLogEntry."Task Processing Type" := TaskLogEntry."Task Processing Type"::LogRetention;
         TaskLogEntry.Status := TaskLogEntry.Status::Pending;
         TaskLogEntry.Description := 'Test retention';
         TaskLogEntry.Insert(true);
@@ -138,7 +132,7 @@ codeunit 70000 "Task Framework Tests"
     begin
         // Arrange
         TaskLogEntry.Init();
-        TaskLogEntry."Task Type" := TaskLogEntry."Task Type"::VendorImport;
+        TaskLogEntry."Task Processing Type" := TaskLogEntry."Task Processing Type"::VendorImport;
         TaskLogEntry.Status := TaskLogEntry.Status::Pending;
         TaskLogEntry.Description := 'Test archiving';
         TaskLogEntry."Archive After Processing" := true;
@@ -163,7 +157,7 @@ codeunit 70000 "Task Framework Tests"
     begin
         // Arrange
         TaskLogEntry.Init();
-        TaskLogEntry."Task Type" := TaskLogEntry."Task Type"::None;
+        TaskLogEntry."Task Processing Type" := TaskLogEntry."Task Processing Type"::None;
         TaskLogEntry.Status := TaskLogEntry.Status::Pending;
         TaskLogEntry.Description := 'Test unknown type';
         TaskLogEntry.Insert(true);
@@ -306,7 +300,7 @@ codeunit 70000 "Task Framework Tests"
 
         // Arrange: Create a task scheduled for tomorrow
         TaskLogEntry.Init();
-        TaskLogEntry."Task Type" := TaskLogEntry."Task Type"::VendorImport;
+        TaskLogEntry."Task Processing Type" := TaskLogEntry."Task Processing Type"::VendorImport;
         TaskLogEntry.Status := TaskLogEntry.Status::Pending;
         TaskLogEntry.Description := 'Future task - should not process';
         TaskLogEntry."Earliest Processing DateTime" := CreateDateTime(CalcDate('<+1D>', Today()), 0T);
