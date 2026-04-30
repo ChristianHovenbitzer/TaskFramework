@@ -1,10 +1,3 @@
-namespace Techdays.TaskFramework.Core;
-
-using Techdays.TaskFramework.Core.Archive;
-using Techdays.TaskFramework.Core.Errors;
-using Techdays.TaskFramework.Setup;
-using Techdays.TaskFramework.Vouchers;
-
 permissionset 50000 "Task Framework - All"
 {
     Caption = 'Task Framework - All';

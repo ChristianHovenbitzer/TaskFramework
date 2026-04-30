@@ -1,10 +1,3 @@
-namespace Techdays.TaskFramework.Processing;
-
-using Techdays.TaskFramework.Core;
-using Techdays.TaskFramework.Core.Archive;
-using Techdays.TaskFramework.Processing.Factory;
-using Techdays.TaskFramework.Setup;
-
 codeunit 50000 "Task Processor" implements "ITask Log Updater", "ITask Archiver", "ITask Processor"
 {
     [IntegrationEvent(false, false)]
@@ -74,7 +67,7 @@ codeunit 50000 "Task Processor" implements "ITask Log Updater", "ITask Archiver"
     #endregion Process Task Entry
 
     #region ITask Log Updater
-    procedure UpdateStatus(var TaskLogEntry: Record "Task Log Entry"; NewStatus: Enum "Task Status")
+    procedure UpdateStatus(var TaskLogEntry: Record "Task Log Entry"; NewStatus: Enum "Task Processing Status")
     begin
         TaskLogEntry.Status := NewStatus;
         if NewStatus = TaskLogEntry.Status::Processing then
@@ -92,7 +85,7 @@ codeunit 50000 "Task Processor" implements "ITask Log Updater", "ITask Archiver"
     begin
         ArchiveEntry.Init();
         ArchiveEntry."Entry No." := TaskLogEntry."Entry No.";
-        ArchiveEntry."Task Type" := TaskLogEntry."Task Type";
+        ArchiveEntry."Task Type" := TaskLogEntry."Task Processing Type";
         ArchiveEntry.Status := TaskLogEntry.Status;
         ArchiveEntry.Description := TaskLogEntry.Description;
         ArchiveEntry."Created At" := TaskLogEntry."Created At";
@@ -115,7 +108,7 @@ codeunit 50000 "Task Processor" implements "ITask Log Updater", "ITask Archiver"
     var
         Processor: Interface "ITask Processor";
     begin
-        Processor := TaskLogEntry."Task Type";
+        Processor := TaskLogEntry."Task Processing Type";
         Processor.ProcessTask(TaskLogEntry);
     end;
 }
