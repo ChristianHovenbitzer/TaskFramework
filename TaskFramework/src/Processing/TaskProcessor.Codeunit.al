@@ -1,9 +1,3 @@
-namespace Techdays.TaskFramework.Processing;
-
-using Techdays.TaskFramework.Core;
-using Techdays.TaskFramework.Core.Archive;
-using Techdays.TaskFramework.Setup;
-using Techdays.TaskFramework.Vouchers;
 using Microsoft.Purchases.Vendor;
 
 // ANTI-PATTERN: This codeunit is the central problem.
@@ -60,15 +54,15 @@ codeunit 50000 "Task Processor"
         // THE MONSTER CASE
         // ANTI-PATTERN: Framework app knows about VendorImport, LogRetention, DocumentImport.
         // Adding task type 4 means editing this file in the framework app.
-        case TaskLogEntry."Task Type" of
-            "Task Type"::VendorImport:
+        case TaskLogEntry."Task Processing Type" of
+            "Task Processing Type"::VendorImport:
                 ProcessVendorImport(TaskLogEntry);
-            "Task Type"::LogRetention:
+            "Task Processing Type"::LogRetention:
                 ProcessLogRetention(TaskLogEntry);
-            "Task Type"::DocumentImport:
+            "Task Processing Type"::DocumentImport:
                 ProcessDocumentImport(TaskLogEntry);
             else
-                Error('Unknown task type: %1', TaskLogEntry."Task Type");
+                Error('Unknown task type: %1', TaskLogEntry."Task Processing Type");
         end;
 
         TaskLogEntry.Status := TaskLogEntry.Status::Complete;
@@ -85,7 +79,7 @@ codeunit 50000 "Task Processor"
     begin
         Archive.Init();
         Archive."Entry No." := TaskLogEntry."Entry No.";
-        Archive."Task Type" := TaskLogEntry."Task Type";
+        Archive."Task Type" := TaskLogEntry."Task Processing Type";
         Archive.Status := TaskLogEntry.Status;
         Archive.Description := TaskLogEntry.Description;
         Archive."Created At" := TaskLogEntry."Created At";

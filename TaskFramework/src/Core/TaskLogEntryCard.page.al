@@ -1,5 +1,3 @@
-namespace Techdays.TaskFramework.Core;
-
 page 50001 "Task Log Entry Card"
 {
     PageType = Card;
@@ -14,7 +12,7 @@ page 50001 "Task Log Entry Card"
             group(General)
             {
                 field("Entry No."; Rec."Entry No.") { ApplicationArea = All; Editable = false; }
-                field("Task Type"; Rec."Task Type") { ApplicationArea = All; }
+                field("Task Processing Type"; Rec."Task Processing Type") { ApplicationArea = All; }
                 field(Status; Rec.Status) { ApplicationArea = All; }
                 field(Description; Rec.Description) { ApplicationArea = All; }
                 field("Created At"; Rec."Created At") { ApplicationArea = All; }
@@ -55,11 +53,11 @@ page 50001 "Task Log Entry Card"
 
                     // Inline task processing — duplicated from Task Processor codeunit
                     // And it only handles VendorImport, the others just get marked Complete
-                    case Rec."Task Type" of
-                        Rec."Task Type"::VendorImport:
+                    case Rec."Task Processing Type" of
+                        Rec."Task Processing Type"::VendorImport:
                             Message('Vendor import would run here. Check Task Log Entries list to run all.');
                         else
-                            Message('Task type %1 processed (simulated).', Rec."Task Type");
+                            Message('Task type %1 processed (simulated).', Rec."Task Processing Type");
                     end;
 
                     Rec.Status := Rec.Status::Complete;

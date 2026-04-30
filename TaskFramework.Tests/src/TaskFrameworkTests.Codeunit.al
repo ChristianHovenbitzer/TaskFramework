@@ -1,9 +1,3 @@
-namespace Techdays.TaskFramework.Tests;
-
-using Techdays.TaskFramework.Core;
-using Techdays.TaskFramework.Vouchers;
-using Techdays.TaskFramework.Processing;
-
 // ANTI-PATTERN: These tests demonstrate what happens when code is untestable.
 // Problems with these tests:
 // - They depend on real database records (Cronus vendors, customers)
@@ -29,7 +23,7 @@ codeunit 70000 "Task Framework Tests"
         // ANTI-PATTERN: Creating real database state in a test, no cleanup/isolation
         TaskLogEntry.Init();
         TaskLogEntry."Entry No." := 1;
-        TaskLogEntry."Task Type" := TaskLogEntry."Task Type"::VendorImport;
+        TaskLogEntry."Task Processing Type" := TaskLogEntry."Task Processing Type"::VendorImport;
         TaskLogEntry.Status := TaskLogEntry.Status::Pending;
         TaskLogEntry.Description := 'Test vendor import';
         TaskLogEntry.Insert(true);
@@ -59,7 +53,7 @@ codeunit 70000 "Task Framework Tests"
         // ANTI-PATTERN: Same coupling as Test 1 — real DB state, real Vendor side effect.
         TaskLogEntry.Init();
         TaskLogEntry."Entry No." := 1;
-        TaskLogEntry."Task Type" := TaskLogEntry."Task Type"::VendorImport;
+        TaskLogEntry."Task Processing Type" := TaskLogEntry."Task Processing Type"::VendorImport;
         TaskLogEntry.Status := TaskLogEntry.Status::Pending;
         TaskLogEntry.Description := 'Test ordering';
         TaskLogEntry."Archive After Processing" := true;

@@ -1,7 +1,3 @@
-namespace Techdays.TaskFramework.Core.Archive;
-
-using Techdays.TaskFramework.Core;
-
 table 50001 "Task Log Archive"
 {
     Caption = 'Task Log Archive';
@@ -10,8 +6,8 @@ table 50001 "Task Log Archive"
     fields
     {
         field(1; "Entry No."; Integer) { Caption = 'Entry No.'; }
-        field(2; "Task Type"; Enum "Task Type") { Caption = 'Task Type'; }
-        field(3; Status; Enum "Task Status") { Caption = 'Status'; }
+        field(2; "Task Type"; Enum "Task Processing Type") { Caption = 'Task Type'; }
+        field(3; Status; Enum "Task Processing Status") { Caption = 'Status'; }
         field(4; Description; Text[100]) { Caption = 'Description'; }
         field(5; Payload; Blob) { Caption = 'Payload'; }
         field(6; "Created At"; DateTime) { Caption = 'Created At'; }

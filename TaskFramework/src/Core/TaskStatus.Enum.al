@@ -1,6 +1,4 @@
-namespace Techdays.TaskFramework.Core;
-
-enum 50001 "Task Status"
+enum 50001 "Task Processing Status"
 {
     Extensible = true;
 
