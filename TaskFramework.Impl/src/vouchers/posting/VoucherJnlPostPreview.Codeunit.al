@@ -1,5 +1,3 @@
-namespace Techdays.TaskFramework.Impl.Vouchers;
-
 codeunit 60017 "Voucher Jnl.-Post Preview"
 {
     Access = Internal;

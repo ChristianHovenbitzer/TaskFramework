@@ -1,9 +1,3 @@
-namespace Techdays.TaskFramework.Tests;
-
-using Techdays.TaskFramework.Core;
-using Techdays.TaskFramework.Core.Archive;
-using Techdays.TaskFramework.Impl.Vouchers;
-using Techdays.TaskFramework.Processing;
 using Microsoft.Purchases.Vendor;
 using Microsoft.Sales.Customer;
 
@@ -36,7 +30,7 @@ codeunit 70009 "Task Framework Unit Tests"
     begin
         // Arrange — a Pending entry on disk so Modify has something to update.
         TaskLogEntry.Init();
-        TaskLogEntry."Task Type" := TaskLogEntry."Task Type"::None;
+        TaskLogEntry."Task Processing Type" := TaskLogEntry."Task Processing Type"::None;
         TaskLogEntry.Status := TaskLogEntry.Status::Pending;
         TaskLogEntry.Description := 'UpdateStatus lifecycle';
         TaskLogEntry.Insert(true);
@@ -69,7 +63,7 @@ codeunit 70009 "Task Framework Unit Tests"
     begin
         // Arrange — a fully-populated Complete entry flagged for archival.
         TaskLogEntry.Init();
-        TaskLogEntry."Task Type" := TaskLogEntry."Task Type"::None;
+        TaskLogEntry."Task Processing Type" := TaskLogEntry."Task Processing Type"::None;
         TaskLogEntry.Status := TaskLogEntry.Status::Complete;
         TaskLogEntry.Description := 'Archive end-to-end';
         TaskLogEntry."Retry Count" := 2;
@@ -103,7 +97,7 @@ codeunit 70009 "Task Framework Unit Tests"
         // to prove the parser ignores extras instead of failing.
         BeforeCount := Vendor.Count();
         TaskLogEntry.Init();
-        TaskLogEntry."Task Type" := TaskLogEntry."Task Type"::VendorImport;
+        TaskLogEntry."Task Processing Type" := TaskLogEntry."Task Processing Type"::VendorImport;
         TaskLogEntry.Status := TaskLogEntry.Status::Pending;
         TaskLogEntry.Description := 'Vendor import end-to-end';
         TaskLogEntry.Insert(true);
@@ -134,7 +128,7 @@ codeunit 70009 "Task Framework Unit Tests"
         CustomerNo := EnsureCustomer('CUST-DI');
         BeforeCount := VoucherLedgerEntry.Count();
         TaskLogEntry.Init();
-        TaskLogEntry."Task Type" := TaskLogEntry."Task Type"::DocumentImport;
+        TaskLogEntry."Task Processing Type" := TaskLogEntry."Task Processing Type"::DocumentImport;
         TaskLogEntry.Status := TaskLogEntry.Status::Pending;
         TaskLogEntry.Description := 'Document import end-to-end';
         TaskLogEntry.Insert(true);

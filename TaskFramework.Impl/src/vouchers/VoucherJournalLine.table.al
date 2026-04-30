@@ -1,5 +1,3 @@
-namespace Techdays.TaskFramework.Impl.Vouchers;
-
 using Microsoft.Sales.Customer;
 
 table 60010 "Voucher Journal Line"

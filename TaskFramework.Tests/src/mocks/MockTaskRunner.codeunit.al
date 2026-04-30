@@ -1,16 +1,10 @@
-namespace Techdays.TaskFramework.Tests.Mocks;
-
-using Techdays.TaskFramework.Core;
-using Techdays.TaskFramework.Processing;
-using Techdays.TaskFramework.Processing.Factory;
-
 /// <summary>
 /// Mock that implements all three collaborator interfaces and records every call.
 /// Does not modify the database — pure spy for orchestration tests.
 /// </summary>
 codeunit 70012 "Mock Task Runner" implements "ITask Log Updater", "ITask Archiver", "ITask Processor"
 {
-    procedure UpdateStatus(var TaskLogEntry: Record "Task Log Entry"; NewStatus: Enum "Task Status")
+    procedure UpdateStatus(var TaskLogEntry: Record "Task Log Entry"; NewStatus: Enum "Task Processing Status")
     var
         Recorder: Codeunit "Call Recorder";
     begin

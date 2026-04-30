@@ -1,5 +1,3 @@
-namespace Techdays.TaskFramework.Core;
-
 enum 50003 "Task Verbosity"
 {
     Extensible = true;

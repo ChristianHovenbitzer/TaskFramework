@@ -1,10 +1,3 @@
-namespace Techdays.TaskFramework.Tests;
-
-using Techdays.TaskFramework.Core;
-using Techdays.TaskFramework.Impl.Vouchers;
-using Techdays.TaskFramework.Processing;
-using Techdays.TaskFramework.Processing.Factory;
-using Techdays.TaskFramework.Tests.Mocks;
 using System.Utilities;
 
 codeunit 70000 "Task Framework Tests"
@@ -35,7 +28,7 @@ codeunit 70000 "Task Framework Tests"
 
         TaskLogEntry.Init();
         TaskLogEntry."Entry No." := 1;
-        TaskLogEntry."Task Type" := TaskLogEntry."Task Type"::VendorImport;
+        TaskLogEntry."Task Processing Type" := TaskLogEntry."Task Processing Type"::VendorImport;
         TaskLogEntry.Status := TaskLogEntry.Status::Pending;
         TaskLogEntry.Description := 'Test vendor import';
 
@@ -71,7 +64,7 @@ codeunit 70000 "Task Framework Tests"
 
         TaskLogEntry.Init();
         TaskLogEntry."Entry No." := 1;
-        TaskLogEntry."Task Type" := TaskLogEntry."Task Type"::VendorImport;
+        TaskLogEntry."Task Processing Type" := TaskLogEntry."Task Processing Type"::VendorImport;
         TaskLogEntry.Status := TaskLogEntry.Status::Pending;
         TaskLogEntry.Description := 'Test ordering';
         TaskLogEntry."Archive After Processing" := true;

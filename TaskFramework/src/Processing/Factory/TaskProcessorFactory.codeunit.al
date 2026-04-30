@@ -1,8 +1,3 @@
-namespace Techdays.TaskFramework.Processing.Factory;
-
-using Techdays.TaskFramework.Core;
-using Techdays.TaskFramework.Processing;
-
 codeunit 50008 "Task Processor Factory" implements "ITask Processor Factory"
 {
     var

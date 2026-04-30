@@ -1,5 +1,3 @@
-namespace Techdays.TaskFramework.Tests.Mocks;
-
 /// <summary>
 /// SingleInstance spy that captures the order of mock collaborator calls during a test.
 /// Mocks call <c>Record</c>; tests assert against <c>GetCall</c> / <c>GetCallCount</c>.

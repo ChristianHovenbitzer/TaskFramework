@@ -1,5 +1,3 @@
-namespace Techdays.TaskFramework.Tests;
-
 // Minimal local Assert helper — replaces Library Assert dependency for the prototype.
 // Using Library Assert would require a BC server with test libraries installed.
 // Step 8 will evaluate whether to use Library Assert or keep this lightweight helper.

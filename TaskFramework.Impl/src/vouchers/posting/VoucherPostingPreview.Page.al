@@ -1,5 +1,3 @@
-namespace Techdays.TaskFramework.Impl.Vouchers;
-
 page 60013 "Voucher Posting Preview"
 {
     PageType = List;
