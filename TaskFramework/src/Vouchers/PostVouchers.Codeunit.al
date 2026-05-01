@@ -1,10 +1,6 @@
 // ANTI-PATTERN: Everything in one procedure.
 //
 // TODO: (Step 5 - Journal → Posting → Ledger Entry)
-// TODO: (Step 6 - Collectible Errors): replace the Error() calls in Check Line
-// with LogError(ErrorLog, LineNo, Message, IsBlocking) writing to "Task Error Log",
-// and have Post Batch collect errors from all lines before deciding whether to
-// post. Show the full error list instead of stopping on the first failure.
 codeunit 50001 "Post Vouchers"
 {
     var

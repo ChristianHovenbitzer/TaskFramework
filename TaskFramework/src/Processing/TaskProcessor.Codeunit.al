@@ -29,12 +29,6 @@ codeunit 50000 "Task Processor" implements "ITask Log Updater", "ITask Archiver"
     begin
         // ANTI-PATTERN: No error isolation.
         // If ProcessTaskEntry throws for entry 3 of 10, entries 4-10 never run.
-        //
-        // TODO: (Step 6 - Collectible Errors): change Check Line's Error() calls to
-        // LogError(ErrorLog, ..., IsBlocking) writing to the "Task Error Log" table,
-        // and have Post Batch collect all errors before deciding whether to post.
-        // Show the full error list (Message or Error Log page) instead of stopping
-        // on the first failure.
         Clear(TaskProcessingState);
 
         TaskLogEntry.ReadIsolation(IsolationLevel::UpdLock);
