@@ -5,21 +5,6 @@
 // - They're tightly coupled to the monster codeunit
 // - Test 1 creates real Vendor records (side effects!)
 // - Test 2 can only verify the first error, not ALL errors
-//
-// TODO: (Step 8 - Mock via Interface): replace everything below with mock-based
-// tests. Requires Step 4 to add the internal ProcessTaskEntry(entry; Processor)
-// DI overload first:
-//   1. Create a "Mock Task Processor" codeunit in this test app that
-//      implements "ITask Processor". Record whether it was called and with what
-//      entry; add a ShouldFail flag for error-path tests.
-//   2. Write a happy-path test: create a pending entry, inject the mock via
-//      the internal ProcessTaskEntry(entry; Processor) overload, verify the
-//      mock was called exactly once.
-//   3. Write an error-path test: ShouldFail = true, verify the entry status
-//      ends in Failed.
-//   4. Write a lifecycle test: verify Pending → Processing → Complete.
-//   5. Bonus: test Check Line with a mock that records which lines were
-//      validated and asserts all errors were collected (Step 6 payoff).
 codeunit 70000 "Task Framework Tests"
 {
     Subtype = Test;
@@ -74,7 +59,6 @@ codeunit 70000 "Task Framework Tests"
         // ANTI-PATTERN: asserterror only tests the FIRST error.
         // We can't verify that Amount = 0 also produces an error in the same call
         // because ERROR() stops on the first failure.
-        // Step 6 will fix this: all errors will be collected before reporting.
         asserterror PostVouchers.PostVoucher(VoucherEntry);
         Assert.IsTrue(
             GetLastErrorText().Contains('Customer No.'),
