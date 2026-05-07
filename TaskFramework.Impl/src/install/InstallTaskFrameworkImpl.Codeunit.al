@@ -3,11 +3,6 @@
 // All task type logic that belongs here is incorrectly placed in the framework app.
 //
 // TODO: (Step 3 - DI / Strategy via Interfaces)
-// TODO: (Step 5 - Journal → Posting → Ledger Entry): this app will also receive
-// the voucher posting pipeline (Check Line, Post Line, Post Batch) and the
-// Voucher Journal Line / Ledger Entry / Register tables.
-// By the end of the workshop, the framework app will know nothing about
-// vendors, documents, or accounting — all of that lives here.
 codeunit 60000 "Install Task Framework Impl"
 {
     Subtype = Install;

@@ -1,5 +1,3 @@
-using Microsoft.Purchases.Vendor;
-
 // ANTI-PATTERN: This codeunit is the central problem.
 // - It knows about ALL task type business logic (VendorImport, LogRetention, DocumentImport)
 // - Adding a new task type means editing this codeunit in the framework app
@@ -28,12 +26,6 @@ codeunit 50000 "Task Processor"
     begin
         // ANTI-PATTERN: No error isolation.
         // If ProcessTaskEntry throws for entry 3 of 10, entries 4-10 never run.
-        //
-        // TODO: (Step 6 - Collectible Errors): change Check Line's Error() calls to
-        // LogError(ErrorLog, ..., IsBlocking) writing to the "Task Error Log" table,
-        // and have Post Batch collect all errors before deciding whether to post.
-        // Show the full error list (Message or Error Log page) instead of stopping
-        // on the first failure.
         Clear(TaskProcessingState);
 
         TaskLogEntry.SetRange(Status, TaskLogEntry.Status::Pending);
@@ -63,10 +55,6 @@ codeunit 50000 "Task Processor"
         // Adding task type 4 means editing this file in the framework app.
         //
         // TODO: (Step 3 - DI / Strategy via Interfaces)
-        // TODO: (Step 4 - Factory Pattern): add an internal overload
-        //      procedure ProcessTaskEntry(var TaskLogEntry; Processor: Interface "ITask Processor")
-        // and have the public entry resolve the processor via "Task Processor Factory".
-        // This overload is what makes Step 8 testable.
         case TaskLogEntry."Task Processing Type" of
             "Task Processing Type"::VendorImport:
                 ProcessVendorImport(TaskLogEntry);
@@ -173,11 +161,6 @@ codeunit 50000 "Task Processor"
         // Parses payload, creates Voucher Entry, IMMEDIATELY posts it — no staging/review.
         //
         // TODO: (Step 3 - DI / Strategy via Interfaces)
-        // TODO: (Step 5 - Journal → Posting → Ledger Entry): once the processor lives in
-        // the Impl app, have it build Voucher Journal Lines via a Builder
-        // (CreateFromTaskPayload, Init → Validate PK → Insert → Validate fields → Modify)
-        // and then run "Voucher Jnl.-Post Batch" to post them through the Check Line /
-        // Post Line / Post Batch pipeline.
         TaskLogEntry.CalcFields(Payload);
         if TaskLogEntry.Payload.HasValue() then begin
             TaskLogEntry.Payload.CreateInStream(InStr, TextEncoding::UTF8);
