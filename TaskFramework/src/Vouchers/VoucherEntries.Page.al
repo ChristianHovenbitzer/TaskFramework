@@ -43,9 +43,6 @@ page 50004 "Voucher Entries"
                     // Posting here skips ALL validation — even the inline checks in PostVouchers.
                     //
                     // TODO: (Step 2 - Separation of Concerns)
-                    // TODO (Step 5 - Journal → Posting → Ledger Entry): after Step 2,
-                    // the remaining posting path will be replaced by
-                    // "Voucher Jnl.-Post Batch" against Voucher Journal Lines.
                     CurrPage.SetSelectionFilter(VoucherEntry);
                     VoucherEntry.SetRange(Status, VoucherEntry.Status::Draft);
                     if VoucherEntry.FindSet(true) then

@@ -3,24 +3,11 @@ using Microsoft.Purchases.Vendor;
 // ANTI-PATTERN: This codeunit is the central problem.
 // - It knows about ALL task type business logic (VendorImport, LogRetention, DocumentImport)
 // - Adding a new task type means editing this codeunit in the framework app
-//
-// TODO (Step 3 - DI / Strategy via Interfaces):
-//   1. Create "ITask Processor" interface with a ProcessTask(var TaskLogEntry) method.
-//   2. Update the "Task Type" enum to implement "ITask Processor", set Extensible = true,
-//      and bind each enum value to its concrete implementation.
-//   3. Move each ProcessXxxImport procedure into its own codeunit in TaskFramework.Impl
-//      (Access = Internal, implements "ITask Processor").
-//   4. Replace the CASE block below with: Processor := TaskLogEntry."Task Processing Type";
-//      Processor.ProcessTask(TaskLogEntry);
-//   5. Remove the per-type local procedures and the self-subscribed event plumbing.
 codeunit 50000 "Task Processor"
 {
     // ANTI-PATTERN: Publishing an event AND subscribing to it in the same codeunit.
     // There is zero benefit to this — just call the function directly.
     // "Never publish and subscribe to events within the same app." — Christian
-    //
-    // TODO (Step 3 - DI / Strategy via Interfaces): delete this event and its subscriber
-    // entirely. Step 7 will show the correct pattern for real extensibility events.
     [IntegrationEvent(false, false)]
     local procedure OnBeforeProcessTask(var TaskLogEntry: Record "Task Log Entry"; var IsHandled: Boolean)
     begin
@@ -43,12 +30,6 @@ codeunit 50000 "Task Processor"
     begin
         // ANTI-PATTERN: No error isolation.
         // If ProcessTaskEntry throws for entry 3 of 10, entries 4-10 never run.
-        //
-        // TODO (Step 6 - Collectible Errors): change Check Line's Error() calls to
-        // LogError(ErrorLog, ..., IsBlocking) writing to the "Task Error Log" table,
-        // and have Post Batch collect all errors before deciding whether to post.
-        // Show the full error list (Message or Error Log page) instead of stopping
-        // on the first failure.
         TaskLogEntry.SetRange(Status, TaskLogEntry.Status::Pending);
         TaskLogEntry.SetFilter("Earliest Processing DateTime", '%1|<%2', 0DT, CurrentDateTime);
         if TaskLogEntry.FindSet(true) then
@@ -73,14 +54,6 @@ codeunit 50000 "Task Processor"
         // THE MONSTER CASE
         // ANTI-PATTERN: Framework app knows about VendorImport, LogRetention, DocumentImport.
         // Adding task type 4 means editing this file in the framework app.
-        //
-        // TODO (Step 3 - DI / Strategy via Interfaces): replace this entire CASE with
-        //      Processor := TaskLogEntry."Task Processing Type";
-        //      Processor.ProcessTask(TaskLogEntry);
-        // TODO (Step 4 - Factory Pattern): add an internal overload
-        //      procedure ProcessTaskEntry(var TaskLogEntry; Processor: Interface "ITask Processor")
-        // and have the public entry resolve the processor via "Task Processor Factory".
-        // This overload is what makes Step 8 testable.
         case TaskLogEntry."Task Processing Type" of
             "Task Processing Type"::VendorImport:
                 ProcessVendorImport(TaskLogEntry);
@@ -133,10 +106,6 @@ codeunit 50000 "Task Processor"
     begin
         // ANTI-PATTERN: Inline business logic — creating a Vendor from a task payload.
         // The framework should know NOTHING about Vendors.
-        //
-        // TODO (Step 3 - DI / Strategy via Interfaces): move this whole procedure into
-        // a new codeunit "Vendor Import Processor" in TaskFramework.Impl (Access = Internal,
-        // implements "ITask Processor"). Delete this local procedure from the framework.
         TaskLogEntry.CalcFields(Payload);
         if TaskLogEntry.Payload.HasValue() then begin
             TaskLogEntry.Payload.CreateInStream(InStr, TextEncoding::UTF8);
@@ -187,14 +156,6 @@ codeunit 50000 "Task Processor"
     begin
         // ANTI-PATTERN: Document import logic inline in framework.
         // Parses payload, creates Voucher Entry, IMMEDIATELY posts it — no staging/review.
-        //
-        // TODO (Step 3 - DI / Strategy via Interfaces): move this into a new
-        // "Document Import Processor" codeunit in TaskFramework.Impl.
-        // TODO (Step 5 - Journal → Posting → Ledger Entry): once the processor lives in
-        // the Impl app, have it build Voucher Journal Lines via a Builder
-        // (CreateFromTaskPayload, Init → Validate PK → Insert → Validate fields → Modify)
-        // and then run "Voucher Jnl.-Post Batch" to post them through the Check Line /
-        // Post Line / Post Batch pipeline.
         TaskLogEntry.CalcFields(Payload);
         if TaskLogEntry.Payload.HasValue() then begin
             TaskLogEntry.Payload.CreateInStream(InStr, TextEncoding::UTF8);

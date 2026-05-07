@@ -1,11 +1,4 @@
 // ANTI-PATTERN: This page remains fully editable even after Status = Posted.
-//
-// TODO (Step 5 - Journal → Posting → Ledger Entry): this card will disappear
-// along with "Voucher Entry". Replace with two pages:
-//   - "Voucher Journal Lines" — editable staging list (Journal Line rows).
-//   - "Voucher Ledger Entries" — read-only list over the Ledger Entry table.
-// Posted records must be immutable. Enforce that by having them live in a
-// different table, not just by hiding fields on a card.
 page 50005 "Voucher Entry Card"
 {
     PageType = Card;
