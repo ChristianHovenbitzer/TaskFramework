@@ -1,3 +1,7 @@
+// TODO: (Step 4 - Factory Pattern): new factory codeunit. Stateful Set/Get pair
+// per role, gated by HasCustom* booleans (interfaces hold null with no runtime
+// "is set?" check, so the boolean tracks "explicitly set" for us). Default backend
+// is Task Processor itself, which implements all three role interfaces.
 codeunit 50008 "Task Processor Factory" implements "ITask Processor Factory"
 {
     Access = Internal;

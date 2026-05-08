@@ -1,3 +1,6 @@
+// TODO: (Step 4 - Factory Pattern): Task Processor now wears three hats — it's
+// the framework's default ITask Log Updater, ITask Archiver, and ITask Processor.
+// The Factory routes between these defaults and any test-injected overrides.
 codeunit 50000 "Task Processor" implements "ITask Log Updater", "ITask Archiver", "ITask Processor"
 {
     [IntegrationEvent(false, false)]
@@ -41,6 +44,9 @@ codeunit 50000 "Task Processor" implements "ITask Log Updater", "ITask Archiver"
             until TaskLogEntry.Next() = 0;
     end;
 
+    // TODO: (Step 4 - Factory Pattern): public bare overload — production entry
+    // point. Constructs a default Factory and delegates to the Factory-taking
+    // overload below. The bare-vs-with-factory split is the test seam.
     procedure ProcessTaskEntry(var TaskLogEntry: Record "Task Log Entry")
     var
         Factory: Codeunit "Task Processor Factory";
@@ -70,6 +76,9 @@ codeunit 50000 "Task Processor" implements "ITask Log Updater", "ITask Archiver"
     //         Archiver.Archive(TaskLogEntry);
     // end;
 
+    // TODO: (Step 4 - Factory Pattern): Factory-taking overload — every status
+    // touch, the processor dispatch, and the archive call now route through the
+    // factory. Inline status flips and the local ArchiveEntry call are gone.
     procedure ProcessTaskEntry(var TaskLogEntry: Record "Task Log Entry"; Factory: Interface "ITask Processor Factory")
     var
         IsHandled: Boolean;
@@ -89,6 +98,9 @@ codeunit 50000 "Task Processor" implements "ITask Log Updater", "ITask Archiver"
     #endregion Process Task Entry
 
     #region ITask Log Updater
+    // TODO: (Step 4 - Factory Pattern): body extracted from the inline status
+    // flips that were in ProcessTaskEntry. This is Task Processor's default
+    // implementation of ITask Log Updater.
     procedure UpdateStatus(var TaskLogEntry: Record "Task Log Entry"; NewStatus: Enum "Task Processing Status")
     begin
         TaskLogEntry.Status := NewStatus;
@@ -101,6 +113,9 @@ codeunit 50000 "Task Processor" implements "ITask Log Updater", "ITask Archiver"
     #endregion
 
     #region ITask Archiver
+    // TODO: (Step 4 - Factory Pattern): renamed from `local procedure ArchiveEntry`
+    // and promoted to a public procedure — this is Task Processor's default
+    // implementation of ITask Archiver.
     procedure Archive(var TaskLogEntry: Record "Task Log Entry")
     var
         ArchiveEntry: Record "Task Log Archive";
@@ -126,6 +141,8 @@ codeunit 50000 "Task Processor" implements "ITask Log Updater", "ITask Archiver"
     #endregion
 
 
+    // TODO: (Step 4 - Factory Pattern): wraps the Step 3 enum→interface dispatch
+    // so Task Processor can serve as its own default ITask Processor.
     procedure ProcessTask(var TaskLogEntry: Record "Task Log Entry")
     var
         Processor: Interface "ITask Processor";
