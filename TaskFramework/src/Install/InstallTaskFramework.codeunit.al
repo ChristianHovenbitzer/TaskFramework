@@ -1,3 +1,7 @@
+// TODO: (Step 3 - DI / Strategy via Interfaces): move this whole codeunit into the
+// Impl app (TaskFramework.Impl/src/install/), renumber to the 60000 range, and
+// delete this folder. The framework shouldn't seed Vendor or Voucher demo data
+// — that lives in the Impl app once business-specific enum values move there.
 codeunit 50002 "Install Task Framework"
 {
     Subtype = Install;

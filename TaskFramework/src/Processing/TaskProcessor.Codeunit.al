@@ -129,6 +129,9 @@ codeunit 50000 "Task Processor"
         Vendor.Insert(true);
     end;
 
+    // TODO: (Step 3 - DI / Strategy via Interfaces): extract this body into a new
+    // "Log Retention Processor" codeunit in the Framework app (it's generic
+    // infrastructure, not business-specific).
     local procedure ProcessLogRetention(var TaskLogEntry: Record "Task Log Entry")
     var
         Archive: Record "Task Log Archive";
