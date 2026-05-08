@@ -10,6 +10,10 @@ codeunit 60010 "Voucher Jnl.-Check Line Impl"
         RunCheck(Rec);
     end;
 
+    // TODO: (Step 6 - Collectible Errors): TestField calls replaced with
+    // LogErrorMessage (blocking) for required fields and LogWarning (non-blocking)
+    // for the empty Description case. [ErrorBehavior(Collect)] makes the entries
+    // accumulate into the active ErrorMessageHandler instead of throwing.
     [ErrorBehavior(ErrorBehavior::Collect)]
     procedure RunCheck(VoucherJnlLine: Record "Voucher Journal Line")
     var

@@ -13,6 +13,9 @@ codeunit 60012 "Voucher Jnl.-Post Batch Impl"
         PostBatch(Rec);
     end;
 
+    // TODO: (Step 6 - Collectible Errors): annotated to collect; phase 1 now
+    // activates ErrorMessageHandler, runs Check Line for every line, then aborts
+    // via ShowErrors + Error('') if anything was logged with error severity.
     [ErrorBehavior(ErrorBehavior::Collect)]
     procedure PostBatch(var VoucherJnlLine: Record "Voucher Journal Line")
     var
