@@ -69,6 +69,8 @@ page 50004 "Voucher Entries"
                     // This one does validation (will error on missing Customer).
                     // PostSelected above skips validation entirely.
                     // Two paths, inconsistent behavior — another anti-pattern.
+                    // TODO: (Step 2 - Separation of Concerns): delete this action;
+                    // PostSelected above is the consolidated path.
                     PostVouchers.PostVoucher(Rec);
                 end;
             }

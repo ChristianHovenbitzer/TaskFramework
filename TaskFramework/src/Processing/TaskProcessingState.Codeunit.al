@@ -1,10 +1,10 @@
 // ANTI-PATTERN: SingleInstance codeunit storing mutable state.
 // State is lost when session ends. Breaks completely with background sessions and Job Queue.
 // Christian: "A hint that something in the architecture is wrong."
-//
-// TODO: (Step 2 - Separation of Concerns)
 codeunit 50003 "Task Processing State"
 {
+    // TODO: (Step 2 - Separation of Concerns): drop SingleInstance. Keep the codeunit;
+    // Task Processor will hold an instance of it as a local var instead.
     SingleInstance = true;
 
     var

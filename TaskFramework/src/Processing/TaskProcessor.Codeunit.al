@@ -19,8 +19,8 @@ codeunit 50000 "Task Processor"
         State: Codeunit "Task Processing State";
     begin
         // ANTI-PATTERN: Calling into a SingleInstance codeunit for "tracking".
-        // TODO: (Step 2 - Separation of Concerns): delete this subscriber together with
-        // Codeunit "Task Processing State" (see that file for details).
+        // TODO: (Step 2 - Separation of Concerns): delete this subscriber. The counter
+        // calls move inline into ProcessAllPendingTasks; the publisher above stays.
         State.IncrementProcessedCount();
     end;
 
@@ -30,6 +30,9 @@ codeunit 50000 "Task Processor"
     begin
         // ANTI-PATTERN: No error isolation.
         // If ProcessTaskEntry throws for entry 3 of 10, entries 4-10 never run.
+        // TODO: (Step 2 - Separation of Concerns): hold Task Processing State as a local
+        // var on this codeunit, Clear() it here, and call IncrementProcessedCount /
+        // SetLastProcessed inside the loop after ProcessTaskEntry.
         TaskLogEntry.SetRange(Status, TaskLogEntry.Status::Pending);
         TaskLogEntry.SetFilter("Earliest Processing DateTime", '%1|<%2', 0DT, CurrentDateTime);
         if TaskLogEntry.FindSet(true) then
@@ -42,7 +45,8 @@ codeunit 50000 "Task Processor"
     var
         IsHandled: Boolean;
     begin
-        //TODO: (Step 2 - Task Processing State)
+        // TODO: (Step 2 - Separation of Concerns): pass the Task Processing State
+        // codeunit through this event so subscribers can read it.
         OnBeforeProcessTask(TaskLogEntry, IsHandled);
         if IsHandled then
             exit;

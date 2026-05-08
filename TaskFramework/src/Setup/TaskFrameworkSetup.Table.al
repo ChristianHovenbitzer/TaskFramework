@@ -26,9 +26,8 @@ table 50003 "Task Framework Setup"
         field(10; "Batch Size"; Integer) { Caption = 'Batch Size'; MinValue = 1; }
         field(11; "Archive Enabled"; Boolean) { Caption = 'Archive Enabled'; }
 
-        // TODO: (Step 2 - Separation of Concerns): add setup
-        // framework can pull configuration from here instead of hardcoding values.
-        // Also surface the new field on "Task Framework Setup" page under Archive.
+        // TODO: (Step 2 - Separation of Concerns): add the Retention Days field used by
+        // ProcessLogRetention so it's no longer hardcoded.
     }
 
     keys

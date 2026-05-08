@@ -26,12 +26,12 @@ state floating around.
 **Goal:** the Process action becomes one line.
 **Where:** `TaskLogEntryCard.page.al` — the `OnAction` of the Process action.
 **Hint:** the codeunit and procedure already exist (`TaskProcessor.ProcessTaskEntry`). The page should just call it with `Rec`.
-**Done when:** no business logic remains in the page; the action body is one line plus a `CurrPage.Update`.
+**Done when:** no business logic remains in the page; the action body is a single codeunit call.
 
 ### 2. Consolidate the Voucher posting actions
 **Goal:** one posting path, not two.
 **Where:** `VoucherEntries.Page.al`.
-**Hint:** the page has two actions today — one that flips status inline, one that calls `PostVouchers`. Keep the codeunit path. Delete the inline one.
+**Hint:** the page has two actions today — `PostSelected` (loops the selection and flips status inline) and `PostViaCodeunit` (calls `PostVouchers` for the current record). Collapse to a single action: keep the selection-loop shape, but replace the inline status flipping with a call to `PostVouchers.PostVoucher(VoucherEntry)` inside the loop. Delete the second action entirely.
 **Why this matters:** two paths = two behaviors when you'd want exactly one. Page-level "shortcuts" diverge from the real implementation over time.
 
 ### 3. Read retention days from Setup
@@ -41,10 +41,15 @@ state floating around.
 **Done when:** the value comes from the setup record, the field is editable on the setup page, and changing it changes runtime behavior.
 
 ### 4. Drop SingleInstance
-**Goal:** `Task Processing State` is no longer `SingleInstance = true`.
-**Where:** `TaskProcessingState.Codeunit.al` and the subscriber in `TaskProcessor.Codeunit.al`.
-**Hint:** two valid options — (a) delete the codeunit entirely if you don't need the counter, (b) keep it as a normal codeunit and pass it as a `var` parameter where needed. Either way, also remove the `OnBeforeProcessTask` subscriber that calls it (and its publisher in the same file — same-app self-subscription is its own anti-pattern).
-**Why this matters:** `SingleInstance` state vanishes when the session ends. Background sessions / Job Queue see a fresh instance every time. State that needs to survive belongs in a table.
+**Goal:** `Task Processing State` is no longer `SingleInstance = true`, and the same-app self-subscription is gone.
+**Where:** `TaskProcessingState.Codeunit.al` and `TaskProcessor.Codeunit.al`.
+**Hint:**
+- Remove `SingleInstance = true` from `Task Processing State`. Keep it as a normal codeunit.
+- In `Task Processor`, hold the state as a local `var` field on the codeunit and `Clear()` it at the start of `ProcessAllPendingTasks`.
+- Move the `IncrementProcessedCount` / `SetLastProcessed` calls inline into `ProcessAllPendingTasks` after each `ProcessTaskEntry`.
+- Delete the `HandleBeforeProcess` event subscriber — that's the self-subscription anti-pattern.
+- **Keep** the `OnBeforeProcessTask` integration event itself. It's a legitimate extension point for other apps; only the in-app subscriber is the smell. While you're there, refine its signature to also pass the state codeunit so subscribers can read it.
+**Why this matters:** `SingleInstance` state vanishes when the session ends. Background sessions / Job Queue see a fresh instance every time. State that needs to survive belongs in a table. The self-subscription is unrelated — it's the *publisher and subscriber living in the same app* that's the anti-pattern; the publisher alone is fine.
 
 ## Done when
 
@@ -52,7 +57,7 @@ state floating around.
 - [ ] `Voucher Entries` has one posting action, calling `PostVouchers.PostVoucher`
 - [ ] Retention days comes from `Task Framework Setup`; the field is editable on the page
 - [ ] `SingleInstance = true` no longer appears anywhere
-- [ ] The self-subscribed `OnBeforeProcessTask` event and its handler are gone
+- [ ] The `HandleBeforeProcess` self-subscriber is gone (publisher stays as an extension point)
 - [ ] App compiles, app installs, "Process All Pending" still works end-to-end
 
 ## If you get stuck
