@@ -47,6 +47,10 @@ codeunit 50000 "Task Processor" implements "ITask Log Updater", "ITask Archiver"
         ProcessTaskEntry(TaskLogEntry, Factory);
     end;
 
+    // TODO: (Step 8 - Mock via Factory): delete this whole event subscriber. It's
+    // the Step-2 same-app self-subscription anti-pattern recurring, and it's
+    // redundant — the Factory's Default backend is already Task Processor itself,
+    // which already implements ITask Archiver.
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Task Processor", OnBeforeProcessTask, '', false, false)]
     local procedure MyProcedure(var Factory: Interface "ITask Processor Factory")
     begin

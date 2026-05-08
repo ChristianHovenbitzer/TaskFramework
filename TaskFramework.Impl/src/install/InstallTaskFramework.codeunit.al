@@ -2,6 +2,10 @@ codeunit 60002 "Install Task Framework"
 {
     Subtype = Install;
 
+    // TODO: (Step 8 - Mock via Factory): comment out these seed calls. Tests should
+    // arrange their own state — auto-seeding pollutes test runs with data they
+    // didn't ask for. Leave the Seed* procedures in place; they're useful when
+    // demoing the workshop scenario interactively.
     trigger OnInstallAppPerCompany()
     begin
         SeedSetup();
