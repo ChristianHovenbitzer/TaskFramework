@@ -1,3 +1,6 @@
+// TODO: (Step 5 - Journal → Posting → Ledger Entry): internal Impl that creates
+// one Voucher Ledger Entry from one journal line. Maintains NextEntryNo across the
+// run; raises OnAfterPostVoucherLine so the preview handler can capture entries.
 codeunit 60011 "Voucher Jnl.-Post Line Impl"
 {
     Access = Internal;

@@ -1,3 +1,6 @@
+// TODO: (Step 5 - Journal → Posting → Ledger Entry): public facade for the
+// Post Line stage. Forwards to the internal Impl. Permissions on Voucher Ledger
+// Entry are declared here.
 codeunit 60014 "Voucher Jnl.-Post Line"
 {
     TableNo = "Voucher Journal Line";

@@ -1,3 +1,6 @@
+// TODO: (Step 5 - Journal → Posting → Ledger Entry): public facade for the
+// orchestrator. Forwards to PostBatchImpl. Declares the cross-table permissions
+// the whole pipeline needs.
 codeunit 60015 "Voucher Jnl.-Post Batch"
 {
     TableNo = "Voucher Journal Line";

@@ -1,5 +1,8 @@
 codeunit 50000 "Task Processor" implements "ITask Log Updater", "ITask Archiver", "ITask Processor"
 {
+    // TODO: (Step 5 - Journal → Posting → Ledger Entry): event signature gained a
+    // `var Factory` parameter so subscribers can mutate factory wiring before
+    // processing. Caller in ProcessTaskEntry passes Factory through.
     [IntegrationEvent(false, false)]
     local procedure OnBeforeProcessTask(var TaskLogEntry: Record "Task Log Entry"; TaskProcessingState: Codeunit "Task Processing State"; var Factory: Interface "ITask Processor Factory"; var IsHandled: Boolean)
     begin

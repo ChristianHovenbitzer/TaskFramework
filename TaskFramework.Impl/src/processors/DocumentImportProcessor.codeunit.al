@@ -1,3 +1,6 @@
+// TODO: (Step 5 - Journal → Posting → Ledger Entry): rewired through the new
+// posting pipeline. Builds a Voucher Journal Line inline and runs PostBatchImpl
+// — no more direct creation of the (now-deleted) Voucher Entry table.
 codeunit 60003 "Document Import Processor" implements "ITask Processor"
 {
     Access = Internal;

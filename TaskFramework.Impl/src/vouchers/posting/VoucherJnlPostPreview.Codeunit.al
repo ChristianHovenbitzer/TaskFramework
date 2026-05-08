@@ -1,3 +1,7 @@
+// TODO: (Step 5 - Journal → Posting → Ledger Entry): optional posting preview.
+// Uses [CommitBehavior(Error)] + manual event subscription on Post Line Impl's
+// OnAfterPostVoucherLine to capture would-be ledger entries, then throws a
+// sentinel error to roll back the transaction and shows the captured entries.
 codeunit 60017 "Voucher Jnl.-Post Preview"
 {
     Access = Internal;

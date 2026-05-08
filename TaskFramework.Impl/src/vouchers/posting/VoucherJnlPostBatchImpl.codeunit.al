@@ -1,5 +1,9 @@
 using System.Utilities;
 
+// TODO: (Step 5 - Journal → Posting → Ledger Entry): internal orchestrator. Five
+// phases: validate-with-error-collection, create register, post all lines under
+// it, update register entry-range, delete journal lines. Validation runs under
+// [ErrorBehavior(Collect)] + ErrorMessageHandler so users see ALL errors at once.
 codeunit 60012 "Voucher Jnl.-Post Batch Impl"
 {
     Access = Internal;

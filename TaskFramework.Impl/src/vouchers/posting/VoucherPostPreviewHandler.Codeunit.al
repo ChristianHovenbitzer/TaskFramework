@@ -1,3 +1,6 @@
+// TODO: (Step 5 - Journal → Posting → Ledger Entry): manual subscriber that the
+// preview activates via BindSubscription. Captures would-be ledger entries into a
+// temp record so the preview page can show them after the rollback.
 codeunit 60016 "Voucher Post. Preview Handler"
 {
     Access = Internal;
