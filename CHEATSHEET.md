@@ -87,9 +87,11 @@ You'll keep the test names (`TestProcessVendorImportTask`, etc.) but the bodies 
 **Hint:** comment out the three `SeedSetup()` / `SeedVoucherJournalLines()` / `SeedTaskLogEntries()` calls in `OnInstallAppPerCompany`. Each test arranges exactly the state it needs.
 
 ### 6. Final cleanup — remove the orphan same-app subscriber
-**Goal:** delete the in-codeunit `OnBeforeProcessTask` subscriber that snuck in earlier.
+**Goal:** delete the in-codeunit `OnBeforeProcessTask` subscriber that snuck in earlier; tighten `Archive` so the call site is uniform.
 **Where:** `TaskFramework/src/Processing/TaskProcessor.codeunit.al`.
-**Hint:** there's a `[EventSubscriber] local procedure MyProcedure(var Factory: ...)` near the top of the codeunit (right after the public `ProcessTaskEntry`). It's the same-app self-subscription anti-pattern from Step 2, and the Factory's default already provides the archiver — so the subscriber is both wrong-shaped and redundant. Delete the whole event subscriber.
+**Hint — two small changes:**
+- Delete the `[EventSubscriber] local procedure MyProcedure(var Factory: ...)` near the top of the codeunit. It's the same-app self-subscription anti-pattern from Step 2, and the Factory's default already provides the archiver — so the subscriber is both wrong-shaped and redundant.
+- Move the `if TaskLogEntry."Archive After Processing"` guard out of `ProcessTaskEntry` and into `Archive` itself (early-exit at the top of the procedure). After this, `ProcessTaskEntry` calls `Factory.GetArchiver().Archive(...)` *unconditionally* — the call site is uniform, and the "do I archive?" decision is encapsulated by the archiver. This makes the spy-based orchestration tests easier to assert: every successful run records exactly four spy calls (Updater × 2, Processor, Archiver), regardless of the entry's archive flag.
 
 ## Done when
 
