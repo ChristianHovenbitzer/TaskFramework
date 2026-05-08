@@ -5,13 +5,15 @@
 
 ## What you're building in this step
 
-Right now `Voucher Jnl.-Check Line` calls `Error()` on the first problem it finds —
-users fix it, post again, hit the next error, and so on. You're going to replace that
-with a collector: `Check Line` writes every problem into the `Task Error Log`, and
-`Post Batch` decides whether to fail at the end of phase 1.
+Right now `Voucher Jnl.-Check Line` calls `TestField` on the first problem it finds —
+users fix it, post again, hit the next error, and so on. You're going to switch to
+BC's standard collectible-errors mechanism so all problems on all lines surface in
+one go, with a clean separation between blocking errors (stop posting) and
+non-blocking warnings (post anyway, surface for the user).
 
-Bonus: distinguish **blocking** errors (stop posting) from **non-blocking** warnings
-(post anyway, surface as a Notification).
+The mechanism is the BC framework's `Error Message Management` codeunit plus the
+`[ErrorBehavior(ErrorBehavior::Collect)]` method attribute — no custom table or
+hand-rolled collector.
 
 ## The demo that motivates it
 
@@ -21,73 +23,86 @@ Three journal lines:
 - Line 3 — Amount = 0 *and* Description blank
 
 Today: post → first error on line 2, nothing else seen, line 3 invisible.
-By end of step: post → see all three problems at once, line 3 reported as a warning,
-nothing posts because line 2 is blocking.
+By end of step: post → see Customer No. (line 2) + Amount (line 3) as blocking
+errors *and* the Description-empty issue (line 3) as a warning, all on one Error
+Messages page. Nothing posts because two blocking errors exist.
 
 ## Files you'll touch
 
 **Modified (Impl app):**
-- `TaskFramework.Impl/src/vouchers/posting/VoucherJnlCheckLineImpl.codeunit.al` — collect into `Task Error Log` instead of `Error()`
-- `TaskFramework.Impl/src/vouchers/posting/VoucherJnlPostBatchImpl.codeunit.al` — check for blocking errors before phase 2
+- `TaskFramework.Impl/src/vouchers/posting/VoucherJnlCheckLineImpl.codeunit.al` — annotate with `[ErrorBehavior(Collect)]`, replace `TestField` with `ErrorMessageMgt.LogErrorMessage` / `LogWarning`
+- `TaskFramework.Impl/src/vouchers/posting/VoucherJnlPostBatchImpl.codeunit.al` — annotate with `[ErrorBehavior(Collect)]`, activate the handler before phase 1, check `HasErrors` after phase 1, abort cleanly if any
 
-**Read-only (already shaped right by Christian):**
-- `TaskFramework/src/Core/Errors/TaskErrorLog.Table.al` — `Line No.`, `Error Message` (Text[2048]), `Is Blocking`, `Source`, `Correlation Id`
+**Available but not used in this step:**
+- `TaskFramework/src/Core/Errors/TaskErrorLog.Table.al` — a custom error-log table from earlier prototyping. We do **not** use it in Step 6; BC's built-in mechanism is enough. Left in place for participants who want to extend later.
 
 ## Tasks (in order)
 
-### 1. Add `var ErrorLog: Record "Task Error Log"` to Check Line
-**Goal:** Check Line writes into a passed-in error log instead of throwing.
+### 1. Annotate Check Line for collection
+**Goal:** every validation in `RunCheck` collects rather than throws on the first miss.
 **Where:** `VoucherJnlCheckLineImpl.codeunit.al`.
-**Hint:** change the signature to `RunCheck(VoucherJnlLine; var ErrorLog: Record "Task Error Log")`. Replace each `Error('...')` with a call to a small `LogError` helper that does Init + assign + Insert against `ErrorLog`. Set the `Source` field to the journal line number so the user can locate which line failed.
-**Don't yet:** turn the helper into a separate codeunit / interface. Keep it as a `local procedure` for now — error-handler architecture is still under discussion (decision deferred from the 2026-03-13 sync).
+**Hint:** add `[ErrorBehavior(ErrorBehavior::Collect)]` immediately above the `procedure RunCheck(...)` declaration. This is what makes any `Error()` raised inside (or any `LogErrorMessage` call) accumulate into the active error message handler instead of throwing immediately.
 
-### 2. Mark blocking vs. non-blocking
-**Goal:** required-field misses are blocking; soft issues are warnings.
+### 2. Replace `TestField` with `LogErrorMessage` / `LogWarning`
+**Goal:** each validation fault becomes a structured entry on the error handler.
 **Where:** still `VoucherJnlCheckLineImpl.codeunit.al`.
-**Hint:** missing Customer No. / zero Amount / missing Posting Date → `Is Blocking = true`. Empty Description → `Is Blocking = false` (warning only). Pass `IsBlocking` as a parameter to your `LogError` helper.
+**Hint:** declare a local `ErrorMessageMgt: Codeunit "Error Message Management"` variable. Replace each `TestField` with an `if ... = '' then ErrorMessageMgt.LogErrorMessage(...)` block. Six positional parameters: context field no., the formatted message, the source record, the source field no., a help URL (pass `''`).
+- Customer No. blank → `LogErrorMessage` (blocking)
+- Amount zero → `LogErrorMessage` (blocking)
+- Posting Date zero → `LogErrorMessage` (blocking)
+- **Description blank → `LogWarning`** (non-blocking — posting can still proceed)
 
-### 3. Wire Check Line through Post Batch's phase 1
-**Goal:** Post Batch runs Check Line for every line, accumulates errors, *then* decides.
+Compose the message via `StrSubstNo` so it includes the field caption *and* the line number. Users on a 50-line journal need to know which line to fix.
+
+### 3. Activate the handler in Post Batch and abort if blocking errors exist
+**Goal:** `Post Batch` opts in to error collection, runs Check Line for every line, then decides.
 **Where:** `VoucherJnlPostBatchImpl.codeunit.al`.
-**Hint:** declare `ErrorLog: Record "Task Error Log"` as a temporary record (`temporary` keyword if you want it not to persist) — or persist to the real table if you want the user to inspect afterwards. Pass it to `Check Line` in the phase-1 loop. After the loop:
-  - filter `Is Blocking = true`
-  - if any: surface them all (page or compound message), then `Error('Posting stopped: %1 error(s) found.', Count)`. Phase 2 never runs.
-  - if none but warnings exist: send a `Notification` and proceed to phase 2.
+**Hint:**
+- Add `[ErrorBehavior(ErrorBehavior::Collect)]` above `procedure PostBatch`.
+- Declare locals `ErrorMessageMgt: Codeunit "Error Message Management"` and `ErrorMessageHandler: Codeunit "Error Message Handler"`.
+- **Before** the phase-1 loop: `ErrorMessageMgt.Activate(ErrorMessageHandler);` — this is what tells the framework "send collected entries here."
+- Run the phase-1 loop unchanged — every `LogErrorMessage` / `LogWarning` from Check Line lands in the handler.
+- **After** the loop:
+  ```
+  if ErrorMessageHandler.HasErrors() then begin
+      ErrorMessageHandler.ShowErrors();
+      Error('');
+  end;
+  ```
+  `ShowErrors()` opens the standard "Error Messages" page with everything filtered to this run. The empty-string `Error('')` is the conventional silent abort that rolls the transaction back without putting another dialog on top.
 
-### 4. Show all errors at once
-**Goal:** the user sees every problem from a single click, not one at a time.
-**Where:** Post Batch's failure path.
-**Hint:** simplest first cut — concatenate the messages into a single `Error()` call. Cleaner — open the Task Error Log page filtered to this run's `Correlation Id`. Either is fine for the workshop; pick the one that fits the time budget.
+### 4. Verify the three-line demo
+**Goal:** sanity-check end-to-end before moving on.
+**Where:** Voucher Journal Lines page in a sandbox.
+**Hint:** create the three lines from the demo at the top, click Post. The Error Messages page should show three entries: two errors (blank Customer No. on line 2; zero Amount on line 3) and one warning (blank Description on line 3). Posting aborts.
 
-### 5. Demo the three feedback mechanisms
-**Goal:** know which to use when.
-**Where:** code + a slide-side discussion at wrap-up.
+### 5. Discuss the three feedback mechanisms
 
-| Mechanism     | Stops? | UI                         | Use for                          |
-|---------------|:------:|----------------------------|----------------------------------|
-| `Error()`     | yes    | dialog, rolls back txn     | blocking errors, invalid state   |
-| `Message()`   | no     | dialog after proc completes| success confirmation             |
-| `Notification`| no     | non-blocking banner        | warnings, suggestions, FYI       |
+| Mechanism                            | Stops? | UI                                | Use for                                                |
+|--------------------------------------|:------:|-----------------------------------|--------------------------------------------------------|
+| `Error()`                            | yes    | dialog, rolls back txn            | unrecoverable problems outside collected validation    |
+| `Error Message Management.LogError…` | no\*   | "Error Messages" page after run   | validation issues you want to aggregate                |
+| `Error Message Management.LogWarning`| no     | same page, marked as warning      | soft issues — post anyway, surface for the user        |
 
-Use a `Notification` for the empty-Description warning — that's the demo payoff.
+\* The `LogError…` call itself doesn't stop, but `HasErrors() → Error('')` at the end of phase 1 stops the whole posting run if anything was logged with error severity.
 
 ## Done when
 
-- [ ] `Voucher Jnl.-Check Line.RunCheck` no longer calls `Error()` directly
-- [ ] All Check Line problems are written to `Task Error Log` with `Is Blocking` set
-- [ ] Empty Description is logged as a non-blocking warning
-- [ ] Post Batch fails with **all** blocking errors visible at once, not just the first
-- [ ] If only warnings exist, posting succeeds and a `Notification` surfaces them
-- [ ] App compiles, install runs, the three-line demo above behaves as described
+- [ ] `RunCheck` carries `[ErrorBehavior(ErrorBehavior::Collect)]`
+- [ ] All `TestField` calls in Check Line are replaced with `LogErrorMessage` / `LogWarning`
+- [ ] Empty Description is logged as a `LogWarning` (non-blocking)
+- [ ] `PostBatch` carries `[ErrorBehavior(ErrorBehavior::Collect)]` and activates the `Error Message Handler` before phase 1
+- [ ] After phase 1, `HasErrors` is checked; if true, `ShowErrors` runs and posting aborts
+- [ ] App compiles, install runs, the three-line demo behaves as described
 
 ## If you get stuck
 
-- See `docs/pattern-status.md` Step 6 section.
-- The `// TODO: (Step 6 …)` markers are at the spots that change.
-- Common gotcha: `var` parameter on the error log — without `var`, the caller never sees what you wrote.
+- The compiler tells you immediately if you forgot `[ErrorBehavior(Collect)]` — calls to `LogErrorMessage` from a non-collecting context behave differently, and the framework will warn.
+- Forgetting `ErrorMessageMgt.Activate(ErrorMessageHandler)` means the page never shows anything and `HasErrors` is always false. The Activate call wires the local handler into the global stream.
 - Last resort: `git checkout step-6-end`.
 
 ## Out of scope today
 
-- **Error handler architecture** (enum on table vs. interface parameter vs. implementation-internal). Three valid options were discussed in the 2026-03-13 sync; the decision is deferred. For now, keep the collector as a `local procedure` inside Check Line.
-- **Errors from outside the posting pipeline.** This step covers Check Line. Errors raised by `Post Line` itself (after validation passed) stay as `Error()` — they're genuinely unexpected.
+- **Error handler architecture as a general framework concern** (deferred from the 2026-03-13 sync — three options were on the table: enum on the task, interface param on the processor, implementation-controlled). Step 6 just wires journal-validation errors; framework-wide error policy is a separate decision.
+- **The `Task Error Log` table** that was prototyped earlier. Step 6's solution doesn't write to it. Treat it as dead code for the workshop; remove later if it stays unused.
+- **Errors from outside Check Line.** Errors raised by `Post Line` itself (after validation passed) stay as `Error()` — they're genuinely unexpected.

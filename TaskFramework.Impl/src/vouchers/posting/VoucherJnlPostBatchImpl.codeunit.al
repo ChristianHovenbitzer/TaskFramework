@@ -11,7 +11,9 @@ codeunit 60012 "Voucher Jnl.-Post Batch Impl"
         PostBatch(Rec);
     end;
 
-    // TODO: (Step 6 - Collectible Errors)
+    // TODO: (Step 6 - Collectible Errors): annotate with [ErrorBehavior(Collect)],
+    // declare ErrorMessageMgt + ErrorMessageHandler, Activate the handler before
+    // phase 1, then check HasErrors after the loop and ShowErrors + Error('') if so.
     procedure PostBatch(var VoucherJnlLine: Record "Voucher Journal Line")
     var
         CheckLine: Codeunit "Voucher Jnl.-Check Line Impl";
