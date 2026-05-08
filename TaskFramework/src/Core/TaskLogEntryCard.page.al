@@ -43,6 +43,8 @@ page 50001 "Task Log Entry Card"
                 var
                     TaskProcessor: Codeunit "Task Processor";
                 begin
+                    // TODO: (Step 2 - Separation of Concerns): pulled the inline business
+                    // logic out of the page; the action now delegates to Task Processor.
                     TaskProcessor.ProcessTaskEntry(Rec);
                 end;
             }

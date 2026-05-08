@@ -38,6 +38,8 @@ page 50004 "Voucher Entries"
                     VoucherEntry: Record "Voucher Entry";
                     PostVouchers: Codeunit "Post Vouchers";
                 begin
+                    // TODO: (Step 2 - Separation of Concerns): consolidated the two
+                    // posting actions into one path that delegates to Post Vouchers.
                     CurrPage.SetSelectionFilter(VoucherEntry);
                     VoucherEntry.ReadIsolation(IsolationLevel::UpdLock);
                     if VoucherEntry.FindSet() then

@@ -16,8 +16,6 @@ codeunit 50001 "Post Vouchers"
 
         // ANTI-PATTERN: Flips status on the same record (no journal/ledger separation).
         // The "posted" record is still editable in the client.
-        // TODO: This should create G/L entries, Voucher Ledger Entries, and a Register.
-        // Right now "posting" is just a status flip — no real accounting.
         VoucherEntry.Status := VoucherEntry.Status::Posted;
         VoucherEntry."Posting Date" := WorkDate();
         VoucherEntry.Modify();

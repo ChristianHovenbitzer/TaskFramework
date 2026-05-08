@@ -34,6 +34,8 @@ page 50003 "Task Framework Setup"
             {
                 Caption = 'Archive';
                 field("Archive Enabled"; Rec."Archive Enabled") { ApplicationArea = All; }
+                // TODO: (Step 2 - Separation of Concerns): surfaced the new Retention
+                // Days field in the Archive group.
                 field("Retention Days"; Rec."Retention Days") { ApplicationArea = All; }
             }
         }

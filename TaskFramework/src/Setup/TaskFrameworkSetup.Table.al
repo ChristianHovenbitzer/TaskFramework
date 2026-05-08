@@ -24,6 +24,8 @@ table 50003 "Task Framework Setup"
         field(9; "Enable Batches"; Boolean) { Caption = 'Enable Batches'; }
         field(10; "Batch Size"; Integer) { Caption = 'Batch Size'; MinValue = 1; }
         field(11; "Archive Enabled"; Boolean) { Caption = 'Archive Enabled'; }
+        // TODO: (Step 2 - Separation of Concerns): added Retention Days for
+        // ProcessLogRetention to read instead of hardcoding 30.
         field(12; "Retention Days"; Integer) { Caption = 'Retention Days'; InitValue = 30; MinValue = 1; }
     }
 
@@ -31,6 +33,8 @@ table 50003 "Task Framework Setup"
     {
         key(PK; "Primary Key") { Clustered = true; }
     }
+    // TODO: (Step 2 - Separation of Concerns): singleton-with-init helper used by
+    // ProcessLogRetention so callers don't have to handle the empty-record case.
     procedure GetRecordOnce(): Record "Task Framework Setup"
     begin
         if not Get() then begin

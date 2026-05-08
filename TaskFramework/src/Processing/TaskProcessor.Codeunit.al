@@ -6,6 +6,8 @@ using Microsoft.Purchases.Vendor;
 // - Step 3 will replace this CASE routing with ITaskProcessor interface + enum-interface binding
 codeunit 50000 "Task Processor"
 {
+    // TODO: (Step 2 - Separation of Concerns): event signature now passes the state
+    // codeunit so subscribers can read it. The in-app self-subscriber is gone.
     [IntegrationEvent(false, false)]
     local procedure OnBeforeProcessTask(var TaskLogEntry: Record "Task Log Entry"; TaskProcessingState: Codeunit "Task Processing State"; var IsHandled: Boolean)
     begin
@@ -28,6 +30,9 @@ codeunit 50000 "Task Processor"
         // ANTI-PATTERN: No error isolation.
         // If ProcessTaskEntry throws for entry 3 of 10, entries 4-10 never run.
         // Step 6 will fix this with proper error handling.
+        // TODO: (Step 2 - Separation of Concerns): state is held as a local var on this
+        // codeunit and Clear()ed per run; counter calls moved inline here from the
+        // deleted self-subscriber.
         Clear(TaskProcessingState);
 
         TaskLogEntry.SetRange(Status, TaskLogEntry.Status::Pending);
@@ -135,6 +140,8 @@ codeunit 50000 "Task Processor"
         RetentionDays: Integer;
         CutoffDate: Date;
     begin
+        // TODO: (Step 2 - Separation of Concerns): retention days now read from Setup
+        // (was hardcoded 30).
         TaskFrameworkSetup.GetRecordOnce();
         RetentionDays := TaskFrameworkSetup."Retention Days";
         CutoffDate := CalcDate('<-' + Format(RetentionDays) + 'D>', Today());
