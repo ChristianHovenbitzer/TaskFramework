@@ -1,3 +1,7 @@
+// TODO: (Step 3 - DI / Strategy via Interfaces): the monster CASE on Task Type is
+// gone. Routing is now an enum→interface dispatch (see ProcessTaskEntry below).
+// Per-type bodies moved to ITask Processor implementations. The framework no longer
+// references Vendor.
 codeunit 50000 "Task Processor"
 {
     [IntegrationEvent(false, false)]
@@ -47,6 +51,8 @@ codeunit 50000 "Task Processor"
         TaskLogEntry."Processing Started At" := CurrentDateTime;
         TaskLogEntry.Modify();
 
+        // TODO: (Step 3 - DI / Strategy via Interfaces): single-line dispatch via the
+        // enum's Implementation binding replaces the entire CASE block.
         Processor := TaskLogEntry."Task Processing Type";
         Processor.ProcessTask(TaskLogEntry);
 

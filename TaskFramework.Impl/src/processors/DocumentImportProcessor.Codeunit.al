@@ -1,3 +1,6 @@
+// TODO: (Step 3 - DI / Strategy via Interfaces): body extracted from
+// TaskProcessor.ProcessDocumentImport. Lives in the Impl app because Voucher Entry
+// is business-specific. Bound to the DocumentImport enum-extension value.
 codeunit 60003 "Document Import Processor" implements "ITask Processor"
 {
     Access = Internal;

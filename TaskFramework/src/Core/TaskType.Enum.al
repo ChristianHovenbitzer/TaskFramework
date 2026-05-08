@@ -1,3 +1,6 @@
+// TODO: (Step 3 - DI / Strategy via Interfaces): enum is now extensible, implements
+// the interface, and binds each value to its impl. VendorImport and DocumentImport
+// moved to the Impl app's enum extension (see TaskTypeExt.EnumExt.al).
 enum 50000 "Task Processing Type" implements "ITask Processor"
 {
     Extensible = true;

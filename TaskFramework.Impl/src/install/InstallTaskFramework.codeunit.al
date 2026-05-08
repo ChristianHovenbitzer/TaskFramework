@@ -1,3 +1,7 @@
+// TODO: (Step 3 - DI / Strategy via Interfaces): moved here from the Framework
+// app and renumbered to the 60000 range. Seeds Vendor and Voucher demo data —
+// references business-specific enum values (VendorImport, DocumentImport) that
+// only exist in the Impl app's enum extension.
 codeunit 60002 "Install Task Framework"
 {
     Subtype = Install;

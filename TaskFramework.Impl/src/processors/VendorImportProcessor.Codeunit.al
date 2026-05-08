@@ -1,5 +1,8 @@
 using Microsoft.Purchases.Vendor;
 
+// TODO: (Step 3 - DI / Strategy via Interfaces): body extracted from
+// TaskProcessor.ProcessVendorImport. Lives in the Impl app because Vendor is
+// business-specific. Bound to the VendorImport enum-extension value.
 codeunit 60001 "Vendor Import Processor" implements "ITask Processor"
 {
     Access = Internal;

@@ -1,3 +1,6 @@
+// TODO: (Step 3 - DI / Strategy via Interfaces): body extracted from
+// TaskProcessor.ProcessLogRetention. Stays in the Framework app — retention is
+// generic infrastructure, not business-specific.
 codeunit 50005 "Log Retention Processor" implements "ITask Processor"
 {
     Access = Internal;

@@ -57,6 +57,9 @@ page 50000 "Task Log Entries"
                     TaskLogEntry: Record "Task Log Entry";
                 begin
                     TaskLogEntry.Init();
+                    // TODO: (Step 3 - DI / Strategy via Interfaces): switched the
+                    // default from VendorImport to LogRetention. VendorImport is now
+                    // an Impl-app extension value the framework page can't reference.
                     TaskLogEntry."Task Processing Type" := TaskLogEntry."Task Processing Type"::LogRetention;
                     TaskLogEntry.Status := TaskLogEntry.Status::Pending;
                     TaskLogEntry.Description := 'Sample Task';
