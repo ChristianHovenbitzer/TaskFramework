@@ -1,3 +1,6 @@
+// TODO: (Step 8 - Mock via Factory): new SingleInstance spy. Mocks call Record;
+// tests assert against GetCall / GetCallCount. Reset() must be called in test
+// Arrange because SingleInstance survives across tests.
 /// <summary>
 /// SingleInstance spy that captures the order of mock collaborator calls during a test.
 /// Mocks call <c>Record</c>; tests assert against <c>GetCall</c> / <c>GetCallCount</c>.

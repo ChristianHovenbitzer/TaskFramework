@@ -12,6 +12,10 @@ using Microsoft.Sales.Customer;
 /// against every observable side effect, so a single green test row in the
 /// runner demonstrates that the whole unit works end to end.
 /// </summary>
+// TODO: (Step 8 - Mock via Factory): new test codeunit holding one comprehensive
+// happy-path test per production unit (Task Processor.UpdateStatus and .Archive,
+// each impl processor's ProcessTask). Pairs with the spy-driven orchestration
+// tests in TaskFrameworkTests.Codeunit.al.
 codeunit 70009 "Task Framework Unit Tests"
 {
     Subtype = Test;

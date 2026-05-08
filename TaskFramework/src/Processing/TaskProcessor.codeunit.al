@@ -47,6 +47,10 @@ codeunit 50000 "Task Processor" implements "ITask Log Updater", "ITask Archiver"
         ProcessTaskEntry(TaskLogEntry, Factory);
     end;
 
+    // TODO: (Step 8 - Mock via Factory): the orphan in-codeunit OnBeforeProcessTask
+    // subscriber that lived above is gone. Archive is now called unconditionally —
+    // the "Archive After Processing" check moved into Archive itself (see below)
+    // so the call site is uniform.
     procedure ProcessTaskEntry(var TaskLogEntry: Record "Task Log Entry"; Factory: Interface "ITask Processor Factory")
     var
         IsHandled: Boolean;

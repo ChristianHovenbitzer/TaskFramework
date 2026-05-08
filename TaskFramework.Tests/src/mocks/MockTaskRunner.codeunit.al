@@ -1,3 +1,6 @@
+// TODO: (Step 8 - Mock via Factory): one mock playing all three Step-4 roles.
+// Tests pass this single instance to Factory.SetProcessor / SetUpdater /
+// SetArchiver, then assert against the shared Call Recorder.
 /// <summary>
 /// Mock that implements all three collaborator interfaces and records every call.
 /// Does not modify the database — pure spy for orchestration tests.

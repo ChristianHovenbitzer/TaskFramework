@@ -2,6 +2,9 @@ codeunit 60002 "Install Task Framework"
 {
     Subtype = Install;
 
+    // TODO: (Step 8 - Mock via Factory): seed calls commented out so tests start
+    // from a clean state. The Seed* procedures are kept available for interactive
+    // workshop demos; uncomment when you want the populated company.
     trigger OnInstallAppPerCompany()
     begin
         // SeedSetup();

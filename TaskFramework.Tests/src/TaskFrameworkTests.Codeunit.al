@@ -1,5 +1,9 @@
 using System.Utilities;
 
+// TODO: (Step 8 - Mock via Factory): bodies of the existing tests rewritten with
+// the spy: Factory.SetProcessor/SetUpdater/SetArchiver(MockRunner), call the
+// Factory-taking ProcessTaskEntry overload, assert call sequence via Recorder.
+// Old anti-pattern tests are gone — their value lives in the slides as contrast.
 codeunit 70000 "Task Framework Tests"
 {
     Subtype = Test;
