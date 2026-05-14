@@ -1,5 +1,6 @@
 codeunit 60002 "Install Task Framework"
 {
+    Access = Internal;
     Subtype = Install;
 
     // TODO: (Step 8 - Mock via Factory): seed calls commented out so tests start
@@ -26,7 +27,7 @@ codeunit 60002 "Install Task Framework"
             SetupRec."Enable Batches" := true;
             SetupRec."Batch Size" := 10;
             SetupRec."Archive Enabled" := true;
-            SetupRec.Insert();
+            SetupRec.Insert(false);
         end;
     end;
 
@@ -108,7 +109,7 @@ codeunit 60002 "Install Task Framework"
         TaskLogEntry."Task Processing Type" := "Task Processing Type"::VendorImport;
         TaskLogEntry.Status := "Task Processing Status"::Pending;
         TaskLogEntry.Description := 'Import vendor from webshop';
-        TaskLogEntry."Created At" := CurrentDateTime;
+        TaskLogEntry."Created At" := CurrentDateTime();
         TaskLogEntry.Verbosity := TaskLogEntry.Verbosity::Normal;
         TaskLogEntry."Correlation Id" := CreateGuid();
         TaskLogEntry."Archive After Processing" := true;
@@ -124,8 +125,8 @@ codeunit 60002 "Install Task Framework"
         TaskLogEntry."Task Processing Type" := "Task Processing Type"::DocumentImport;
         TaskLogEntry.Status := "Task Processing Status"::Complete;
         TaskLogEntry.Description := 'Voucher import batch 2026-03-01';
-        TaskLogEntry."Created At" := CurrentDateTime;
-        TaskLogEntry."Processing Completed At" := CurrentDateTime;
+        TaskLogEntry."Created At" := CurrentDateTime();
+        TaskLogEntry."Processing Completed At" := CurrentDateTime();
         TaskLogEntry.Verbosity := TaskLogEntry.Verbosity::Detailed;
         TaskLogEntry."Correlation Id" := CreateGuid();
         TaskLogEntry."Archive After Processing" := true;
@@ -141,7 +142,7 @@ codeunit 60002 "Install Task Framework"
         TaskLogEntry."Task Processing Type" := "Task Processing Type"::LogRetention;
         TaskLogEntry.Status := "Task Processing Status"::Failed;
         TaskLogEntry.Description := 'Weekly cleanup';
-        TaskLogEntry."Created At" := CurrentDateTime;
+        TaskLogEntry."Created At" := CurrentDateTime();
         TaskLogEntry."Last Error Message" := 'An error occurred.';
         TaskLogEntry.Verbosity := TaskLogEntry.Verbosity::Minimal;
         TaskLogEntry."Correlation Id" := CreateGuid();
@@ -153,7 +154,7 @@ codeunit 60002 "Install Task Framework"
         TaskLogEntry."Task Processing Type" := "Task Processing Type"::VendorImport;
         TaskLogEntry.Status := "Task Processing Status"::Pending;
         TaskLogEntry.Description := 'Scheduled nightly import';
-        TaskLogEntry."Created At" := CurrentDateTime;
+        TaskLogEntry."Created At" := CurrentDateTime();
         TaskLogEntry.Verbosity := TaskLogEntry.Verbosity::Normal;
         TaskLogEntry."Correlation Id" := CreateGuid();
         TaskLogEntry."Earliest Processing DateTime" := CreateDateTime(CalcDate('<+1D>', Today()), 020000T);

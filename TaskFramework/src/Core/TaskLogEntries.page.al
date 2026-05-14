@@ -3,8 +3,8 @@ page 50000 "Task Log Entries"
     PageType = List;
     SourceTable = "Task Log Entry";
     Caption = 'Task Log Entries';
-    UsageCategory = Lists;
     ApplicationArea = All;
+    UsageCategory = Lists;
     Editable = false;
     CardPageId = "Task Log Entry Card";
 
@@ -14,15 +14,15 @@ page 50000 "Task Log Entries"
         {
             repeater(Lines)
             {
-                field("Entry No."; Rec."Entry No.") { ApplicationArea = All; }
-                field("Task Processing Type"; Rec."Task Processing Type") { ApplicationArea = All; }
-                field(Status; Rec.Status) { ApplicationArea = All; }
-                field(Description; Rec.Description) { ApplicationArea = All; }
-                field("Created At"; Rec."Created At") { ApplicationArea = All; }
-                field(Verbosity; Rec.Verbosity) { ApplicationArea = All; }
-                field("Correlation Id"; Rec."Correlation Id") { ApplicationArea = All; }
-                field("Retry Count"; Rec."Retry Count") { ApplicationArea = All; }
-                field("Last Error Message"; Rec."Last Error Message") { ApplicationArea = All; }
+                field("Entry No."; Rec."Entry No.") { }
+                field("Task Processing Type"; Rec."Task Processing Type") { }
+                field(Status; Rec.Status) { }
+                field(Description; Rec.Description) { }
+                field("Created At"; Rec."Created At") { }
+                field(Verbosity; Rec.Verbosity) { }
+                field("Correlation Id"; Rec."Correlation Id") { }
+                field("Retry Count"; Rec."Retry Count") { }
+                field("Last Error Message"; Rec."Last Error Message") { }
             }
         }
     }
@@ -35,7 +35,6 @@ page 50000 "Task Log Entries"
             {
                 Caption = 'Process All Pending';
                 Image = Process;
-                ApplicationArea = All;
 
                 trigger OnAction()
                 var
@@ -50,7 +49,6 @@ page 50000 "Task Log Entries"
             {
                 Caption = 'Create Sample Task';
                 Image = NewDocument;
-                ApplicationArea = All;
 
                 trigger OnAction()
                 var
@@ -60,7 +58,7 @@ page 50000 "Task Log Entries"
                     TaskLogEntry."Task Processing Type" := TaskLogEntry."Task Processing Type"::LogRetention;
                     TaskLogEntry.Status := TaskLogEntry.Status::Pending;
                     TaskLogEntry.Description := 'Sample Task';
-                    TaskLogEntry."Created At" := CurrentDateTime;
+                    TaskLogEntry."Created At" := CurrentDateTime();
                     TaskLogEntry.Insert(true);
                     CurrPage.Update(false);
                 end;

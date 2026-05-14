@@ -14,9 +14,9 @@ codeunit 50005 "Log Retention Processor" implements "ITask Processor"
         CutoffDate := CalcDate('<-' + Format(RetentionDays) + 'D>', Today());
 
         Archive.SetFilter("Archived At", '<%1', CreateDateTime(CutoffDate, 0T));
-        Archive.DeleteAll();
+        Archive.DeleteAll(false);
 
         TaskLogEntry.Description := 'Cleaned up archive entries older than ' + Format(RetentionDays) + ' days.';
-        TaskLogEntry.Modify();
+        TaskLogEntry.Modify(false);
     end;
 }

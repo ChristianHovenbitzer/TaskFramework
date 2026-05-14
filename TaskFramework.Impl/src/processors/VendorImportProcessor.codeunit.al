@@ -37,7 +37,7 @@ codeunit 60001 "Vendor Import Processor" implements "ITask Processor"
         i: Integer;
     begin
         Part := PayloadText.Split(';');
-        for i := 1 to Part.Count do begin
+        for i := 1 to Part.Count() do begin
             Segment := Part.Get(i).Trim();
             if Segment.IndexOf(FieldKey + '=') = 1 then
                 exit(CopyStr(Segment, StrLen(FieldKey) + 2));

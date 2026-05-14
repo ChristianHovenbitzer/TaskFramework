@@ -40,7 +40,7 @@ codeunit 70009 "Task Framework Unit Tests"
         TaskLogEntry.Insert(true);
 
         // Act 1 — Pending → Processing.
-        BeforeProcessing := CurrentDateTime;
+        BeforeProcessing := CurrentDateTime();
         TaskProcessor.UpdateStatus(TaskLogEntry, TaskLogEntry.Status::Processing);
 
         // Assert 1 — Status flipped, "Processing Started At" stamped, "Completed At" still empty.
@@ -49,7 +49,7 @@ codeunit 70009 "Task Framework Unit Tests"
         Assert.AreEqual(0DT, TaskLogEntry."Processing Completed At", '"Processing Completed At" must remain unset after Processing');
 
         // Act 2 — Processing → Complete.
-        BeforeComplete := CurrentDateTime;
+        BeforeComplete := CurrentDateTime();
         TaskProcessor.UpdateStatus(TaskLogEntry, TaskLogEntry.Status::Complete);
 
         // Assert 2 — Status flipped, "Processing Completed At" stamped.
@@ -74,7 +74,7 @@ codeunit 70009 "Task Framework Unit Tests"
         TaskLogEntry."Last Error Message" := 'previous attempt failed';
         TaskLogEntry."Archive After Processing" := true;
         TaskLogEntry.Insert(true);
-        Before := CurrentDateTime;
+        Before := CurrentDateTime();
 
         // Act
         TaskProcessor.Archive(TaskLogEntry);
