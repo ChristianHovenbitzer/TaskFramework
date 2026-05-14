@@ -2,6 +2,7 @@
 // Steps 3-6 landed processors, factory, and the full voucher posting pipeline here.
 codeunit 60000 "Install Task Framework Impl"
 {
+    Access = Internal;
     Subtype = Install;
 
     trigger OnInstallAppPerDatabase()

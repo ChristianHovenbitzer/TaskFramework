@@ -52,7 +52,7 @@ codeunit 60010 "Voucher Jnl.-Check Line Impl"
                 VoucherJnlLine,
                 VoucherJnlLine.FieldNo(Description),
                 ''
-            )
+            );
     end;
 
 
