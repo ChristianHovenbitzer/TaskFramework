@@ -4,6 +4,7 @@
 // Steps 2-5 will move objects here as part of the workshop evolution.
 codeunit 60000 "Install Task Framework Impl"
 {
+    Access = Internal;
     Subtype = Install;
 
     trigger OnInstallAppPerDatabase()
