@@ -13,6 +13,7 @@ codeunit 50000 "Task Processor"
     #region Process Task Entry
     var
         TaskProcessingState: Codeunit "Task Processing State";
+        DueDatePendingFilterTok: Label '%1|<%2', Locked = true;
 
     procedure GetTaskProcessingState(): Codeunit "Task Processing State"
     begin
@@ -28,7 +29,7 @@ codeunit 50000 "Task Processor"
         Clear(TaskProcessingState);
 
         TaskLogEntry.SetRange(Status, TaskLogEntry.Status::Pending);
-        TaskLogEntry.SetFilter("Earliest Processing DateTime", '%1|<%2', 0DT, CurrentDateTime);
+        TaskLogEntry.SetFilter("Earliest Processing DateTime", DueDatePendingFilterTok, 0DT, CurrentDateTime());
         if TaskLogEntry.FindSet(true) then
             repeat
                 ProcessTaskEntry(TaskLogEntry);
@@ -54,8 +55,8 @@ codeunit 50000 "Task Processor"
         // the injected ITask Log Updater (UpdateStatus(TaskLogEntry, ::Processing))
         // — the injected role owns the change, not the inline code.
         TaskLogEntry.Status := TaskLogEntry.Status::Processing;
-        TaskLogEntry."Processing Started At" := CurrentDateTime;
-        TaskLogEntry.Modify();
+        TaskLogEntry."Processing Started At" := CurrentDateTime();
+        TaskLogEntry.Modify(false);
 
         // TODO: (Step 3.5 - Dependency Injection) Route this dispatch through the
         // injected ITask Processor (ITaskProcessor.ProcessTask(TaskLogEntry)). The
@@ -67,11 +68,10 @@ codeunit 50000 "Task Processor"
         // TODO: (Step 3.5 - Dependency Injection) Route this through the injected
         // ITask Log Updater as well (UpdateStatus(TaskLogEntry, ::Complete)).
         TaskLogEntry.Status := TaskLogEntry.Status::Complete;
-        TaskLogEntry."Processing Completed At" := CurrentDateTime;
-        TaskLogEntry.Modify();
+        TaskLogEntry."Processing Completed At" := CurrentDateTime();
+        TaskLogEntry.Modify(false);
 
-        if TaskLogEntry."Archive After Processing" then
-            ArchiveEntry(TaskLogEntry);
+        ArchiveEntry(TaskLogEntry);
     end;
     #endregion Process Task Entry
 
@@ -84,6 +84,9 @@ codeunit 50000 "Task Processor"
     var
         Archive: Record "Task Log Archive";
     begin
+        if not TaskLogEntry."Archive After Processing" then
+            exit;
+
         Archive.Init();
         Archive."Entry No." := TaskLogEntry."Entry No.";
         Archive."Task Type" := TaskLogEntry."Task Processing Type";
@@ -98,8 +101,8 @@ codeunit 50000 "Task Processor"
         Archive."Correlation Id" := TaskLogEntry."Correlation Id";
         Archive."Archive After Processing" := TaskLogEntry."Archive After Processing";
         Archive."Earliest Processing DateTime" := TaskLogEntry."Earliest Processing DateTime";
-        Archive."Archived At" := CurrentDateTime;
+        Archive."Archived At" := CurrentDateTime();
         Archive."Archive Reason" := Archive."Archive Reason"::Processed;
-        Archive.Insert();
+        Archive.Insert(false);
     end;
 }
