@@ -10,7 +10,8 @@ page 50045 "Task Entry API"
     EntitySetName = 'taskEntries';
     SourceTable = "Task Log Entry";
     Caption = 'Task Entry API';
-    ODataKeyFields = "Entry No.";
+    ApplicationArea = All;
+    ODataKeyFields = SystemId;
     InsertAllowed = true;
     ModifyAllowed = false;
     DeleteAllowed = false;
@@ -22,6 +23,8 @@ page 50045 "Task Entry API"
         {
             repeater(Entries)
             {
+                field(id; Rec.SystemId) { Editable = false; }
+                field(lastModifiedDateTime; Rec.SystemModifiedAt) { Editable = false; }
                 field(entryNo; Rec."Entry No.")
                 {
                     Caption = 'Entry No.';
@@ -60,7 +63,6 @@ page 50045 "Task Entry API"
     trigger OnInsertRecord(BelowxRec: Boolean): Boolean
     var
         TaskProcessor: Codeunit "Task Processor";
-        EntryNo: Integer;
     begin
         Rec.SetPayloadText(PayloadText);
         Rec.Insert(true);
