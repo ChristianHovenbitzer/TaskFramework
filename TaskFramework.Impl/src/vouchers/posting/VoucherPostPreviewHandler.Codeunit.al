@@ -10,7 +10,7 @@ codeunit 60016 "Voucher Post. Preview Handler"
     local procedure OnAfterPostVoucherLine(var VoucherLedgerEntry: Record "Voucher Ledger Entry")
     begin
         TempVoucherLedgerEntry := VoucherLedgerEntry;
-        TempVoucherLedgerEntry.Insert();
+        TempVoucherLedgerEntry.Insert(false);
     end;
 
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Voucher Jnl.-Post Preview", OnCheckPostingPreviewActive, '', false, false)]

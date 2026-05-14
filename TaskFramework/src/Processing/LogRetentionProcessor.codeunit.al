@@ -2,6 +2,12 @@ codeunit 50005 "Log Retention Processor" implements "ITask Processor"
 {
     Access = Internal;
 
+    var
+        CleanupDescLbl: Label 'Cleaned up archive entries older than %1 days.';
+        RetentionDateFormulaTok: Label '<-%1D>', Locked = true;
+        ArchivedBeforeFilterTok: Label '<%1', Locked = true;
+
+
     procedure ProcessTask(var TaskLogEntry: Record "Task Log Entry")
     var
         Archive: Record "Task Log Archive";
@@ -11,12 +17,12 @@ codeunit 50005 "Log Retention Processor" implements "ITask Processor"
     begin
         TaskFrameworkSetup.GetRecordOnce();
         RetentionDays := TaskFrameworkSetup."Retention Days";
-        CutoffDate := CalcDate('<-' + Format(RetentionDays) + 'D>', Today());
+        CutoffDate := CalcDate(StrSubstNo(RetentionDateFormulaTok, RetentionDays), Today());
 
-        Archive.SetFilter("Archived At", '<%1', CreateDateTime(CutoffDate, 0T));
-        Archive.DeleteAll();
+        Archive.SetFilter("Archived At", ArchivedBeforeFilterTok, CreateDateTime(CutoffDate, 0T));
+        Archive.DeleteAll(false);
 
-        TaskLogEntry.Description := 'Cleaned up archive entries older than ' + Format(RetentionDays) + ' days.';
-        TaskLogEntry.Modify();
+        TaskLogEntry.Description := StrSubstNo(CleanupDescLbl, RetentionDays);
+        TaskLogEntry.Modify(false);
     end;
 }
