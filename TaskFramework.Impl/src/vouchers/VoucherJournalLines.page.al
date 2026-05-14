@@ -3,8 +3,8 @@ page 60010 "Voucher Journal"
     PageType = Worksheet;
     SourceTable = "Voucher Journal Line";
     Caption = 'Voucher Journal';
-    UsageCategory = Tasks;
     ApplicationArea = All;
+    UsageCategory = Tasks;
     DelayedInsert = true;
     AutoSplitKey = true;
 
@@ -14,12 +14,12 @@ page 60010 "Voucher Journal"
         {
             repeater(Lines)
             {
-                field("Voucher No."; Rec."Voucher No.") { ApplicationArea = All; }
-                field("Posting Date"; Rec."Posting Date") { ApplicationArea = All; }
-                field("Document No."; Rec."Document No.") { ApplicationArea = All; }
-                field("Customer No."; Rec."Customer No.") { ApplicationArea = All; }
-                field(Description; Rec.Description) { ApplicationArea = All; }
-                field(Amount; Rec.Amount) { ApplicationArea = All; }
+                field("Voucher No."; Rec."Voucher No.") { }
+                field("Posting Date"; Rec."Posting Date") { }
+                field("Document No."; Rec."Document No.") { }
+                field("Customer No."; Rec."Customer No.") { }
+                field(Description; Rec.Description) { }
+                field(Amount; Rec.Amount) { }
             }
             group(Footer)
             {
@@ -31,9 +31,7 @@ page 60010 "Voucher Journal"
                     {
                         Caption = 'Number of Lines';
                         field(NumberOfLines; NumberOfLines)
-                        {
-                            ApplicationArea = All;
-                            Caption = 'Number of Lines';
+                        { Caption = 'Number of Lines';
                             Editable = false;
                             ToolTip = 'Specifies the number of journal lines.';
                         }
@@ -42,9 +40,7 @@ page 60010 "Voucher Journal"
                     {
                         Caption = 'Total Amount';
                         field(TotalAmount; TotalAmount)
-                        {
-                            ApplicationArea = All;
-                            AutoFormatType = 1;
+                        { AutoFormatType = 1;
                             Caption = 'Total Amount';
                             Editable = false;
                             ToolTip = 'Specifies the total amount of all journal lines.';
@@ -68,7 +64,6 @@ page 60010 "Voucher Journal"
                 {
                     Caption = 'P&ost';
                     Image = PostBatch;
-                    ApplicationArea = All;
                     ShortcutKey = 'F9';
 
                     trigger OnAction()
@@ -85,7 +80,6 @@ page 60010 "Voucher Journal"
                 {
                     Caption = 'Preview Posting';
                     Image = ViewPostedOrder;
-                    ApplicationArea = All;
 
                     trigger OnAction()
                     var
