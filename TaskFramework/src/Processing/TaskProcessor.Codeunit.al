@@ -1,9 +1,4 @@
-// TODO: (Step 4 - Factory Pattern): add `implements "ITask Log Updater",
-// "ITask Archiver", "ITask Processor"` to the codeunit header. Task Processor
-// becomes the framework's default for all three roles, with the Factory routing
-// between them.
-
-//TODO: (Step 4.5 - Dependency Injection) "Task Processor" implements all newly introduced interfaces
+//TODO: (Step 3.5 - Dependency Injection) "Task Processor" implements all newly introduced interfaces
 codeunit 50000 "Task Processor" implements "ITask Processor", "ITask Log Updater", "ITask Archiver"
 {
     [IntegrationEvent(false, false)]
@@ -39,13 +34,13 @@ codeunit 50000 "Task Processor" implements "ITask Processor", "ITask Log Updater
             until TaskLogEntry.Next() = 0;
     end;
 
-    //TODO: (Step 4.5 - Dependency Injection) Overload ProcessTaskEntry to not break existing code, but also allow for dependency injection of ITaskProcessor, ITaskLogUpdater, and ITaskArchiver.
+    //TODO: (Step 3.5 - Dependency Injection) Overload ProcessTaskEntry to not break existing code, but also allow for dependency injection of ITaskProcessor, ITaskLogUpdater, and ITaskArchiver.
     procedure ProcessTaskEntry(var TaskLogEntry: Record "Task Log Entry")
     begin
         ProcessTaskEntry(TaskLogEntry, this, this, this);
     end;
 
-    //TODO: (Step 4.5 - Dependency Injection) Refactor ProcessTaskEntry to take ITaskProcessor, ITaskLogUpdater, and ITaskArchiver as parameters, allowing for dependency injection of every component.
+    //TODO: (Step 3.5 - Dependency Injection) Refactor ProcessTaskEntry to take ITaskProcessor, ITaskLogUpdater, and ITaskArchiver as parameters, allowing for dependency injection of every component.
     procedure ProcessTaskEntry(var TaskLogEntry: Record "Task Log Entry"; ITaskProcessor: Interface "ITask Processor"; ITaskLogUpdater: Interface "ITask Log Updater"; ITaskArchiver: Interface "ITask Archiver")
     var
         IsHandled: Boolean;
@@ -61,7 +56,7 @@ codeunit 50000 "Task Processor" implements "ITask Processor", "ITask Log Updater
     end;
     #endregion Process Task Entry
 
-    // TODO: (Step 4.5 - Dependency Injection) All business logic stays in this codeunit, but calls to update log status, archive, and process tasks are routed through their respective interfaces, allowing for dependency injection and isolated tests.
+    // TODO: (Step 3.5 - Dependency Injection) All business logic stays in this codeunit, but calls to update log status, archive, and process tasks are routed through their respective interfaces, allowing for dependency injection and isolated tests.
     #region ITask Log Updater
     procedure UpdateStatus(var TaskLogEntry: Record "Task Log Entry"; NewStatus: Enum "Task Processing Status")
     begin
