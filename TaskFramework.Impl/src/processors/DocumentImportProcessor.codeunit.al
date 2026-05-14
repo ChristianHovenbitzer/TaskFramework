@@ -2,6 +2,14 @@ codeunit 60003 "Document Import Processor" implements "ITask Processor"
 {
     Access = Internal;
 
+    var
+        ImportedViaTaskLbl: Label 'Imported via task %1';
+        PayloadKeyVoucherNoTok: Label 'VOUCHERNO', Locked = true;
+        PayloadKeyCustomerNoTok: Label 'CUSTOMERNO', Locked = true;
+        PayloadKeyAmountTok: Label 'AMOUNT', Locked = true;
+        VoucherNoTaskFormatTok: Label 'VOUCH-TASK-%1', Locked = true;
+
+
     procedure ProcessTask(var TaskLogEntry: Record "Task Log Entry")
     var
         VoucherJnlLine: Record "Voucher Journal Line";
@@ -18,12 +26,12 @@ codeunit 60003 "Document Import Processor" implements "ITask Processor"
             InStr.ReadText(PayloadText);
         end;
 
-        VoucherNo := CopyStr(ExtractValue(PayloadText, 'VOUCHERNO'), 1, 20);
-        CustomerNo := CopyStr(ExtractValue(PayloadText, 'CUSTOMERNO'), 1, 20);
-        Evaluate(Amount, ExtractValue(PayloadText, 'AMOUNT'));
+        VoucherNo := CopyStr(ExtractValue(PayloadText, PayloadKeyVoucherNoTok), 1, 20);
+        CustomerNo := CopyStr(ExtractValue(PayloadText, PayloadKeyCustomerNoTok), 1, 20);
+        Evaluate(Amount, ExtractValue(PayloadText, PayloadKeyAmountTok));
 
         if VoucherNo = '' then
-            VoucherNo := 'VOUCH-TASK-' + Format(TaskLogEntry."Entry No.");
+            VoucherNo := StrSubstNo(VoucherNoTaskFormatTok, TaskLogEntry."Entry No.");
 
         // Build journal line (staging)
         VoucherJnlLine.Init();
@@ -32,7 +40,7 @@ codeunit 60003 "Document Import Processor" implements "ITask Processor"
         VoucherJnlLine."Customer No." := CustomerNo;
         VoucherJnlLine.Amount := Amount;
         VoucherJnlLine."Posting Date" := WorkDate();
-        VoucherJnlLine.Description := 'Imported via task ' + Format(TaskLogEntry."Entry No.");
+        VoucherJnlLine.Description := StrSubstNo(ImportedViaTaskLbl, TaskLogEntry."Entry No.");
         VoucherJnlLine.Insert(true);
 
         // Post through pipeline: Check → Post Line → Ledger Entry + Register

@@ -9,6 +9,7 @@ codeunit 50000 "Task Processor" implements "ITask Log Updater", "ITask Archiver"
     #region Process Task Entry
     var
         TaskProcessingState: Codeunit "Task Processing State";
+        DueDatePendingFilterTok: Label '%1|<%2', Locked = true;
 
     procedure GetTaskProcessingState(): Codeunit "Task Processing State"
     begin
@@ -20,7 +21,7 @@ codeunit 50000 "Task Processor" implements "ITask Log Updater", "ITask Archiver"
         TaskLogEntry: Record "Task Log Entry";
     begin
         TaskLogEntry.SetRange(Status, TaskLogEntry.Status::Pending);
-        TaskLogEntry.SetFilter("Earliest Processing DateTime", '%1|<%2', 0DT, CurrentDateTime());
+        TaskLogEntry.SetFilter("Earliest Processing DateTime", DueDatePendingFilterTok, 0DT, CurrentDateTime());
 
         ProcessAllPendingTasks(TaskLogEntry);
     end;

@@ -22,6 +22,10 @@ codeunit 70009 "Task Framework Unit Tests"
     TestPermissions = Disabled;
 
     var
+        ImportedViaTaskLbl: Label 'Imported via task %1';
+
+
+    var
         Assert: Codeunit "Test Assert";
 
     [Test]
@@ -138,7 +142,7 @@ codeunit 70009 "Task Framework Unit Tests"
         TaskLogEntry.Insert(true);
         TaskLogEntry.SetPayloadText(StrSubstNo('VOUCHERNO=V-001;CUSTOMERNO=%1;AMOUNT=100', CustomerNo));
         TaskLogEntry.Modify(true);
-        ExpectedDescription := 'Imported via task ' + Format(TaskLogEntry."Entry No.");
+        ExpectedDescription := StrSubstNo(ImportedViaTaskLbl, TaskLogEntry."Entry No.");
 
         // Act — dispatched through the enum: stages a journal line, then posts via PostBatch.
         TaskProcessor.ProcessTask(TaskLogEntry);

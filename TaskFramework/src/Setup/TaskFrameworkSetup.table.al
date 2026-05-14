@@ -5,7 +5,7 @@ table 50003 "Task Framework Setup"
 
     fields
     {
-        field(1; "Primary Key"; Code[10]) { Caption = 'Primary Key'; NotBlank = true; }
+        field(1; "Primary Key"; Code[10]) { Caption = 'Primary Key'; }
         field(2; Enabled; Boolean) { Caption = 'Enabled'; }
         field(3; "Max Retry Count"; Integer) { Caption = 'Max Retry Count'; InitValue = 3; }
         field(4; "Default G/L Account"; Code[20])
