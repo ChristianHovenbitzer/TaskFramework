@@ -1,7 +1,7 @@
-// TODO: (Step 4 - Factory Pattern): add `implements "ITask Log Updater",
-// "ITask Archiver", "ITask Processor"` to the codeunit header. Task Processor
-// becomes the framework's default for all three roles, with the Factory routing
-// between them.
+// TODO: (Step 4.5 - Dependency Injection) "Task Processor" implements all newly
+// introduced interfaces. Add `implements "ITask Processor", "ITask Log Updater",
+// "ITask Archiver"` to the header — Task Processor stays the framework's default
+// for all three roles, it just exposes them as injectable contracts now.
 codeunit 50000 "Task Processor"
 {
     [IntegrationEvent(false, false)]
@@ -37,10 +37,10 @@ codeunit 50000 "Task Processor"
             until TaskLogEntry.Next() = 0;
     end;
 
-    // TODO: (Step 4 - Factory Pattern): split this into two procedures. The bare
-    // public version constructs a default `Factory: Codeunit "Task Processor Factory"`
-    // and delegates to the Factory-taking overload. The overload routes everything
-    // through Factory.GetUpdater() / GetProcessor() / GetArchiver().
+    // TODO: (Step 4.5 - Dependency Injection) Overload ProcessTaskEntry so existing
+    // callers keep working: this bare version stays public and delegates to a new
+    // overload that takes ITask Processor, ITask Log Updater, and ITask Archiver as
+    // parameters — passing `this` for all three (Task Processor is its own default).
     procedure ProcessTaskEntry(var TaskLogEntry: Record "Task Log Entry")
     var
         IsHandled: Boolean;
@@ -50,22 +50,22 @@ codeunit 50000 "Task Processor"
         if IsHandled then
             exit;
 
-        // TODO: (Step 4 - Factory Pattern): replace the inline status flip with
-        // Factory.GetUpdater().UpdateStatus(TaskLogEntry, ::Processing). The
-        // UpdateStatus body lives on Task Processor itself (it's the default
-        // ITask Log Updater).
+        // TODO: (Step 4.5 - Dependency Injection) Route this status flip through
+        // the injected ITask Log Updater (UpdateStatus(TaskLogEntry, ::Processing))
+        // — the injected role owns the change, not the inline code.
         TaskLogEntry.Status := TaskLogEntry.Status::Processing;
         TaskLogEntry."Processing Started At" := CurrentDateTime;
         TaskLogEntry.Modify();
 
-        // TODO: (Step 4 - Factory Pattern): wrap this dispatch in a new
-        // ProcessTask(var TaskLogEntry) method on Task Processor (it's the default
-        // ITask Processor). Then call Factory.GetProcessor().ProcessTask(...) here.
+        // TODO: (Step 4.5 - Dependency Injection) Route this dispatch through the
+        // injected ITask Processor (ITaskProcessor.ProcessTask(TaskLogEntry)). The
+        // enum -> interface lookup moves into a ProcessTask method on Task Processor,
+        // which is its own default ITask Processor.
         Processor := TaskLogEntry."Task Processing Type";
         Processor.ProcessTask(TaskLogEntry);
 
-        // TODO: (Step 4 - Factory Pattern): replace with
-        // Factory.GetUpdater().UpdateStatus(TaskLogEntry, ::Complete).
+        // TODO: (Step 4.5 - Dependency Injection) Route this through the injected
+        // ITask Log Updater as well (UpdateStatus(TaskLogEntry, ::Complete)).
         TaskLogEntry.Status := TaskLogEntry.Status::Complete;
         TaskLogEntry."Processing Completed At" := CurrentDateTime;
         TaskLogEntry.Modify();
@@ -75,9 +75,11 @@ codeunit 50000 "Task Processor"
     end;
     #endregion Process Task Entry
 
-    // TODO: (Step 4 - Factory Pattern): rename to `Archive` and promote to a public
-    // procedure — Task Processor implements ITask Archiver and this method is the
-    // body of that contract. The Factory will reach this via GetArchiver().
+    // TODO: (Step 4.5 - Dependency Injection) All business logic stays in this
+    // codeunit. Rename `ArchiveEntry` to `Archive` and promote it to a public
+    // procedure — it becomes the body of Task Processor's ITask Archiver contract.
+    // Give UpdateStatus and ProcessTask the same treatment so each role is a real,
+    // injectable procedure.
     local procedure ArchiveEntry(var TaskLogEntry: Record "Task Log Entry")
     var
         Archive: Record "Task Log Archive";
