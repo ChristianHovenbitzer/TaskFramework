@@ -34,13 +34,16 @@ codeunit 50000 "Task Processor" implements "ITask Processor", "ITask Log Updater
             until TaskLogEntry.Next() = 0;
     end;
 
-    //TODO: (Step 3.5 - Dependency Injection) Overload ProcessTaskEntry to not break existing code, but also allow for dependency injection of ITaskProcessor, ITaskLogUpdater, and ITaskArchiver.
     procedure ProcessTaskEntry(var TaskLogEntry: Record "Task Log Entry")
     begin
         ProcessTaskEntry(TaskLogEntry, this, this, this);
     end;
 
-    //TODO: (Step 3.5 - Dependency Injection) Refactor ProcessTaskEntry to take ITaskProcessor, ITaskLogUpdater, and ITaskArchiver as parameters, allowing for dependency injection of every component.
+    // TODO (Step 4 - Factory Pattern): The bare
+    // public version constructs a default `Factory: Codeunit "Task Processor Factory"`
+    // and delegates to the Factory-taking overload. The overload routes everything
+    // through Factory.GetUpdater() / GetProcessor() / GetArchiver().
+    // Final ProcessTaskEntry signature should take TaskLogEntry and the factory codeunit as parameters
     procedure ProcessTaskEntry(var TaskLogEntry: Record "Task Log Entry"; ITaskProcessor: Interface "ITask Processor"; ITaskLogUpdater: Interface "ITask Log Updater"; ITaskArchiver: Interface "ITask Archiver")
     var
         IsHandled: Boolean;
@@ -56,7 +59,6 @@ codeunit 50000 "Task Processor" implements "ITask Processor", "ITask Log Updater
     end;
     #endregion Process Task Entry
 
-    // TODO: (Step 3.5 - Dependency Injection) All business logic stays in this codeunit, but calls to update log status, archive, and process tasks are routed through their respective interfaces, allowing for dependency injection and isolated tests.
     #region ITask Log Updater
     procedure UpdateStatus(var TaskLogEntry: Record "Task Log Entry"; NewStatus: Enum "Task Processing Status")
     begin
