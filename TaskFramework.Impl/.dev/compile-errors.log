@@ -1,0 +1,91 @@
+{
+  "version": "0.2",
+  "toolInfo": {
+    "toolName": "Microsoft (R) AL Compiler",
+    "productVersion": "17.0.34",
+    "fileVersion": "17.0.34"
+  },
+  "issues": [
+    {
+      "ruleId": "AD0001",
+      "locations": [
+      ],
+      "shortMessage": "Analyzer 'ALCops.LinterCop.Analyzers.InternalProcedureNotReferenced' threw an exception of type 'System.IO.FileNotFoundException' with message 'System.IO.FileNotFoundException: Could not load file or assembly 'Microsoft.Dynamics.Nav.Analyzers.Common, Version=16.0.27.57058, Culture=neutral, PublicKeyToken=31bf3856ad364e35'. The system cannot find the file specified.\u000a\u000aFile name: 'Microsoft.Dynamics.Nav.Analyzers.Common, Version=16.0.27.57058, Culture=neutral, PublicKeyToken=31bf3856ad364e35'\u000a   at ALCops.Common.Extensions.ManifestHelper.GetManifest(Compilation compilation)\u000a   at ALCops.LinterCop.Analyzers.InternalProcedureNotReferenced.MethodSymbolAnalyzer..ctor(CompilationAnalysisContext compilationAnalysisContext)\u000a   at ALCops.LinterCop.Analyzers.InternalProcedureNotReferenced.CheckApplicationObjects(CompilationAnalysisContext compilationAnalysisContext)\u000a   at Microsoft.Dynamics.Nav.CodeAnalysis.Diagnostics.AnalyzerExecutor.<>c__DisplayClass49_1.<ExecuteCompilationActionsCore>b__0() in X:\\source\\Prod\\Microsoft.Dynamics.Nav.CodeAnalysis\\DiagnosticAnalyzer\\AnalyzerExecutor.cs:line 625\u000a   at Microsoft.Dynamics.Nav.CodeAnalysis.Diagnostics.AnalyzerExecutor.ExecuteAndCatchIfThrows_NoLock(DiagnosticAnalyzer analyzer, Action analyze, Nullable`1 info) in X:\\source\\Prod\\Microsoft.Dynamics.Nav.CodeAnalysis\\DiagnosticAnalyzer\\AnalyzerExecutor.cs:line 1095'",
+      "fullMessage": "Analyzer 'ALCops.LinterCop.Analyzers.InternalProcedureNotReferenced' threw the following exception:\u000d\u000a'Exception occurred with following context:\u000d\u000a \u000aCould not load file or assembly 'Microsoft.Dynamics.Nav.Analyzers.Common, Version=16.0.27.57058, Culture=neutral, PublicKeyToken=31bf3856ad364e35'. The system cannot find the file specified.\u000a\u000a-----\u000a'",
+      "properties": {
+        "severity": "Warning",
+        "warningLevel": "1",
+        "defaultSeverity": "Warning",
+        "title": "Analyzer Failure",
+        "category": "Compiler",
+        "isEnabledByDefault": "True",
+        "isSuppressedInSource": "False",
+        "customTags": "AnalyzerException"
+      }
+    },
+    {
+      "ruleId": "AD0001",
+      "locations": [
+      ],
+      "shortMessage": "Analyzer 'ALCops.LinterCop.Analyzers.AppManifestRuntimeBehind' threw an exception of type 'System.IO.FileNotFoundException' with message 'System.IO.FileNotFoundException: Could not load file or assembly 'Microsoft.Dynamics.Nav.Analyzers.Common, Version=16.0.27.57058, Culture=neutral, PublicKeyToken=31bf3856ad364e35'. The system cannot find the file specified.\u000a\u000aFile name: 'Microsoft.Dynamics.Nav.Analyzers.Common, Version=16.0.27.57058, Culture=neutral, PublicKeyToken=31bf3856ad364e35'\u000a   at ALCops.Common.Extensions.ManifestHelper.GetManifest(Compilation compilation)\u000a   at ALCops.LinterCop.Analyzers.AppManifestRuntimeBehind.CheckAppManifestRuntime(CompilationAnalysisContext ctx)\u000a   at Microsoft.Dynamics.Nav.CodeAnalysis.Diagnostics.AnalyzerExecutor.<>c__DisplayClass49_1.<ExecuteCompilationActionsCore>b__0() in X:\\source\\Prod\\Microsoft.Dynamics.Nav.CodeAnalysis\\DiagnosticAnalyzer\\AnalyzerExecutor.cs:line 625\u000a   at Microsoft.Dynamics.Nav.CodeAnalysis.Diagnostics.AnalyzerExecutor.ExecuteAndCatchIfThrows_NoLock(DiagnosticAnalyzer analyzer, Action analyze, Nullable`1 info) in X:\\source\\Prod\\Microsoft.Dynamics.Nav.CodeAnalysis\\DiagnosticAnalyzer\\AnalyzerExecutor.cs:line 1095'",
+      "fullMessage": "Analyzer 'ALCops.LinterCop.Analyzers.AppManifestRuntimeBehind' threw the following exception:\u000d\u000a'Exception occurred with following context:\u000d\u000a \u000aCould not load file or assembly 'Microsoft.Dynamics.Nav.Analyzers.Common, Version=16.0.27.57058, Culture=neutral, PublicKeyToken=31bf3856ad364e35'. The system cannot find the file specified.\u000a\u000a-----\u000a'",
+      "properties": {
+        "severity": "Warning",
+        "warningLevel": "1",
+        "defaultSeverity": "Warning",
+        "title": "Analyzer Failure",
+        "category": "Compiler",
+        "isEnabledByDefault": "True",
+        "isSuppressedInSource": "False",
+        "customTags": "AnalyzerException"
+      }
+    },
+    {
+      "ruleId": "AD0001",
+      "locations": [
+      ],
+      "shortMessage": "Analyzer 'ALCops.ApplicationCop.Analyzers.PermissionSetCoverage' threw an exception of type 'System.IO.FileNotFoundException' with message 'System.IO.FileNotFoundException: Could not load file or assembly 'Microsoft.Dynamics.Nav.Analyzers.Common, Version=16.0.27.57058, Culture=neutral, PublicKeyToken=31bf3856ad364e35'. The system cannot find the file specified.\u000a\u000aFile name: 'Microsoft.Dynamics.Nav.Analyzers.Common, Version=16.0.27.57058, Culture=neutral, PublicKeyToken=31bf3856ad364e35'\u000a   at ALCops.Common.Extensions.FileSystemInterfaceExtensions.GetPermissionSetDocuments(IFileSystem fileSystem)\u000a   at ALCops.ApplicationCop.Analyzers.PermissionSetCoverage.CheckPermissionSetCoverage(SymbolAnalysisContext ctx)\u000a   at Microsoft.Dynamics.Nav.CodeAnalysis.Diagnostics.AnalyzerExecutor.<>c__DisplayClass50_2.<ExecuteSymbolActionsCore>b__0() in X:\\source\\Prod\\Microsoft.Dynamics.Nav.CodeAnalysis\\DiagnosticAnalyzer\\AnalyzerExecutor.cs:line 665\u000a   at Microsoft.Dynamics.Nav.CodeAnalysis.Diagnostics.AnalyzerExecutor.ExecuteAndCatchIfThrows_NoLock(DiagnosticAnalyzer analyzer, Action analyze, Nullable`1 info) in X:\\source\\Prod\\Microsoft.Dynamics.Nav.CodeAnalysis\\DiagnosticAnalyzer\\AnalyzerExecutor.cs:line 1095'",
+      "fullMessage": "Analyzer 'ALCops.ApplicationCop.Analyzers.PermissionSetCoverage' threw the following exception:\u000d\u000a'Exception occurred with following context:\u000d\u000a ISymbol: Task Framework Implementation (Module)\u000a\u000aCould not load file or assembly 'Microsoft.Dynamics.Nav.Analyzers.Common, Version=16.0.27.57058, Culture=neutral, PublicKeyToken=31bf3856ad364e35'. The system cannot find the file specified.\u000a\u000a-----\u000a'",
+      "properties": {
+        "severity": "Warning",
+        "warningLevel": "1",
+        "defaultSeverity": "Warning",
+        "title": "Analyzer Failure",
+        "category": "Compiler",
+        "isEnabledByDefault": "True",
+        "isSuppressedInSource": "False",
+        "customTags": "AnalyzerException"
+      }
+    },
+    {
+      "ruleId": "AC0007",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "/home/stefan/Documents/Repos/community/techDays2026/TaskFramework/.worktrees/step-2-start/TaskFramework.Impl/src/install/InstallTaskFrameworkImpl.Codeunit.al",
+              "region": {
+                "startLine": 4,
+                "startColumn": 16,
+                "endLine": 4,
+                "endColumn": 45
+              }
+            }
+          ]
+        }
+      ],
+      "shortMessage": "Set Access property to Internal for Install and Upgrade codeunits.",
+      "fullMessage": "Install and Upgrade codeunits are intended for lifecycle execution only and are not designed to expose reusable APIs. Declaring them as Public unnecessarily broadens their surface area and increases coupling between extensions.",
+      "properties": {
+        "severity": "Warning",
+        "warningLevel": "1",
+        "defaultSeverity": "Warning",
+        "title": "Install and Upgrade codeunits should have Access set to Internal",
+        "category": "Design",
+        "helpLink": "https://alcops.dev/docs/analyzers/applicationcop/ac0007/",
+        "isEnabledByDefault": "True",
+        "isSuppressedInSource": "False"
+      }
+    }
+  ]
+}

@@ -1,0 +1,39 @@
+{
+  "version": "0.2",
+  "toolInfo": {
+    "toolName": "Microsoft (R) AL Compiler",
+    "productVersion": "17.0.34",
+    "fileVersion": "17.0.34"
+  },
+  "issues": [
+    {
+      "ruleId": "AL0789",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "/home/stefan/Documents/Repos/community/techDays2026/TaskFramework/.worktrees/step-2-start/TaskFramework/src/Processing/TaskProcessor.Codeunit.al",
+              "region": {
+                "startLine": 1,
+                "startColumn": 1,
+                "endLine": 1,
+                "endColumn": 34
+              }
+            }
+          ]
+        }
+      ],
+      "fullMessage": "Using directives are ignored if a namespace is not specified.",
+      "properties": {
+        "severity": "Warning",
+        "warningLevel": "4",
+        "defaultSeverity": "Warning",
+        "category": "Compiler",
+        "helpLink": "https://learn.microsoft.com/dynamics365/business-central/dev-itpro/developer/diagnostics/diagnostic-al789?wt.mc_id=d365bc_inproduct_alextension",
+        "isEnabledByDefault": "True",
+        "isSuppressedInSource": "False",
+        "customTags": "Compiler;Telemetry"
+      }
+    }
+  ]
+}

@@ -1,0 +1,324 @@
+{
+  "version": "0.2",
+  "toolInfo": {
+    "toolName": "Microsoft (R) AL Compiler",
+    "productVersion": "17.0.34",
+    "fileVersion": "17.0.34"
+  },
+  "issues": [
+    {
+      "ruleId": "AD0001",
+      "locations": [
+      ],
+      "shortMessage": "Analyzer 'ALCops.LinterCop.Analyzers.InternalProcedureNotReferenced' threw an exception of type 'System.IO.FileNotFoundException' with message 'System.IO.FileNotFoundException: Could not load file or assembly 'Microsoft.Dynamics.Nav.Analyzers.Common, Version=16.0.27.57058, Culture=neutral, PublicKeyToken=31bf3856ad364e35'. The system cannot find the file specified.\u000a\u000aFile name: 'Microsoft.Dynamics.Nav.Analyzers.Common, Version=16.0.27.57058, Culture=neutral, PublicKeyToken=31bf3856ad364e35'\u000a   at ALCops.Common.Extensions.ManifestHelper.GetManifest(Compilation compilation)\u000a   at ALCops.LinterCop.Analyzers.InternalProcedureNotReferenced.MethodSymbolAnalyzer..ctor(CompilationAnalysisContext compilationAnalysisContext)\u000a   at ALCops.LinterCop.Analyzers.InternalProcedureNotReferenced.CheckApplicationObjects(CompilationAnalysisContext compilationAnalysisContext)\u000a   at Microsoft.Dynamics.Nav.CodeAnalysis.Diagnostics.AnalyzerExecutor.<>c__DisplayClass49_1.<ExecuteCompilationActionsCore>b__0() in X:\\source\\Prod\\Microsoft.Dynamics.Nav.CodeAnalysis\\DiagnosticAnalyzer\\AnalyzerExecutor.cs:line 625\u000a   at Microsoft.Dynamics.Nav.CodeAnalysis.Diagnostics.AnalyzerExecutor.ExecuteAndCatchIfThrows_NoLock(DiagnosticAnalyzer analyzer, Action analyze, Nullable`1 info) in X:\\source\\Prod\\Microsoft.Dynamics.Nav.CodeAnalysis\\DiagnosticAnalyzer\\AnalyzerExecutor.cs:line 1095'",
+      "fullMessage": "Analyzer 'ALCops.LinterCop.Analyzers.InternalProcedureNotReferenced' threw the following exception:\u000d\u000a'Exception occurred with following context:\u000d\u000a \u000aCould not load file or assembly 'Microsoft.Dynamics.Nav.Analyzers.Common, Version=16.0.27.57058, Culture=neutral, PublicKeyToken=31bf3856ad364e35'. The system cannot find the file specified.\u000a\u000a-----\u000a'",
+      "properties": {
+        "severity": "Warning",
+        "warningLevel": "1",
+        "defaultSeverity": "Warning",
+        "title": "Analyzer Failure",
+        "category": "Compiler",
+        "isEnabledByDefault": "True",
+        "isSuppressedInSource": "False",
+        "customTags": "AnalyzerException"
+      }
+    },
+    {
+      "ruleId": "AD0001",
+      "locations": [
+      ],
+      "shortMessage": "Analyzer 'ALCops.ApplicationCop.Analyzers.PermissionSetCoverage' threw an exception of type 'System.IO.FileNotFoundException' with message 'System.IO.FileNotFoundException: Could not load file or assembly 'Microsoft.Dynamics.Nav.Analyzers.Common, Version=16.0.27.57058, Culture=neutral, PublicKeyToken=31bf3856ad364e35'. The system cannot find the file specified.\u000a\u000aFile name: 'Microsoft.Dynamics.Nav.Analyzers.Common, Version=16.0.27.57058, Culture=neutral, PublicKeyToken=31bf3856ad364e35'\u000a   at ALCops.Common.Extensions.FileSystemInterfaceExtensions.GetPermissionSetDocuments(IFileSystem fileSystem)\u000a   at ALCops.ApplicationCop.Analyzers.PermissionSetCoverage.CheckPermissionSetCoverage(SymbolAnalysisContext ctx)\u000a   at Microsoft.Dynamics.Nav.CodeAnalysis.Diagnostics.AnalyzerExecutor.<>c__DisplayClass50_2.<ExecuteSymbolActionsCore>b__0() in X:\\source\\Prod\\Microsoft.Dynamics.Nav.CodeAnalysis\\DiagnosticAnalyzer\\AnalyzerExecutor.cs:line 665\u000a   at Microsoft.Dynamics.Nav.CodeAnalysis.Diagnostics.AnalyzerExecutor.ExecuteAndCatchIfThrows_NoLock(DiagnosticAnalyzer analyzer, Action analyze, Nullable`1 info) in X:\\source\\Prod\\Microsoft.Dynamics.Nav.CodeAnalysis\\DiagnosticAnalyzer\\AnalyzerExecutor.cs:line 1095'",
+      "fullMessage": "Analyzer 'ALCops.ApplicationCop.Analyzers.PermissionSetCoverage' threw the following exception:\u000d\u000a'Exception occurred with following context:\u000d\u000a ISymbol: Task Framework Tests (Module)\u000a\u000aCould not load file or assembly 'Microsoft.Dynamics.Nav.Analyzers.Common, Version=16.0.27.57058, Culture=neutral, PublicKeyToken=31bf3856ad364e35'. The system cannot find the file specified.\u000a\u000a-----\u000a'",
+      "properties": {
+        "severity": "Warning",
+        "warningLevel": "1",
+        "defaultSeverity": "Warning",
+        "title": "Analyzer Failure",
+        "category": "Compiler",
+        "isEnabledByDefault": "True",
+        "isSuppressedInSource": "False",
+        "customTags": "AnalyzerException"
+      }
+    },
+    {
+      "ruleId": "AD0001",
+      "locations": [
+      ],
+      "shortMessage": "Analyzer 'ALCops.LinterCop.Analyzers.AppManifestRuntimeBehind' threw an exception of type 'System.IO.FileNotFoundException' with message 'System.IO.FileNotFoundException: Could not load file or assembly 'Microsoft.Dynamics.Nav.Analyzers.Common, Version=16.0.27.57058, Culture=neutral, PublicKeyToken=31bf3856ad364e35'. The system cannot find the file specified.\u000a\u000aFile name: 'Microsoft.Dynamics.Nav.Analyzers.Common, Version=16.0.27.57058, Culture=neutral, PublicKeyToken=31bf3856ad364e35'\u000a   at ALCops.Common.Extensions.ManifestHelper.GetManifest(Compilation compilation)\u000a   at ALCops.LinterCop.Analyzers.AppManifestRuntimeBehind.CheckAppManifestRuntime(CompilationAnalysisContext ctx)\u000a   at Microsoft.Dynamics.Nav.CodeAnalysis.Diagnostics.AnalyzerExecutor.<>c__DisplayClass49_1.<ExecuteCompilationActionsCore>b__0() in X:\\source\\Prod\\Microsoft.Dynamics.Nav.CodeAnalysis\\DiagnosticAnalyzer\\AnalyzerExecutor.cs:line 625\u000a   at Microsoft.Dynamics.Nav.CodeAnalysis.Diagnostics.AnalyzerExecutor.ExecuteAndCatchIfThrows_NoLock(DiagnosticAnalyzer analyzer, Action analyze, Nullable`1 info) in X:\\source\\Prod\\Microsoft.Dynamics.Nav.CodeAnalysis\\DiagnosticAnalyzer\\AnalyzerExecutor.cs:line 1095'",
+      "fullMessage": "Analyzer 'ALCops.LinterCop.Analyzers.AppManifestRuntimeBehind' threw the following exception:\u000d\u000a'Exception occurred with following context:\u000d\u000a \u000aCould not load file or assembly 'Microsoft.Dynamics.Nav.Analyzers.Common, Version=16.0.27.57058, Culture=neutral, PublicKeyToken=31bf3856ad364e35'. The system cannot find the file specified.\u000a\u000a-----\u000a'",
+      "properties": {
+        "severity": "Warning",
+        "warningLevel": "1",
+        "defaultSeverity": "Warning",
+        "title": "Analyzer Failure",
+        "category": "Compiler",
+        "isEnabledByDefault": "True",
+        "isSuppressedInSource": "False",
+        "customTags": "AnalyzerException"
+      }
+    },
+    {
+      "ruleId": "DC0004",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "/home/stefan/Documents/Repos/community/techDays2026/TaskFramework/.worktrees/step-2-start/TaskFramework.Tests/src/TestAssert.Codeunit.al",
+              "region": {
+                "startLine": 6,
+                "startColumn": 15,
+                "endLine": 6,
+                "endColumn": 23
+              }
+            }
+          ]
+        }
+      ],
+      "shortMessage": "Public procedure 'AreEqual' must have XML documentation (or be restricted to local or internal scope).",
+      "fullMessage": "Public procedures are part of the exposed API and must be explicitly documented to justify their availability. XML documentation comments communicate intent, usage, and guarantees to consumers of the extension.",
+      "properties": {
+        "severity": "Info",
+        "defaultSeverity": "Info",
+        "title": "Public procedures must have XML documentation",
+        "category": "Design",
+        "helpLink": "https://alcops.dev/docs/analyzers/documentationcop/dc0004/",
+        "isEnabledByDefault": "True",
+        "isSuppressedInSource": "False"
+      }
+    },
+    {
+      "ruleId": "AC0031",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "/home/stefan/Documents/Repos/community/techDays2026/TaskFramework/.worktrees/step-2-start/TaskFramework.Tests/src/TaskFrameworkTests.Codeunit.al",
+              "region": {
+                "startLine": 27,
+                "startColumn": 9,
+                "endLine": 27,
+                "endColumn": 34
+              }
+            }
+          ]
+        }
+      ],
+      "shortMessage": "The object does not declare permission 'i' for tabledata 'Task Log Entry'",
+      "fullMessage": "Code that reads from or writes to table data must declare the required Permissions on the containing object. This ensures the code can run using indirect permissions, which is required when table access is restricted by the user's license. ",
+      "properties": {
+        "severity": "Info",
+        "defaultSeverity": "Info",
+        "title": "Table data access requires explicit object permissions",
+        "category": "Design",
+        "helpLink": "https://alcops.dev/docs/analyzers/applicationcop/ac0031/",
+        "isEnabledByDefault": "True",
+        "isSuppressedInSource": "False"
+      }
+    },
+    {
+      "ruleId": "AC0031",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "/home/stefan/Documents/Repos/community/techDays2026/TaskFramework/.worktrees/step-2-start/TaskFramework.Tests/src/TaskFrameworkTests.Codeunit.al",
+              "region": {
+                "startLine": 38,
+                "startColumn": 9,
+                "endLine": 38,
+                "endColumn": 51
+              }
+            }
+          ]
+        }
+      ],
+      "shortMessage": "The object does not declare permission 'r' for tabledata 'Task Log Entry'",
+      "fullMessage": "Code that reads from or writes to table data must declare the required Permissions on the containing object. This ensures the code can run using indirect permissions, which is required when table access is restricted by the user's license. ",
+      "properties": {
+        "severity": "Info",
+        "defaultSeverity": "Info",
+        "title": "Table data access requires explicit object permissions",
+        "category": "Design",
+        "helpLink": "https://alcops.dev/docs/analyzers/applicationcop/ac0031/",
+        "isEnabledByDefault": "True",
+        "isSuppressedInSource": "False"
+      }
+    },
+    {
+      "ruleId": "AC0030",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "/home/stefan/Documents/Repos/community/techDays2026/TaskFramework/.worktrees/step-2-start/TaskFramework.Tests/src/TaskFrameworkTests.Codeunit.al",
+              "region": {
+                "startLine": 38,
+                "startColumn": 9,
+                "endLine": 38,
+                "endColumn": 25
+              }
+            }
+          ]
+        }
+      ],
+      "shortMessage": "The return value of the 'Get' method must be used to improve error handling or provide meaningful feedback to the user.",
+      "fullMessage": "Database read methods, like Record.Get(), returns a boolean indicating whether the record was successfully retrieved. Failing to use this return value can lead to uncaught errors, poor error handling, and a lack of actionable feedback for users when something goes wrong.",
+      "properties": {
+        "severity": "Info",
+        "defaultSeverity": "Info",
+        "title": "Use return value for better error handling",
+        "category": "Design",
+        "helpLink": "https://alcops.dev/docs/analyzers/applicationcop/ac0030/",
+        "isEnabledByDefault": "True",
+        "isSuppressedInSource": "False"
+      }
+    },
+    {
+      "ruleId": "DC0004",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "/home/stefan/Documents/Repos/community/techDays2026/TaskFramework/.worktrees/step-2-start/TaskFramework.Tests/src/TestAssert.Codeunit.al",
+              "region": {
+                "startLine": 12,
+                "startColumn": 15,
+                "endLine": 12,
+                "endColumn": 21
+              }
+            }
+          ]
+        }
+      ],
+      "shortMessage": "Public procedure 'IsTrue' must have XML documentation (or be restricted to local or internal scope).",
+      "fullMessage": "Public procedures are part of the exposed API and must be explicitly documented to justify their availability. XML documentation comments communicate intent, usage, and guarantees to consumers of the extension.",
+      "properties": {
+        "severity": "Info",
+        "defaultSeverity": "Info",
+        "title": "Public procedures must have XML documentation",
+        "category": "Design",
+        "helpLink": "https://alcops.dev/docs/analyzers/documentationcop/dc0004/",
+        "isEnabledByDefault": "True",
+        "isSuppressedInSource": "False"
+      }
+    },
+    {
+      "ruleId": "AC0031",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "/home/stefan/Documents/Repos/community/techDays2026/TaskFramework/.worktrees/step-2-start/TaskFramework.Tests/src/TaskFrameworkTests.Codeunit.al",
+              "region": {
+                "startLine": 56,
+                "startColumn": 9,
+                "endLine": 56,
+                "endColumn": 34
+              }
+            }
+          ]
+        }
+      ],
+      "shortMessage": "The object does not declare permission 'i' for tabledata 'Voucher Entry'",
+      "fullMessage": "Code that reads from or writes to table data must declare the required Permissions on the containing object. This ensures the code can run using indirect permissions, which is required when table access is restricted by the user's license. ",
+      "properties": {
+        "severity": "Info",
+        "defaultSeverity": "Info",
+        "title": "Table data access requires explicit object permissions",
+        "category": "Design",
+        "helpLink": "https://alcops.dev/docs/analyzers/applicationcop/ac0031/",
+        "isEnabledByDefault": "True",
+        "isSuppressedInSource": "False"
+      }
+    },
+    {
+      "ruleId": "AC0031",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "/home/stefan/Documents/Repos/community/techDays2026/TaskFramework/.worktrees/step-2-start/TaskFramework.Tests/src/TaskFrameworkTests.Codeunit.al",
+              "region": {
+                "startLine": 74,
+                "startColumn": 9,
+                "endLine": 74,
+                "endColumn": 35
+              }
+            }
+          ]
+        }
+      ],
+      "shortMessage": "The object does not declare permission 'm' for tabledata 'Task Log Entry'",
+      "fullMessage": "Code that reads from or writes to table data must declare the required Permissions on the containing object. This ensures the code can run using indirect permissions, which is required when table access is restricted by the user's license. ",
+      "properties": {
+        "severity": "Info",
+        "defaultSeverity": "Info",
+        "title": "Table data access requires explicit object permissions",
+        "category": "Design",
+        "helpLink": "https://alcops.dev/docs/analyzers/applicationcop/ac0031/",
+        "isEnabledByDefault": "True",
+        "isSuppressedInSource": "False"
+      }
+    },
+    {
+      "ruleId": "LC0048",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "/home/stefan/Documents/Repos/community/techDays2026/TaskFramework/.worktrees/step-2-start/TaskFramework.Tests/src/TestAssert.Codeunit.al",
+              "region": {
+                "startLine": 9,
+                "startColumn": 13,
+                "endLine": 9,
+                "endColumn": 75
+              }
+            }
+          ]
+        }
+      ],
+      "shortMessage": "Error is called with a Text value. Use ErrorInfo or a Label variable to preserve error details in telemetry.",
+      "fullMessage": "Calling the Error method with a Text literal, Text variable, or Text expression (such as StrSubstNo) prevents the error message from being included in Business Central telemetry.",
+      "properties": {
+        "severity": "Warning",
+        "warningLevel": "1",
+        "defaultSeverity": "Warning",
+        "title": "Error is called with a Text value. Use ErrorInfo or a Label variable to preserve error details in telemetry.",
+        "category": "Design",
+        "helpLink": "https://alcops.dev/docs/analyzers/lintercop/lc0048/",
+        "isEnabledByDefault": "True",
+        "isSuppressedInSource": "False"
+      }
+    },
+    {
+      "ruleId": "LC0048",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "/home/stefan/Documents/Repos/community/techDays2026/TaskFramework/.worktrees/step-2-start/TaskFramework.Tests/src/TestAssert.Codeunit.al",
+              "region": {
+                "startLine": 15,
+                "startColumn": 13,
+                "endLine": 15,
+                "endColumn": 33
+              }
+            }
+          ]
+        }
+      ],
+      "shortMessage": "Error is called with a Text value. Use ErrorInfo or a Label variable to preserve error details in telemetry.",
+      "fullMessage": "Calling the Error method with a Text literal, Text variable, or Text expression (such as StrSubstNo) prevents the error message from being included in Business Central telemetry.",
+      "properties": {
+        "severity": "Warning",
+        "warningLevel": "1",
+        "defaultSeverity": "Warning",
+        "title": "Error is called with a Text value. Use ErrorInfo or a Label variable to preserve error details in telemetry.",
+        "category": "Design",
+        "helpLink": "https://alcops.dev/docs/analyzers/lintercop/lc0048/",
+        "isEnabledByDefault": "True",
+        "isSuppressedInSource": "False"
+      }
+    }
+  ]
+}

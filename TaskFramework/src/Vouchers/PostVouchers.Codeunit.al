@@ -16,6 +16,6 @@ codeunit 50001 "Post Vouchers"
         // The "posted" record is still editable in the client.
         VoucherEntry.Status := VoucherEntry.Status::Posted;
         VoucherEntry."Posting Date" := WorkDate();
-        VoucherEntry.Modify();
+        VoucherEntry.Modify(false);
     end;
 }

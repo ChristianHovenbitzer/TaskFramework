@@ -3,8 +3,8 @@ page 50004 "Voucher Entries"
     PageType = List;
     SourceTable = "Voucher Entry";
     Caption = 'Voucher Entries';
-    UsageCategory = Lists;
     ApplicationArea = All;
+    UsageCategory = Lists;
 
     layout
     {
@@ -12,13 +12,13 @@ page 50004 "Voucher Entries"
         {
             repeater(Lines)
             {
-                field("Entry No."; Rec."Entry No.") { ApplicationArea = All; }
-                field("Voucher No."; Rec."Voucher No.") { ApplicationArea = All; }
-                field("Customer No."; Rec."Customer No.") { ApplicationArea = All; }
-                field(Amount; Rec.Amount) { ApplicationArea = All; }
-                field("Posting Date"; Rec."Posting Date") { ApplicationArea = All; }
-                field(Status; Rec.Status) { ApplicationArea = All; }
-                field(Description; Rec.Description) { ApplicationArea = All; }
+                field("Entry No."; Rec."Entry No.") { }
+                field("Voucher No."; Rec."Voucher No.") { }
+                field("Customer No."; Rec."Customer No.") { }
+                field(Amount; Rec.Amount) { }
+                field("Posting Date"; Rec."Posting Date") { }
+                field(Status; Rec.Status) { }
+                field(Description; Rec.Description) { }
             }
         }
     }
@@ -31,7 +31,6 @@ page 50004 "Voucher Entries"
             {
                 Caption = 'Post Selected';
                 Image = Post;
-                ApplicationArea = All;
 
                 trigger OnAction()
                 var
@@ -49,7 +48,7 @@ page 50004 "Voucher Entries"
                         repeat
                             VoucherEntry.Status := VoucherEntry.Status::Posted;
                             VoucherEntry."Posting Date" := WorkDate();
-                            VoucherEntry.Modify();
+                            VoucherEntry.Modify(false);
                             PostCount += 1;
                         until VoucherEntry.Next() = 0;
                     Message('Posted %1 voucher(s).', PostCount);
@@ -60,7 +59,6 @@ page 50004 "Voucher Entries"
             {
                 Caption = 'Post (with Validation)';
                 Image = PostDocument;
-                ApplicationArea = All;
 
                 trigger OnAction()
                 var

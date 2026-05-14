@@ -34,7 +34,7 @@ codeunit 50000 "Task Processor"
         // var on this codeunit, Clear() it here, and call IncrementProcessedCount /
         // SetLastProcessed inside the loop after ProcessTaskEntry.
         TaskLogEntry.SetRange(Status, TaskLogEntry.Status::Pending);
-        TaskLogEntry.SetFilter("Earliest Processing DateTime", '%1|<%2', 0DT, CurrentDateTime);
+        TaskLogEntry.SetFilter("Earliest Processing DateTime", '%1|<%2', 0DT, CurrentDateTime());
         if TaskLogEntry.FindSet(true) then
             repeat
                 ProcessTaskEntry(TaskLogEntry);
@@ -52,8 +52,8 @@ codeunit 50000 "Task Processor"
             exit;
 
         TaskLogEntry.Status := TaskLogEntry.Status::Processing;
-        TaskLogEntry."Processing Started At" := CurrentDateTime;
-        TaskLogEntry.Modify();
+        TaskLogEntry."Processing Started At" := CurrentDateTime();
+        TaskLogEntry.Modify(false);
 
         // THE MONSTER CASE
         // ANTI-PATTERN: Framework app knows about VendorImport, LogRetention, DocumentImport.
@@ -70,8 +70,8 @@ codeunit 50000 "Task Processor"
         end;
 
         TaskLogEntry.Status := TaskLogEntry.Status::Complete;
-        TaskLogEntry."Processing Completed At" := CurrentDateTime;
-        TaskLogEntry.Modify();
+        TaskLogEntry."Processing Completed At" := CurrentDateTime();
+        TaskLogEntry.Modify(false);
 
         if TaskLogEntry."Archive After Processing" then
             ArchiveEntry(TaskLogEntry);
@@ -95,9 +95,9 @@ codeunit 50000 "Task Processor"
         Archive."Correlation Id" := TaskLogEntry."Correlation Id";
         Archive."Archive After Processing" := TaskLogEntry."Archive After Processing";
         Archive."Earliest Processing DateTime" := TaskLogEntry."Earliest Processing DateTime";
-        Archive."Archived At" := CurrentDateTime;
+        Archive."Archived At" := CurrentDateTime();
         Archive."Archive Reason" := Archive."Archive Reason"::Processed;
-        Archive.Insert();
+        Archive.Insert(false);
     end;
 
     local procedure ProcessVendorImport(var TaskLogEntry: Record "Task Log Entry")
@@ -142,10 +142,10 @@ codeunit 50000 "Task Processor"
         CutoffDate := CalcDate('<-' + Format(RetentionDays) + 'D>', Today());
 
         Archive.SetFilter("Archived At", '<%1', CreateDateTime(CutoffDate, 0T));
-        Archive.DeleteAll();
+        Archive.DeleteAll(false);
 
         TaskLogEntry.Description := 'Cleaned up archive entries older than ' + Format(RetentionDays) + ' days.';
-        TaskLogEntry.Modify();
+        TaskLogEntry.Modify(false);
     end;
 
     local procedure ProcessDocumentImport(var TaskLogEntry: Record "Task Log Entry")
@@ -192,7 +192,7 @@ codeunit 50000 "Task Processor"
         i: Integer;
     begin
         Part := PayloadText.Split(';');
-        for i := 1 to Part.Count do begin
+        for i := 1 to Part.Count() do begin
             Segment := Part.Get(i).Trim();
             if Segment.IndexOf(FieldKey + '=') = 1 then
                 exit(CopyStr(Segment, StrLen(FieldKey) + 2));
