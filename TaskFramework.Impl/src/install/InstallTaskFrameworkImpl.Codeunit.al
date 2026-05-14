@@ -2,6 +2,7 @@
 // Steps 3 and 4 landed concrete processors and the Task Processor Factory here.
 codeunit 60000 "Install Task Framework Impl"
 {
+    Access = Internal;
     Subtype = Install;
 
     trigger OnInstallAppPerDatabase()

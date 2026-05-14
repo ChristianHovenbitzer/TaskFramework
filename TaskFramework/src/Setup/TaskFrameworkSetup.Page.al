@@ -3,8 +3,8 @@ page 50003 "Task Framework Setup"
     PageType = Card;
     SourceTable = "Task Framework Setup";
     Caption = 'Task Framework Setup';
-    UsageCategory = Administration;
     ApplicationArea = All;
+    UsageCategory = Administration;
 
     layout
     {
@@ -12,29 +12,30 @@ page 50003 "Task Framework Setup"
         {
             group(General)
             {
-                field(Enabled; Rec.Enabled) { ApplicationArea = All; }
-                field("Max Retry Count"; Rec."Max Retry Count") { ApplicationArea = All; }
-                field("Default G/L Account"; Rec."Default G/L Account") { ApplicationArea = All; }
-                field("Default Verbosity"; Rec."Default Verbosity") { ApplicationArea = All; }
-                field("Default Error Handler"; Rec."Default Error Handler") { ApplicationArea = All; }
+                Caption = 'General';
+                field(Enabled; Rec.Enabled) { }
+                field("Max Retry Count"; Rec."Max Retry Count") { }
+                field("Default G/L Account"; Rec."Default G/L Account") { }
+                field("Default Verbosity"; Rec."Default Verbosity") { }
+                field("Default Error Handler"; Rec."Default Error Handler") { }
             }
             group(Scheduling)
             {
                 Caption = 'Scheduling';
-                field("Execution Interval (Seconds)"; Rec."Execution Interval (Seconds)") { ApplicationArea = All; }
-                field("Last Processed At"; Rec."Last Processed At") { ApplicationArea = All; Editable = false; }
+                field("Execution Interval (Seconds)"; Rec."Execution Interval (Seconds)") { }
+                field("Last Processed At"; Rec."Last Processed At") { Editable = false; }
             }
             group(Batching)
             {
                 Caption = 'Batching';
-                field("Enable Batches"; Rec."Enable Batches") { ApplicationArea = All; }
-                field("Batch Size"; Rec."Batch Size") { ApplicationArea = All; }
+                field("Enable Batches"; Rec."Enable Batches") { }
+                field("Batch Size"; Rec."Batch Size") { }
             }
             group(Archive)
             {
                 Caption = 'Archive';
-                field("Archive Enabled"; Rec."Archive Enabled") { ApplicationArea = All; }
-                field("Retention Days"; Rec."Retention Days") { ApplicationArea = All; }
+                field("Archive Enabled"; Rec."Archive Enabled") { }
+                field("Retention Days"; Rec."Retention Days") { }
             }
         }
     }
@@ -45,7 +46,7 @@ page 50003 "Task Framework Setup"
     begin
         if not Setup.Get() then begin
             Setup.Init();
-            Setup.Insert();
+            Setup.Insert(false);
         end;
     end;
 }
