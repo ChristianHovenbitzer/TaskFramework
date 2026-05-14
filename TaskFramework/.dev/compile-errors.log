@@ -1,0 +1,3568 @@
+{
+  "version": "0.2",
+  "toolInfo": {
+    "toolName": "Microsoft (R) AL Compiler",
+    "productVersion": "17.0.34",
+    "fileVersion": "17.0.34"
+  },
+  "issues": [
+    {
+      "ruleId": "AL0615",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "/home/stefan/Documents/Repos/community/techDays2026/TaskFramework/.worktrees/step-5-start/TaskFramework/src/Core/API/TaskEntryAPI.page.al",
+              "region": {
+                "startLine": 13,
+                "startColumn": 5,
+                "endLine": 13,
+                "endColumn": 31
+              }
+            }
+          ]
+        }
+      ],
+      "fullMessage": "Field 'SystemId' is not specified as a source expression on page 'Task Entry API'. All fields specified in ODataKeyFields must be used as the source expression in a page control. This warning will become an error in a future release.",
+      "properties": {
+        "severity": "Warning",
+        "warningLevel": "4",
+        "defaultSeverity": "Warning",
+        "category": "Compiler",
+        "helpLink": "https://learn.microsoft.com/dynamics365/business-central/dev-itpro/developer/diagnostics/diagnostic-al615?wt.mc_id=d365bc_inproduct_alextension",
+        "isEnabledByDefault": "True",
+        "isSuppressedInSource": "False",
+        "customTags": "Compiler;Telemetry"
+      }
+    },
+    {
+      "ruleId": "AD0001",
+      "locations": [
+      ],
+      "shortMessage": "Analyzer 'ALCops.LinterCop.Analyzers.AppManifestRuntimeBehind' threw an exception of type 'System.IO.FileNotFoundException' with message 'System.IO.FileNotFoundException: Could not load file or assembly 'Microsoft.Dynamics.Nav.Analyzers.Common, Version=16.0.27.57058, Culture=neutral, PublicKeyToken=31bf3856ad364e35'. The system cannot find the file specified.\u000a\u000aFile name: 'Microsoft.Dynamics.Nav.Analyzers.Common, Version=16.0.27.57058, Culture=neutral, PublicKeyToken=31bf3856ad364e35'\u000a   at ALCops.Common.Extensions.ManifestHelper.GetManifest(Compilation compilation)\u000a   at ALCops.LinterCop.Analyzers.AppManifestRuntimeBehind.CheckAppManifestRuntime(CompilationAnalysisContext ctx)\u000a   at Microsoft.Dynamics.Nav.CodeAnalysis.Diagnostics.AnalyzerExecutor.<>c__DisplayClass49_1.<ExecuteCompilationActionsCore>b__0() in X:\\source\\Prod\\Microsoft.Dynamics.Nav.CodeAnalysis\\DiagnosticAnalyzer\\AnalyzerExecutor.cs:line 625\u000a   at Microsoft.Dynamics.Nav.CodeAnalysis.Diagnostics.AnalyzerExecutor.ExecuteAndCatchIfThrows_NoLock(DiagnosticAnalyzer analyzer, Action analyze, Nullable`1 info) in X:\\source\\Prod\\Microsoft.Dynamics.Nav.CodeAnalysis\\DiagnosticAnalyzer\\AnalyzerExecutor.cs:line 1095'",
+      "fullMessage": "Analyzer 'ALCops.LinterCop.Analyzers.AppManifestRuntimeBehind' threw the following exception:\u000d\u000a'Exception occurred with following context:\u000d\u000a \u000aCould not load file or assembly 'Microsoft.Dynamics.Nav.Analyzers.Common, Version=16.0.27.57058, Culture=neutral, PublicKeyToken=31bf3856ad364e35'. The system cannot find the file specified.\u000a\u000a-----\u000a'",
+      "properties": {
+        "severity": "Warning",
+        "warningLevel": "1",
+        "defaultSeverity": "Warning",
+        "title": "Analyzer Failure",
+        "category": "Compiler",
+        "isEnabledByDefault": "True",
+        "isSuppressedInSource": "False",
+        "customTags": "AnalyzerException"
+      }
+    },
+    {
+      "ruleId": "AD0001",
+      "locations": [
+      ],
+      "shortMessage": "Analyzer 'ALCops.LinterCop.Analyzers.InternalProcedureNotReferenced' threw an exception of type 'System.IO.FileNotFoundException' with message 'System.IO.FileNotFoundException: Could not load file or assembly 'Microsoft.Dynamics.Nav.Analyzers.Common, Version=16.0.27.57058, Culture=neutral, PublicKeyToken=31bf3856ad364e35'. The system cannot find the file specified.\u000a\u000aFile name: 'Microsoft.Dynamics.Nav.Analyzers.Common, Version=16.0.27.57058, Culture=neutral, PublicKeyToken=31bf3856ad364e35'\u000a   at ALCops.Common.Extensions.ManifestHelper.GetManifest(Compilation compilation)\u000a   at ALCops.LinterCop.Analyzers.InternalProcedureNotReferenced.MethodSymbolAnalyzer..ctor(CompilationAnalysisContext compilationAnalysisContext)\u000a   at ALCops.LinterCop.Analyzers.InternalProcedureNotReferenced.CheckApplicationObjects(CompilationAnalysisContext compilationAnalysisContext)\u000a   at Microsoft.Dynamics.Nav.CodeAnalysis.Diagnostics.AnalyzerExecutor.<>c__DisplayClass49_1.<ExecuteCompilationActionsCore>b__0() in X:\\source\\Prod\\Microsoft.Dynamics.Nav.CodeAnalysis\\DiagnosticAnalyzer\\AnalyzerExecutor.cs:line 625\u000a   at Microsoft.Dynamics.Nav.CodeAnalysis.Diagnostics.AnalyzerExecutor.ExecuteAndCatchIfThrows_NoLock(DiagnosticAnalyzer analyzer, Action analyze, Nullable`1 info) in X:\\source\\Prod\\Microsoft.Dynamics.Nav.CodeAnalysis\\DiagnosticAnalyzer\\AnalyzerExecutor.cs:line 1095'",
+      "fullMessage": "Analyzer 'ALCops.LinterCop.Analyzers.InternalProcedureNotReferenced' threw the following exception:\u000d\u000a'Exception occurred with following context:\u000d\u000a \u000aCould not load file or assembly 'Microsoft.Dynamics.Nav.Analyzers.Common, Version=16.0.27.57058, Culture=neutral, PublicKeyToken=31bf3856ad364e35'. The system cannot find the file specified.\u000a\u000a-----\u000a'",
+      "properties": {
+        "severity": "Warning",
+        "warningLevel": "1",
+        "defaultSeverity": "Warning",
+        "title": "Analyzer Failure",
+        "category": "Compiler",
+        "isEnabledByDefault": "True",
+        "isSuppressedInSource": "False",
+        "customTags": "AnalyzerException"
+      }
+    },
+    {
+      "ruleId": "FC0004",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "/home/stefan/Documents/Repos/community/techDays2026/TaskFramework/.worktrees/step-5-start/TaskFramework/src/Core/TaskFrameworkAll.permissionset.al",
+              "region": {
+                "startLine": 6,
+                "startColumn": 5,
+                "endLine": 11,
+                "endColumn": 42
+              }
+            }
+          ]
+        }
+      ],
+      "shortMessage": "The Permissions property entries are not ordered alphabetically by type and name.",
+      "fullMessage": "Permission entries in the Permissions property should be ordered alphabetically, first by object type (codeunit, page, report, table, tabledata, etc.) and then by object name. Consistent ordering improves readability and reduces merge conflicts.",
+      "properties": {
+        "severity": "Info",
+        "defaultSeverity": "Info",
+        "title": "Permission declarations should be ordered alphabetically",
+        "category": "Style",
+        "helpLink": "https://alcops.dev/docs/analyzers/formattingcop/fc0004/",
+        "isEnabledByDefault": "True",
+        "isSuppressedInSource": "False"
+      }
+    },
+    {
+      "ruleId": "LC0088",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "/home/stefan/Documents/Repos/community/techDays2026/TaskFramework/.worktrees/step-5-start/TaskFramework/src/Vouchers/VoucherEntry.Table.al",
+              "region": {
+                "startLine": 16,
+                "startColumn": 26,
+                "endLine": 16,
+                "endColumn": 32
+              }
+            }
+          ]
+        }
+      ],
+      "shortMessage": "Prefer using an Enum instead of an Option type.",
+      "fullMessage": "Enums are preferred over Option types because they provide stronger typing, better extensibility, and clearer intent. Using Enums reduces error-prone patterns commonly associated with Option fields and improves maintainability and versioning of AL code.",
+      "properties": {
+        "severity": "Info",
+        "defaultSeverity": "Info",
+        "title": "Prefer Enum over Option type",
+        "category": "Design",
+        "helpLink": "https://alcops.dev/docs/analyzers/lintercop/lc0088/",
+        "isEnabledByDefault": "True",
+        "isSuppressedInSource": "False"
+      }
+    },
+    {
+      "ruleId": "AC0026",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "/home/stefan/Documents/Repos/community/techDays2026/TaskFramework/.worktrees/step-5-start/TaskFramework/src/Setup/TaskFrameworkSetup.Table.al",
+              "region": {
+                "startLine": 8,
+                "startColumn": 18,
+                "endLine": 8,
+                "endColumn": 31
+              }
+            }
+          ]
+        }
+      ],
+      "shortMessage": "Field 'Primary Key' is not exposed on any page and should explicitly define AllowInCustomizations.",
+      "fullMessage": "Fields that are not included on pages can still be exposed through page customizations. To avoid unintended visibility or customization behavior, the AllowInCustomizations property must be set explicitly for such fields.",
+      "properties": {
+        "severity": "Info",
+        "defaultSeverity": "Info",
+        "title": "Explicitly set AllowInCustomizations for excluded fields",
+        "category": "Design",
+        "helpLink": "https://alcops.dev/docs/analyzers/applicationcop/ac0026/",
+        "isEnabledByDefault": "True",
+        "isSuppressedInSource": "False"
+      }
+    },
+    {
+      "ruleId": "AC0026",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "/home/stefan/Documents/Repos/community/techDays2026/TaskFramework/.worktrees/step-5-start/TaskFramework/src/Core/Archive/TaskLogArchive.table.al",
+              "region": {
+                "startLine": 14,
+                "startColumn": 18,
+                "endLine": 14,
+                "endColumn": 41
+              }
+            }
+          ]
+        }
+      ],
+      "shortMessage": "Field 'Processing Started At' is not exposed on any page and should explicitly define AllowInCustomizations.",
+      "fullMessage": "Fields that are not included on pages can still be exposed through page customizations. To avoid unintended visibility or customization behavior, the AllowInCustomizations property must be set explicitly for such fields.",
+      "properties": {
+        "severity": "Info",
+        "defaultSeverity": "Info",
+        "title": "Explicitly set AllowInCustomizations for excluded fields",
+        "category": "Design",
+        "helpLink": "https://alcops.dev/docs/analyzers/applicationcop/ac0026/",
+        "isEnabledByDefault": "True",
+        "isSuppressedInSource": "False"
+      }
+    },
+    {
+      "ruleId": "AC0026",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "/home/stefan/Documents/Repos/community/techDays2026/TaskFramework/.worktrees/step-5-start/TaskFramework/src/Core/Archive/TaskLogArchive.table.al",
+              "region": {
+                "startLine": 15,
+                "startColumn": 18,
+                "endLine": 15,
+                "endColumn": 43
+              }
+            }
+          ]
+        }
+      ],
+      "shortMessage": "Field 'Processing Completed At' is not exposed on any page and should explicitly define AllowInCustomizations.",
+      "fullMessage": "Fields that are not included on pages can still be exposed through page customizations. To avoid unintended visibility or customization behavior, the AllowInCustomizations property must be set explicitly for such fields.",
+      "properties": {
+        "severity": "Info",
+        "defaultSeverity": "Info",
+        "title": "Explicitly set AllowInCustomizations for excluded fields",
+        "category": "Design",
+        "helpLink": "https://alcops.dev/docs/analyzers/applicationcop/ac0026/",
+        "isEnabledByDefault": "True",
+        "isSuppressedInSource": "False"
+      }
+    },
+    {
+      "ruleId": "AC0026",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "/home/stefan/Documents/Repos/community/techDays2026/TaskFramework/.worktrees/step-5-start/TaskFramework/src/Core/Archive/TaskLogArchive.table.al",
+              "region": {
+                "startLine": 16,
+                "startColumn": 18,
+                "endLine": 16,
+                "endColumn": 38
+              }
+            }
+          ]
+        }
+      ],
+      "shortMessage": "Field 'Last Error Message' is not exposed on any page and should explicitly define AllowInCustomizations.",
+      "fullMessage": "Fields that are not included on pages can still be exposed through page customizations. To avoid unintended visibility or customization behavior, the AllowInCustomizations property must be set explicitly for such fields.",
+      "properties": {
+        "severity": "Info",
+        "defaultSeverity": "Info",
+        "title": "Explicitly set AllowInCustomizations for excluded fields",
+        "category": "Design",
+        "helpLink": "https://alcops.dev/docs/analyzers/applicationcop/ac0026/",
+        "isEnabledByDefault": "True",
+        "isSuppressedInSource": "False"
+      }
+    },
+    {
+      "ruleId": "AC0026",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "/home/stefan/Documents/Repos/community/techDays2026/TaskFramework/.worktrees/step-5-start/TaskFramework/src/Core/Archive/TaskLogArchive.table.al",
+              "region": {
+                "startLine": 17,
+                "startColumn": 19,
+                "endLine": 17,
+                "endColumn": 32
+              }
+            }
+          ]
+        }
+      ],
+      "shortMessage": "Field 'Retry Count' is not exposed on any page and should explicitly define AllowInCustomizations.",
+      "fullMessage": "Fields that are not included on pages can still be exposed through page customizations. To avoid unintended visibility or customization behavior, the AllowInCustomizations property must be set explicitly for such fields.",
+      "properties": {
+        "severity": "Info",
+        "defaultSeverity": "Info",
+        "title": "Explicitly set AllowInCustomizations for excluded fields",
+        "category": "Design",
+        "helpLink": "https://alcops.dev/docs/analyzers/applicationcop/ac0026/",
+        "isEnabledByDefault": "True",
+        "isSuppressedInSource": "False"
+      }
+    },
+    {
+      "ruleId": "AC0026",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "/home/stefan/Documents/Repos/community/techDays2026/TaskFramework/.worktrees/step-5-start/TaskFramework/src/Core/Archive/TaskLogArchive.table.al",
+              "region": {
+                "startLine": 20,
+                "startColumn": 19,
+                "endLine": 20,
+                "endColumn": 45
+              }
+            }
+          ]
+        }
+      ],
+      "shortMessage": "Field 'Archive After Processing' is not exposed on any page and should explicitly define AllowInCustomizations.",
+      "fullMessage": "Fields that are not included on pages can still be exposed through page customizations. To avoid unintended visibility or customization behavior, the AllowInCustomizations property must be set explicitly for such fields.",
+      "properties": {
+        "severity": "Info",
+        "defaultSeverity": "Info",
+        "title": "Explicitly set AllowInCustomizations for excluded fields",
+        "category": "Design",
+        "helpLink": "https://alcops.dev/docs/analyzers/applicationcop/ac0026/",
+        "isEnabledByDefault": "True",
+        "isSuppressedInSource": "False"
+      }
+    },
+    {
+      "ruleId": "AC0026",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "/home/stefan/Documents/Repos/community/techDays2026/TaskFramework/.worktrees/step-5-start/TaskFramework/src/Core/Archive/TaskLogArchive.table.al",
+              "region": {
+                "startLine": 21,
+                "startColumn": 19,
+                "endLine": 21,
+                "endColumn": 49
+              }
+            }
+          ]
+        }
+      ],
+      "shortMessage": "Field 'Earliest Processing DateTime' is not exposed on any page and should explicitly define AllowInCustomizations.",
+      "fullMessage": "Fields that are not included on pages can still be exposed through page customizations. To avoid unintended visibility or customization behavior, the AllowInCustomizations property must be set explicitly for such fields.",
+      "properties": {
+        "severity": "Info",
+        "defaultSeverity": "Info",
+        "title": "Explicitly set AllowInCustomizations for excluded fields",
+        "category": "Design",
+        "helpLink": "https://alcops.dev/docs/analyzers/applicationcop/ac0026/",
+        "isEnabledByDefault": "True",
+        "isSuppressedInSource": "False"
+      }
+    },
+    {
+      "ruleId": "AC0019",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "/home/stefan/Documents/Repos/community/techDays2026/TaskFramework/.worktrees/step-5-start/TaskFramework/src/Core/Errors/TaskErrorHandler.enum.al",
+              "region": {
+                "startLine": 5,
+                "startColumn": 14,
+                "endLine": 5,
+                "endColumn": 21
+              }
+            }
+          ]
+        }
+      ],
+      "shortMessage": "Enum value 'Default' with ordinal 0 should have an empty Name and Caption.",
+      "fullMessage": "Zero (0) should be reserved as the empty Enum value. Business Central stores Enums as integers and does not support null; new records (and existing records after adding a field via table extension) default to 0, which makes non-empty meaning at 0 ambiguous.",
+      "properties": {
+        "severity": "Info",
+        "defaultSeverity": "Info",
+        "title": "Reserve Enum value zero (0) for empty value",
+        "category": "Design",
+        "helpLink": "https://alcops.dev/docs/analyzers/applicationcop/ac0019/",
+        "isEnabledByDefault": "True",
+        "isSuppressedInSource": "False"
+      }
+    },
+    {
+      "ruleId": "AC0019",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "/home/stefan/Documents/Repos/community/techDays2026/TaskFramework/.worktrees/step-5-start/TaskFramework/src/Core/Archive/TaskArchiveReason.enum.al",
+              "region": {
+                "startLine": 5,
+                "startColumn": 14,
+                "endLine": 5,
+                "endColumn": 23
+              }
+            }
+          ]
+        }
+      ],
+      "shortMessage": "Enum value 'Processed' with ordinal 0 should have an empty Name and Caption.",
+      "fullMessage": "Zero (0) should be reserved as the empty Enum value. Business Central stores Enums as integers and does not support null; new records (and existing records after adding a field via table extension) default to 0, which makes non-empty meaning at 0 ambiguous.",
+      "properties": {
+        "severity": "Info",
+        "defaultSeverity": "Info",
+        "title": "Reserve Enum value zero (0) for empty value",
+        "category": "Design",
+        "helpLink": "https://alcops.dev/docs/analyzers/applicationcop/ac0019/",
+        "isEnabledByDefault": "True",
+        "isSuppressedInSource": "False"
+      }
+    },
+    {
+      "ruleId": "AC0019",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "/home/stefan/Documents/Repos/community/techDays2026/TaskFramework/.worktrees/step-5-start/TaskFramework/src/Core/TaskStatus.Enum.al",
+              "region": {
+                "startLine": 5,
+                "startColumn": 14,
+                "endLine": 5,
+                "endColumn": 21
+              }
+            }
+          ]
+        }
+      ],
+      "shortMessage": "Enum value 'Pending' with ordinal 0 should have an empty Name and Caption.",
+      "fullMessage": "Zero (0) should be reserved as the empty Enum value. Business Central stores Enums as integers and does not support null; new records (and existing records after adding a field via table extension) default to 0, which makes non-empty meaning at 0 ambiguous.",
+      "properties": {
+        "severity": "Info",
+        "defaultSeverity": "Info",
+        "title": "Reserve Enum value zero (0) for empty value",
+        "category": "Design",
+        "helpLink": "https://alcops.dev/docs/analyzers/applicationcop/ac0019/",
+        "isEnabledByDefault": "True",
+        "isSuppressedInSource": "False"
+      }
+    },
+    {
+      "ruleId": "AC0019",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "/home/stefan/Documents/Repos/community/techDays2026/TaskFramework/.worktrees/step-5-start/TaskFramework/src/Core/TaskVerbosity.enum.al",
+              "region": {
+                "startLine": 5,
+                "startColumn": 14,
+                "endLine": 5,
+                "endColumn": 21
+              }
+            }
+          ]
+        }
+      ],
+      "shortMessage": "Enum value 'Minimal' with ordinal 0 should have an empty Name and Caption.",
+      "fullMessage": "Zero (0) should be reserved as the empty Enum value. Business Central stores Enums as integers and does not support null; new records (and existing records after adding a field via table extension) default to 0, which makes non-empty meaning at 0 ambiguous.",
+      "properties": {
+        "severity": "Info",
+        "defaultSeverity": "Info",
+        "title": "Reserve Enum value zero (0) for empty value",
+        "category": "Design",
+        "helpLink": "https://alcops.dev/docs/analyzers/applicationcop/ac0019/",
+        "isEnabledByDefault": "True",
+        "isSuppressedInSource": "False"
+      }
+    },
+    {
+      "ruleId": "LC0063",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "/home/stefan/Documents/Repos/community/techDays2026/TaskFramework/.worktrees/step-5-start/TaskFramework/src/Core/API/TaskEntryAPI.page.al",
+              "region": {
+                "startLine": 25,
+                "startColumn": 23,
+                "endLine": 25,
+                "endColumn": 30
+              }
+            }
+          ]
+        }
+      ],
+      "shortMessage": "Consider naming field with a more descriptive name: 'entryNumber'.",
+      "fullMessage": "It is common for API pages to give certain fields a more describing name.",
+      "properties": {
+        "severity": "Info",
+        "defaultSeverity": "Info",
+        "title": "Consider naming field with a more descriptive name: '{0}'.",
+        "category": "Design",
+        "helpLink": "https://alcops.dev/docs/analyzers/lintercop/lc0063/",
+        "isEnabledByDefault": "True",
+        "isSuppressedInSource": "False"
+      }
+    },
+    {
+      "ruleId": "AC0001",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "/home/stefan/Documents/Repos/community/techDays2026/TaskFramework/.worktrees/step-5-start/TaskFramework/src/Core/Archive/TaskLogArchive.table.al",
+              "region": {
+                "startLine": 1,
+                "startColumn": 13,
+                "endLine": 1,
+                "endColumn": 31
+              }
+            }
+          ]
+        }
+      ],
+      "shortMessage": "Table '\"Task Log Archive\"' is used in a list page but does not define both the DrillDownPageId and LookupPageId properties.",
+      "fullMessage": "When a table is used as the source for a list page, users expect to be able to drill down into records and open lookups in a consistent and predictable way. The DrillDownPageId and LookupPageId table properties define which pages are used for these interactions.",
+      "properties": {
+        "severity": "Info",
+        "defaultSeverity": "Info",
+        "title": "DrillDownPageId and LookupPageId property must be defined for tables used in list pages",
+        "category": "Design",
+        "helpLink": "https://alcops.dev/docs/analyzers/applicationcop/ac0001/",
+        "isEnabledByDefault": "True",
+        "isSuppressedInSource": "False"
+      }
+    },
+    {
+      "ruleId": "AC0001",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "/home/stefan/Documents/Repos/community/techDays2026/TaskFramework/.worktrees/step-5-start/TaskFramework/src/Vouchers/VoucherEntry.Table.al",
+              "region": {
+                "startLine": 4,
+                "startColumn": 13,
+                "endLine": 4,
+                "endColumn": 28
+              }
+            }
+          ]
+        }
+      ],
+      "shortMessage": "Table '\"Voucher Entry\"' is used in a list page but does not define both the DrillDownPageId and LookupPageId properties.",
+      "fullMessage": "When a table is used as the source for a list page, users expect to be able to drill down into records and open lookups in a consistent and predictable way. The DrillDownPageId and LookupPageId table properties define which pages are used for these interactions.",
+      "properties": {
+        "severity": "Info",
+        "defaultSeverity": "Info",
+        "title": "DrillDownPageId and LookupPageId property must be defined for tables used in list pages",
+        "category": "Design",
+        "helpLink": "https://alcops.dev/docs/analyzers/applicationcop/ac0001/",
+        "isEnabledByDefault": "True",
+        "isSuppressedInSource": "False"
+      }
+    },
+    {
+      "ruleId": "AC0001",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "/home/stefan/Documents/Repos/community/techDays2026/TaskFramework/.worktrees/step-5-start/TaskFramework/src/Core/TaskLogEntry.Table.al",
+              "region": {
+                "startLine": 1,
+                "startColumn": 13,
+                "endLine": 1,
+                "endColumn": 29
+              }
+            }
+          ]
+        }
+      ],
+      "shortMessage": "Table '\"Task Log Entry\"' is used in a list page but does not define both the DrillDownPageId and LookupPageId properties.",
+      "fullMessage": "When a table is used as the source for a list page, users expect to be able to drill down into records and open lookups in a consistent and predictable way. The DrillDownPageId and LookupPageId table properties define which pages are used for these interactions.",
+      "properties": {
+        "severity": "Info",
+        "defaultSeverity": "Info",
+        "title": "DrillDownPageId and LookupPageId property must be defined for tables used in list pages",
+        "category": "Design",
+        "helpLink": "https://alcops.dev/docs/analyzers/applicationcop/ac0001/",
+        "isEnabledByDefault": "True",
+        "isSuppressedInSource": "False"
+      }
+    },
+    {
+      "ruleId": "DC0004",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "/home/stefan/Documents/Repos/community/techDays2026/TaskFramework/.worktrees/step-5-start/TaskFramework/src/Processing/TaskProcessingState.Codeunit.al",
+              "region": {
+                "startLine": 12,
+                "startColumn": 15,
+                "endLine": 12,
+                "endColumn": 31
+              }
+            }
+          ]
+        }
+      ],
+      "shortMessage": "Public procedure 'GetLastProcessed' must have XML documentation (or be restricted to local or internal scope).",
+      "fullMessage": "Public procedures are part of the exposed API and must be explicitly documented to justify their availability. XML documentation comments communicate intent, usage, and guarantees to consumers of the extension.",
+      "properties": {
+        "severity": "Info",
+        "defaultSeverity": "Info",
+        "title": "Public procedures must have XML documentation",
+        "category": "Design",
+        "helpLink": "https://alcops.dev/docs/analyzers/documentationcop/dc0004/",
+        "isEnabledByDefault": "True",
+        "isSuppressedInSource": "False"
+      }
+    },
+    {
+      "ruleId": "DC0004",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "/home/stefan/Documents/Repos/community/techDays2026/TaskFramework/.worktrees/step-5-start/TaskFramework/src/Processing/TaskProcessingState.Codeunit.al",
+              "region": {
+                "startLine": 22,
+                "startColumn": 15,
+                "endLine": 22,
+                "endColumn": 32
+              }
+            }
+          ]
+        }
+      ],
+      "shortMessage": "Public procedure 'GetProcessedCount' must have XML documentation (or be restricted to local or internal scope).",
+      "fullMessage": "Public procedures are part of the exposed API and must be explicitly documented to justify their availability. XML documentation comments communicate intent, usage, and guarantees to consumers of the extension.",
+      "properties": {
+        "severity": "Info",
+        "defaultSeverity": "Info",
+        "title": "Public procedures must have XML documentation",
+        "category": "Design",
+        "helpLink": "https://alcops.dev/docs/analyzers/documentationcop/dc0004/",
+        "isEnabledByDefault": "True",
+        "isSuppressedInSource": "False"
+      }
+    },
+    {
+      "ruleId": "DC0004",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "/home/stefan/Documents/Repos/community/techDays2026/TaskFramework/.worktrees/step-5-start/TaskFramework/src/Processing/TaskProcessingState.Codeunit.al",
+              "region": {
+                "startLine": 17,
+                "startColumn": 15,
+                "endLine": 17,
+                "endColumn": 38
+              }
+            }
+          ]
+        }
+      ],
+      "shortMessage": "Public procedure 'IncrementProcessedCount' must have XML documentation (or be restricted to local or internal scope).",
+      "fullMessage": "Public procedures are part of the exposed API and must be explicitly documented to justify their availability. XML documentation comments communicate intent, usage, and guarantees to consumers of the extension.",
+      "properties": {
+        "severity": "Info",
+        "defaultSeverity": "Info",
+        "title": "Public procedures must have XML documentation",
+        "category": "Design",
+        "helpLink": "https://alcops.dev/docs/analyzers/documentationcop/dc0004/",
+        "isEnabledByDefault": "True",
+        "isSuppressedInSource": "False"
+      }
+    },
+    {
+      "ruleId": "DC0004",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "/home/stefan/Documents/Repos/community/techDays2026/TaskFramework/.worktrees/step-5-start/TaskFramework/src/Processing/ITaskProcessor.Interface.al",
+              "region": {
+                "startLine": 3,
+                "startColumn": 15,
+                "endLine": 3,
+                "endColumn": 26
+              }
+            }
+          ]
+        }
+      ],
+      "shortMessage": "Public procedure 'ProcessTask' must have XML documentation (or be restricted to local or internal scope).",
+      "fullMessage": "Public procedures are part of the exposed API and must be explicitly documented to justify their availability. XML documentation comments communicate intent, usage, and guarantees to consumers of the extension.",
+      "properties": {
+        "severity": "Info",
+        "defaultSeverity": "Info",
+        "title": "Public procedures must have XML documentation",
+        "category": "Design",
+        "helpLink": "https://alcops.dev/docs/analyzers/documentationcop/dc0004/",
+        "isEnabledByDefault": "True",
+        "isSuppressedInSource": "False"
+      }
+    },
+    {
+      "ruleId": "DC0004",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "/home/stefan/Documents/Repos/community/techDays2026/TaskFramework/.worktrees/step-5-start/TaskFramework/src/Processing/TaskProcessingState.Codeunit.al",
+              "region": {
+                "startLine": 7,
+                "startColumn": 15,
+                "endLine": 7,
+                "endColumn": 31
+              }
+            }
+          ]
+        }
+      ],
+      "shortMessage": "Public procedure 'SetLastProcessed' must have XML documentation (or be restricted to local or internal scope).",
+      "fullMessage": "Public procedures are part of the exposed API and must be explicitly documented to justify their availability. XML documentation comments communicate intent, usage, and guarantees to consumers of the extension.",
+      "properties": {
+        "severity": "Info",
+        "defaultSeverity": "Info",
+        "title": "Public procedures must have XML documentation",
+        "category": "Design",
+        "helpLink": "https://alcops.dev/docs/analyzers/documentationcop/dc0004/",
+        "isEnabledByDefault": "True",
+        "isSuppressedInSource": "False"
+      }
+    },
+    {
+      "ruleId": "DC0005",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "/home/stefan/Documents/Repos/community/techDays2026/TaskFramework/.worktrees/step-5-start/TaskFramework/src/Core/TaskLogEntry.Table.al",
+              "region": {
+                "startLine": 35,
+                "startColumn": 31,
+                "endLine": 35,
+                "endColumn": 37
+              }
+            }
+          ]
+        }
+      ],
+      "shortMessage": "The XML documentation does not match the procedure signature.",
+      "fullMessage": "The XML documentation for a procedure must accurately reflect its signature.",
+      "properties": {
+        "severity": "Info",
+        "defaultSeverity": "Info",
+        "title": "XML documentation must match the procedure signature",
+        "category": "Design",
+        "helpLink": "https://alcops.dev/docs/analyzers/documentationcop/dc0005/",
+        "isEnabledByDefault": "True",
+        "isSuppressedInSource": "False"
+      }
+    },
+    {
+      "ruleId": "DC0005",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "/home/stefan/Documents/Repos/community/techDays2026/TaskFramework/.worktrees/step-5-start/TaskFramework/src/Core/TaskLogEntry.Table.al",
+              "region": {
+                "startLine": 47,
+                "startColumn": 30,
+                "endLine": 47,
+                "endColumn": 47
+              }
+            }
+          ]
+        }
+      ],
+      "shortMessage": "The XML documentation does not match the procedure signature.",
+      "fullMessage": "The XML documentation for a procedure must accurately reflect its signature.",
+      "properties": {
+        "severity": "Info",
+        "defaultSeverity": "Info",
+        "title": "XML documentation must match the procedure signature",
+        "category": "Design",
+        "helpLink": "https://alcops.dev/docs/analyzers/documentationcop/dc0005/",
+        "isEnabledByDefault": "True",
+        "isSuppressedInSource": "False"
+      }
+    },
+    {
+      "ruleId": "DC0004",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "/home/stefan/Documents/Repos/community/techDays2026/TaskFramework/.worktrees/step-5-start/TaskFramework/src/Processing/TaskProcessor.Codeunit.al",
+              "region": {
+                "startLine": 17,
+                "startColumn": 15,
+                "endLine": 17,
+                "endColumn": 37
+              }
+            }
+          ]
+        }
+      ],
+      "shortMessage": "Public procedure 'GetTaskProcessingState' must have XML documentation (or be restricted to local or internal scope).",
+      "fullMessage": "Public procedures are part of the exposed API and must be explicitly documented to justify their availability. XML documentation comments communicate intent, usage, and guarantees to consumers of the extension.",
+      "properties": {
+        "severity": "Info",
+        "defaultSeverity": "Info",
+        "title": "Public procedures must have XML documentation",
+        "category": "Design",
+        "helpLink": "https://alcops.dev/docs/analyzers/documentationcop/dc0004/",
+        "isEnabledByDefault": "True",
+        "isSuppressedInSource": "False"
+      }
+    },
+    {
+      "ruleId": "DC0004",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "/home/stefan/Documents/Repos/community/techDays2026/TaskFramework/.worktrees/step-5-start/TaskFramework/src/Processing/TaskProcessor.Codeunit.al",
+              "region": {
+                "startLine": 47,
+                "startColumn": 15,
+                "endLine": 47,
+                "endColumn": 31
+              }
+            }
+          ]
+        }
+      ],
+      "shortMessage": "Public procedure 'ProcessTaskEntry' must have XML documentation (or be restricted to local or internal scope).",
+      "fullMessage": "Public procedures are part of the exposed API and must be explicitly documented to justify their availability. XML documentation comments communicate intent, usage, and guarantees to consumers of the extension.",
+      "properties": {
+        "severity": "Info",
+        "defaultSeverity": "Info",
+        "title": "Public procedures must have XML documentation",
+        "category": "Design",
+        "helpLink": "https://alcops.dev/docs/analyzers/documentationcop/dc0004/",
+        "isEnabledByDefault": "True",
+        "isSuppressedInSource": "False"
+      }
+    },
+    {
+      "ruleId": "DC0004",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "/home/stefan/Documents/Repos/community/techDays2026/TaskFramework/.worktrees/step-5-start/TaskFramework/src/Processing/TaskProcessor.Codeunit.al",
+              "region": {
+                "startLine": 22,
+                "startColumn": 15,
+                "endLine": 22,
+                "endColumn": 37
+              }
+            }
+          ]
+        }
+      ],
+      "shortMessage": "Public procedure 'ProcessAllPendingTasks' must have XML documentation (or be restricted to local or internal scope).",
+      "fullMessage": "Public procedures are part of the exposed API and must be explicitly documented to justify their availability. XML documentation comments communicate intent, usage, and guarantees to consumers of the extension.",
+      "properties": {
+        "severity": "Info",
+        "defaultSeverity": "Info",
+        "title": "Public procedures must have XML documentation",
+        "category": "Design",
+        "helpLink": "https://alcops.dev/docs/analyzers/documentationcop/dc0004/",
+        "isEnabledByDefault": "True",
+        "isSuppressedInSource": "False"
+      }
+    },
+    {
+      "ruleId": "DC0004",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "/home/stefan/Documents/Repos/community/techDays2026/TaskFramework/.worktrees/step-5-start/TaskFramework/src/Processing/TaskProcessor.Codeunit.al",
+              "region": {
+                "startLine": 32,
+                "startColumn": 15,
+                "endLine": 32,
+                "endColumn": 37
+              }
+            }
+          ]
+        }
+      ],
+      "shortMessage": "Public procedure 'ProcessAllPendingTasks' must have XML documentation (or be restricted to local or internal scope).",
+      "fullMessage": "Public procedures are part of the exposed API and must be explicitly documented to justify their availability. XML documentation comments communicate intent, usage, and guarantees to consumers of the extension.",
+      "properties": {
+        "severity": "Info",
+        "defaultSeverity": "Info",
+        "title": "Public procedures must have XML documentation",
+        "category": "Design",
+        "helpLink": "https://alcops.dev/docs/analyzers/documentationcop/dc0004/",
+        "isEnabledByDefault": "True",
+        "isSuppressedInSource": "False"
+      }
+    },
+    {
+      "ruleId": "DC0004",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "/home/stefan/Documents/Repos/community/techDays2026/TaskFramework/.worktrees/step-5-start/TaskFramework/src/Processing/TaskProcessor.Codeunit.al",
+              "region": {
+                "startLine": 73,
+                "startColumn": 15,
+                "endLine": 73,
+                "endColumn": 27
+              }
+            }
+          ]
+        }
+      ],
+      "shortMessage": "Public procedure 'UpdateStatus' must have XML documentation (or be restricted to local or internal scope).",
+      "fullMessage": "Public procedures are part of the exposed API and must be explicitly documented to justify their availability. XML documentation comments communicate intent, usage, and guarantees to consumers of the extension.",
+      "properties": {
+        "severity": "Info",
+        "defaultSeverity": "Info",
+        "title": "Public procedures must have XML documentation",
+        "category": "Design",
+        "helpLink": "https://alcops.dev/docs/analyzers/documentationcop/dc0004/",
+        "isEnabledByDefault": "True",
+        "isSuppressedInSource": "False"
+      }
+    },
+    {
+      "ruleId": "DC0004",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "/home/stefan/Documents/Repos/community/techDays2026/TaskFramework/.worktrees/step-5-start/TaskFramework/src/Processing/TaskProcessor.Codeunit.al",
+              "region": {
+                "startLine": 54,
+                "startColumn": 15,
+                "endLine": 54,
+                "endColumn": 31
+              }
+            }
+          ]
+        }
+      ],
+      "shortMessage": "Public procedure 'ProcessTaskEntry' must have XML documentation (or be restricted to local or internal scope).",
+      "fullMessage": "Public procedures are part of the exposed API and must be explicitly documented to justify their availability. XML documentation comments communicate intent, usage, and guarantees to consumers of the extension.",
+      "properties": {
+        "severity": "Info",
+        "defaultSeverity": "Info",
+        "title": "Public procedures must have XML documentation",
+        "category": "Design",
+        "helpLink": "https://alcops.dev/docs/analyzers/documentationcop/dc0004/",
+        "isEnabledByDefault": "True",
+        "isSuppressedInSource": "False"
+      }
+    },
+    {
+      "ruleId": "AC0031",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "/home/stefan/Documents/Repos/community/techDays2026/TaskFramework/.worktrees/step-5-start/TaskFramework/src/Processing/TaskProcessor.Codeunit.al",
+              "region": {
+                "startLine": 80,
+                "startColumn": 9,
+                "endLine": 80,
+                "endColumn": 30
+              }
+            }
+          ]
+        }
+      ],
+      "shortMessage": "The object does not declare permission 'm' for tabledata 'Task Log Entry'",
+      "fullMessage": "Code that reads from or writes to table data must declare the required Permissions on the containing object. This ensures the code can run using indirect permissions, which is required when table access is restricted by the user's license. ",
+      "properties": {
+        "severity": "Info",
+        "defaultSeverity": "Info",
+        "title": "Table data access requires explicit object permissions",
+        "category": "Design",
+        "helpLink": "https://alcops.dev/docs/analyzers/applicationcop/ac0031/",
+        "isEnabledByDefault": "True",
+        "isSuppressedInSource": "False"
+      }
+    },
+    {
+      "ruleId": "AC0031",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "/home/stefan/Documents/Repos/community/techDays2026/TaskFramework/.worktrees/step-5-start/TaskFramework/src/Processing/TaskProcessor.Codeunit.al",
+              "region": {
+                "startLine": 39,
+                "startColumn": 12,
+                "endLine": 39,
+                "endColumn": 34
+              }
+            }
+          ]
+        }
+      ],
+      "shortMessage": "The object does not declare permission 'r' for tabledata 'Task Log Entry'",
+      "fullMessage": "Code that reads from or writes to table data must declare the required Permissions on the containing object. This ensures the code can run using indirect permissions, which is required when table access is restricted by the user's license. ",
+      "properties": {
+        "severity": "Info",
+        "defaultSeverity": "Info",
+        "title": "Table data access requires explicit object permissions",
+        "category": "Design",
+        "helpLink": "https://alcops.dev/docs/analyzers/applicationcop/ac0031/",
+        "isEnabledByDefault": "True",
+        "isSuppressedInSource": "False"
+      }
+    },
+    {
+      "ruleId": "AC0031",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "/home/stefan/Documents/Repos/community/techDays2026/TaskFramework/.worktrees/step-5-start/TaskFramework/src/Processing/LogRetentionProcessor.Codeunit.al",
+              "region": {
+                "startLine": 17,
+                "startColumn": 9,
+                "endLine": 17,
+                "endColumn": 28
+              }
+            }
+          ]
+        }
+      ],
+      "shortMessage": "The object does not declare permission 'd' for tabledata 'Task Log Archive'",
+      "fullMessage": "Code that reads from or writes to table data must declare the required Permissions on the containing object. This ensures the code can run using indirect permissions, which is required when table access is restricted by the user's license. ",
+      "properties": {
+        "severity": "Info",
+        "defaultSeverity": "Info",
+        "title": "Table data access requires explicit object permissions",
+        "category": "Design",
+        "helpLink": "https://alcops.dev/docs/analyzers/applicationcop/ac0031/",
+        "isEnabledByDefault": "True",
+        "isSuppressedInSource": "False"
+      }
+    },
+    {
+      "ruleId": "AC0031",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "/home/stefan/Documents/Repos/community/techDays2026/TaskFramework/.worktrees/step-5-start/TaskFramework/src/Processing/LogRetentionProcessor.Codeunit.al",
+              "region": {
+                "startLine": 20,
+                "startColumn": 9,
+                "endLine": 20,
+                "endColumn": 30
+              }
+            }
+          ]
+        }
+      ],
+      "shortMessage": "The object does not declare permission 'm' for tabledata 'Task Log Entry'",
+      "fullMessage": "Code that reads from or writes to table data must declare the required Permissions on the containing object. This ensures the code can run using indirect permissions, which is required when table access is restricted by the user's license. ",
+      "properties": {
+        "severity": "Info",
+        "defaultSeverity": "Info",
+        "title": "Table data access requires explicit object permissions",
+        "category": "Design",
+        "helpLink": "https://alcops.dev/docs/analyzers/applicationcop/ac0031/",
+        "isEnabledByDefault": "True",
+        "isSuppressedInSource": "False"
+      }
+    },
+    {
+      "ruleId": "DC0004",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "/home/stefan/Documents/Repos/community/techDays2026/TaskFramework/.worktrees/step-5-start/TaskFramework/src/Processing/TaskProcessor.Codeunit.al",
+              "region": {
+                "startLine": 110,
+                "startColumn": 15,
+                "endLine": 110,
+                "endColumn": 26
+              }
+            }
+          ]
+        }
+      ],
+      "shortMessage": "Public procedure 'ProcessTask' must have XML documentation (or be restricted to local or internal scope).",
+      "fullMessage": "Public procedures are part of the exposed API and must be explicitly documented to justify their availability. XML documentation comments communicate intent, usage, and guarantees to consumers of the extension.",
+      "properties": {
+        "severity": "Info",
+        "defaultSeverity": "Info",
+        "title": "Public procedures must have XML documentation",
+        "category": "Design",
+        "helpLink": "https://alcops.dev/docs/analyzers/documentationcop/dc0004/",
+        "isEnabledByDefault": "True",
+        "isSuppressedInSource": "False"
+      }
+    },
+    {
+      "ruleId": "DC0004",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "/home/stefan/Documents/Repos/community/techDays2026/TaskFramework/.worktrees/step-5-start/TaskFramework/src/Processing/TaskProcessor.Codeunit.al",
+              "region": {
+                "startLine": 85,
+                "startColumn": 15,
+                "endLine": 85,
+                "endColumn": 22
+              }
+            }
+          ]
+        }
+      ],
+      "shortMessage": "Public procedure 'Archive' must have XML documentation (or be restricted to local or internal scope).",
+      "fullMessage": "Public procedures are part of the exposed API and must be explicitly documented to justify their availability. XML documentation comments communicate intent, usage, and guarantees to consumers of the extension.",
+      "properties": {
+        "severity": "Info",
+        "defaultSeverity": "Info",
+        "title": "Public procedures must have XML documentation",
+        "category": "Design",
+        "helpLink": "https://alcops.dev/docs/analyzers/documentationcop/dc0004/",
+        "isEnabledByDefault": "True",
+        "isSuppressedInSource": "False"
+      }
+    },
+    {
+      "ruleId": "AC0031",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "/home/stefan/Documents/Repos/community/techDays2026/TaskFramework/.worktrees/step-5-start/TaskFramework/src/Processing/TaskProcessor.Codeunit.al",
+              "region": {
+                "startLine": 105,
+                "startColumn": 9,
+                "endLine": 105,
+                "endColumn": 30
+              }
+            }
+          ]
+        }
+      ],
+      "shortMessage": "The object does not declare permission 'i' for tabledata 'Task Log Archive'",
+      "fullMessage": "Code that reads from or writes to table data must declare the required Permissions on the containing object. This ensures the code can run using indirect permissions, which is required when table access is restricted by the user's license. ",
+      "properties": {
+        "severity": "Info",
+        "defaultSeverity": "Info",
+        "title": "Table data access requires explicit object permissions",
+        "category": "Design",
+        "helpLink": "https://alcops.dev/docs/analyzers/applicationcop/ac0031/",
+        "isEnabledByDefault": "True",
+        "isSuppressedInSource": "False"
+      }
+    },
+    {
+      "ruleId": "DC0004",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "/home/stefan/Documents/Repos/community/techDays2026/TaskFramework/.worktrees/step-5-start/TaskFramework/src/Vouchers/PostVouchers.Codeunit.al",
+              "region": {
+                "startLine": 11,
+                "startColumn": 15,
+                "endLine": 11,
+                "endColumn": 26
+              }
+            }
+          ]
+        }
+      ],
+      "shortMessage": "Public procedure 'PostVoucher' must have XML documentation (or be restricted to local or internal scope).",
+      "fullMessage": "Public procedures are part of the exposed API and must be explicitly documented to justify their availability. XML documentation comments communicate intent, usage, and guarantees to consumers of the extension.",
+      "properties": {
+        "severity": "Info",
+        "defaultSeverity": "Info",
+        "title": "Public procedures must have XML documentation",
+        "category": "Design",
+        "helpLink": "https://alcops.dev/docs/analyzers/documentationcop/dc0004/",
+        "isEnabledByDefault": "True",
+        "isSuppressedInSource": "False"
+      }
+    },
+    {
+      "ruleId": "AC0031",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "/home/stefan/Documents/Repos/community/techDays2026/TaskFramework/.worktrees/step-5-start/TaskFramework/src/Vouchers/PostVouchers.Codeunit.al",
+              "region": {
+                "startLine": 27,
+                "startColumn": 9,
+                "endLine": 27,
+                "endColumn": 30
+              }
+            }
+          ]
+        }
+      ],
+      "shortMessage": "The object does not declare permission 'm' for tabledata 'Voucher Entry'",
+      "fullMessage": "Code that reads from or writes to table data must declare the required Permissions on the containing object. This ensures the code can run using indirect permissions, which is required when table access is restricted by the user's license. ",
+      "properties": {
+        "severity": "Info",
+        "defaultSeverity": "Info",
+        "title": "Table data access requires explicit object permissions",
+        "category": "Design",
+        "helpLink": "https://alcops.dev/docs/analyzers/applicationcop/ac0031/",
+        "isEnabledByDefault": "True",
+        "isSuppressedInSource": "False"
+      }
+    },
+    {
+      "ruleId": "DC0004",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "/home/stefan/Documents/Repos/community/techDays2026/TaskFramework/.worktrees/step-5-start/TaskFramework/src/Processing/Factory/ITaskArchiver.Interface.al",
+              "region": {
+                "startLine": 3,
+                "startColumn": 15,
+                "endLine": 3,
+                "endColumn": 22
+              }
+            }
+          ]
+        }
+      ],
+      "shortMessage": "Public procedure 'Archive' must have XML documentation (or be restricted to local or internal scope).",
+      "fullMessage": "Public procedures are part of the exposed API and must be explicitly documented to justify their availability. XML documentation comments communicate intent, usage, and guarantees to consumers of the extension.",
+      "properties": {
+        "severity": "Info",
+        "defaultSeverity": "Info",
+        "title": "Public procedures must have XML documentation",
+        "category": "Design",
+        "helpLink": "https://alcops.dev/docs/analyzers/documentationcop/dc0004/",
+        "isEnabledByDefault": "True",
+        "isSuppressedInSource": "False"
+      }
+    },
+    {
+      "ruleId": "DC0004",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "/home/stefan/Documents/Repos/community/techDays2026/TaskFramework/.worktrees/step-5-start/TaskFramework/src/Processing/Factory/ITaskLogUpdater.Interface.al",
+              "region": {
+                "startLine": 3,
+                "startColumn": 15,
+                "endLine": 3,
+                "endColumn": 27
+              }
+            }
+          ]
+        }
+      ],
+      "shortMessage": "Public procedure 'UpdateStatus' must have XML documentation (or be restricted to local or internal scope).",
+      "fullMessage": "Public procedures are part of the exposed API and must be explicitly documented to justify their availability. XML documentation comments communicate intent, usage, and guarantees to consumers of the extension.",
+      "properties": {
+        "severity": "Info",
+        "defaultSeverity": "Info",
+        "title": "Public procedures must have XML documentation",
+        "category": "Design",
+        "helpLink": "https://alcops.dev/docs/analyzers/documentationcop/dc0004/",
+        "isEnabledByDefault": "True",
+        "isSuppressedInSource": "False"
+      }
+    },
+    {
+      "ruleId": "DC0004",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "/home/stefan/Documents/Repos/community/techDays2026/TaskFramework/.worktrees/step-5-start/TaskFramework/src/Processing/Factory/ITaskProcessorFactory.Interface.al",
+              "region": {
+                "startLine": 3,
+                "startColumn": 15,
+                "endLine": 3,
+                "endColumn": 27
+              }
+            }
+          ]
+        }
+      ],
+      "shortMessage": "Public procedure 'GetProcessor' must have XML documentation (or be restricted to local or internal scope).",
+      "fullMessage": "Public procedures are part of the exposed API and must be explicitly documented to justify their availability. XML documentation comments communicate intent, usage, and guarantees to consumers of the extension.",
+      "properties": {
+        "severity": "Info",
+        "defaultSeverity": "Info",
+        "title": "Public procedures must have XML documentation",
+        "category": "Design",
+        "helpLink": "https://alcops.dev/docs/analyzers/documentationcop/dc0004/",
+        "isEnabledByDefault": "True",
+        "isSuppressedInSource": "False"
+      }
+    },
+    {
+      "ruleId": "DC0004",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "/home/stefan/Documents/Repos/community/techDays2026/TaskFramework/.worktrees/step-5-start/TaskFramework/src/Processing/Factory/ITaskProcessorFactory.Interface.al",
+              "region": {
+                "startLine": 4,
+                "startColumn": 15,
+                "endLine": 4,
+                "endColumn": 25
+              }
+            }
+          ]
+        }
+      ],
+      "shortMessage": "Public procedure 'GetUpdater' must have XML documentation (or be restricted to local or internal scope).",
+      "fullMessage": "Public procedures are part of the exposed API and must be explicitly documented to justify their availability. XML documentation comments communicate intent, usage, and guarantees to consumers of the extension.",
+      "properties": {
+        "severity": "Info",
+        "defaultSeverity": "Info",
+        "title": "Public procedures must have XML documentation",
+        "category": "Design",
+        "helpLink": "https://alcops.dev/docs/analyzers/documentationcop/dc0004/",
+        "isEnabledByDefault": "True",
+        "isSuppressedInSource": "False"
+      }
+    },
+    {
+      "ruleId": "DC0004",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "/home/stefan/Documents/Repos/community/techDays2026/TaskFramework/.worktrees/step-5-start/TaskFramework/src/Processing/Factory/ITaskProcessorFactory.Interface.al",
+              "region": {
+                "startLine": 5,
+                "startColumn": 15,
+                "endLine": 5,
+                "endColumn": 26
+              }
+            }
+          ]
+        }
+      ],
+      "shortMessage": "Public procedure 'GetArchiver' must have XML documentation (or be restricted to local or internal scope).",
+      "fullMessage": "Public procedures are part of the exposed API and must be explicitly documented to justify their availability. XML documentation comments communicate intent, usage, and guarantees to consumers of the extension.",
+      "properties": {
+        "severity": "Info",
+        "defaultSeverity": "Info",
+        "title": "Public procedures must have XML documentation",
+        "category": "Design",
+        "helpLink": "https://alcops.dev/docs/analyzers/documentationcop/dc0004/",
+        "isEnabledByDefault": "True",
+        "isSuppressedInSource": "False"
+      }
+    },
+    {
+      "ruleId": "DC0004",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "/home/stefan/Documents/Repos/community/techDays2026/TaskFramework/.worktrees/step-5-start/TaskFramework/src/Setup/TaskFrameworkSetup.Table.al",
+              "region": {
+                "startLine": 34,
+                "startColumn": 15,
+                "endLine": 34,
+                "endColumn": 28
+              }
+            }
+          ]
+        }
+      ],
+      "shortMessage": "Public procedure 'GetRecordOnce' must have XML documentation (or be restricted to local or internal scope).",
+      "fullMessage": "Public procedures are part of the exposed API and must be explicitly documented to justify their availability. XML documentation comments communicate intent, usage, and guarantees to consumers of the extension.",
+      "properties": {
+        "severity": "Info",
+        "defaultSeverity": "Info",
+        "title": "Public procedures must have XML documentation",
+        "category": "Design",
+        "helpLink": "https://alcops.dev/docs/analyzers/documentationcop/dc0004/",
+        "isEnabledByDefault": "True",
+        "isSuppressedInSource": "False"
+      }
+    },
+    {
+      "ruleId": "AC0009",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "/home/stefan/Documents/Repos/community/techDays2026/TaskFramework/.worktrees/step-5-start/TaskFramework/src/Core/TaskFrameworkAll.permissionset.al",
+              "region": {
+                "startLine": 3,
+                "startColumn": 5,
+                "endLine": 3,
+                "endColumn": 38
+              }
+            }
+          ]
+        }
+      ],
+      "shortMessage": "The Caption of permissionset objects should not exceed 30 characters. Use MaxLength=30 or Locked=true to ensure there are no translations that exceed this limit.",
+      "fullMessage": "PermissionSet captions should remain within a defined maximum length to avoid issues in translated captions. When no MaxLength or Locked subproperty is specified, translations can exceed the intended limit and cause inconsistent or truncated UI labels.",
+      "properties": {
+        "severity": "Warning",
+        "warningLevel": "1",
+        "defaultSeverity": "Warning",
+        "title": "The Caption of permissionset objects should not exceed the maximum length",
+        "category": "Design",
+        "helpLink": "https://alcops.dev/docs/analyzers/applicationcop/ac0009/",
+        "isEnabledByDefault": "True",
+        "isSuppressedInSource": "False"
+      }
+    },
+    {
+      "ruleId": "AC0002",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "/home/stefan/Documents/Repos/community/techDays2026/TaskFramework/.worktrees/step-5-start/TaskFramework/src/Setup/TaskFrameworkSetup.Table.al",
+              "region": {
+                "startLine": 8,
+                "startColumn": 18,
+                "endLine": 8,
+                "endColumn": 31
+              }
+            }
+          ]
+        }
+      ],
+      "shortMessage": "NotBlank property should be set explicitly for tables with a single-field primary key.",
+      "fullMessage": "In tables that define a primary key consisting of a single field of type Code or Text, the primary key field must explicitly set the NotBlank property.",
+      "properties": {
+        "severity": "Warning",
+        "warningLevel": "1",
+        "defaultSeverity": "Warning",
+        "title": "Single-field primary key requires the NotBlank property",
+        "category": "Design",
+        "helpLink": "https://alcops.dev/docs/analyzers/applicationcop/ac0002/",
+        "isEnabledByDefault": "True",
+        "isSuppressedInSource": "False"
+      }
+    },
+    {
+      "ruleId": "LC0020",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "/home/stefan/Documents/Repos/community/techDays2026/TaskFramework/.worktrees/step-5-start/TaskFramework/src/Core/TaskLogEntries.page.al",
+              "region": {
+                "startLine": 17,
+                "startColumn": 55,
+                "endLine": 17,
+                "endColumn": 77
+              }
+            }
+          ]
+        }
+      ],
+      "shortMessage": "ApplicationArea matches the page-level ApplicationArea and can be removed",
+      "fullMessage": "When a ApplicationArea is defined on a page, it automatically applies to all fields of that page. Setting the same ApplicationArea again on individual fields is redundant and adds unnecessary noise to the object definition.",
+      "properties": {
+        "severity": "Warning",
+        "warningLevel": "1",
+        "defaultSeverity": "Warning",
+        "title": "ApplicationArea matches the page-level ApplicationArea and can be removed",
+        "category": "Design",
+        "helpLink": "https://alcops.dev/docs/analyzers/lintercop/lc0020/",
+        "isEnabledByDefault": "True",
+        "isSuppressedInSource": "False"
+      }
+    },
+    {
+      "ruleId": "LC0020",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "/home/stefan/Documents/Repos/community/techDays2026/TaskFramework/.worktrees/step-5-start/TaskFramework/src/Setup/TaskFrameworkSetup.Page.al",
+              "region": {
+                "startLine": 16,
+                "startColumn": 47,
+                "endLine": 16,
+                "endColumn": 69
+              }
+            }
+          ]
+        }
+      ],
+      "shortMessage": "ApplicationArea matches the page-level ApplicationArea and can be removed",
+      "fullMessage": "When a ApplicationArea is defined on a page, it automatically applies to all fields of that page. Setting the same ApplicationArea again on individual fields is redundant and adds unnecessary noise to the object definition.",
+      "properties": {
+        "severity": "Warning",
+        "warningLevel": "1",
+        "defaultSeverity": "Warning",
+        "title": "ApplicationArea matches the page-level ApplicationArea and can be removed",
+        "category": "Design",
+        "helpLink": "https://alcops.dev/docs/analyzers/lintercop/lc0020/",
+        "isEnabledByDefault": "True",
+        "isSuppressedInSource": "False"
+      }
+    },
+    {
+      "ruleId": "LC0020",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "/home/stefan/Documents/Repos/community/techDays2026/TaskFramework/.worktrees/step-5-start/TaskFramework/src/Core/TaskLogEntryCard.page.al",
+              "region": {
+                "startLine": 15,
+                "startColumn": 55,
+                "endLine": 15,
+                "endColumn": 77
+              }
+            }
+          ]
+        }
+      ],
+      "shortMessage": "ApplicationArea matches the page-level ApplicationArea and can be removed",
+      "fullMessage": "When a ApplicationArea is defined on a page, it automatically applies to all fields of that page. Setting the same ApplicationArea again on individual fields is redundant and adds unnecessary noise to the object definition.",
+      "properties": {
+        "severity": "Warning",
+        "warningLevel": "1",
+        "defaultSeverity": "Warning",
+        "title": "ApplicationArea matches the page-level ApplicationArea and can be removed",
+        "category": "Design",
+        "helpLink": "https://alcops.dev/docs/analyzers/lintercop/lc0020/",
+        "isEnabledByDefault": "True",
+        "isSuppressedInSource": "False"
+      }
+    },
+    {
+      "ruleId": "LC0020",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "/home/stefan/Documents/Repos/community/techDays2026/TaskFramework/.worktrees/step-5-start/TaskFramework/src/Vouchers/VoucherEntries.Page.al",
+              "region": {
+                "startLine": 15,
+                "startColumn": 55,
+                "endLine": 15,
+                "endColumn": 77
+              }
+            }
+          ]
+        }
+      ],
+      "shortMessage": "ApplicationArea matches the page-level ApplicationArea and can be removed",
+      "fullMessage": "When a ApplicationArea is defined on a page, it automatically applies to all fields of that page. Setting the same ApplicationArea again on individual fields is redundant and adds unnecessary noise to the object definition.",
+      "properties": {
+        "severity": "Warning",
+        "warningLevel": "1",
+        "defaultSeverity": "Warning",
+        "title": "ApplicationArea matches the page-level ApplicationArea and can be removed",
+        "category": "Design",
+        "helpLink": "https://alcops.dev/docs/analyzers/lintercop/lc0020/",
+        "isEnabledByDefault": "True",
+        "isSuppressedInSource": "False"
+      }
+    },
+    {
+      "ruleId": "LC0020",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "/home/stefan/Documents/Repos/community/techDays2026/TaskFramework/.worktrees/step-5-start/TaskFramework/src/Vouchers/VoucherEntryCard.Page.al",
+              "region": {
+                "startLine": 18,
+                "startColumn": 55,
+                "endLine": 18,
+                "endColumn": 77
+              }
+            }
+          ]
+        }
+      ],
+      "shortMessage": "ApplicationArea matches the page-level ApplicationArea and can be removed",
+      "fullMessage": "When a ApplicationArea is defined on a page, it automatically applies to all fields of that page. Setting the same ApplicationArea again on individual fields is redundant and adds unnecessary noise to the object definition.",
+      "properties": {
+        "severity": "Warning",
+        "warningLevel": "1",
+        "defaultSeverity": "Warning",
+        "title": "ApplicationArea matches the page-level ApplicationArea and can be removed",
+        "category": "Design",
+        "helpLink": "https://alcops.dev/docs/analyzers/lintercop/lc0020/",
+        "isEnabledByDefault": "True",
+        "isSuppressedInSource": "False"
+      }
+    },
+    {
+      "ruleId": "LC0020",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "/home/stefan/Documents/Repos/community/techDays2026/TaskFramework/.worktrees/step-5-start/TaskFramework/src/Core/Archive/TaskLogArchive.page.al",
+              "region": {
+                "startLine": 16,
+                "startColumn": 55,
+                "endLine": 16,
+                "endColumn": 77
+              }
+            }
+          ]
+        }
+      ],
+      "shortMessage": "ApplicationArea matches the page-level ApplicationArea and can be removed",
+      "fullMessage": "When a ApplicationArea is defined on a page, it automatically applies to all fields of that page. Setting the same ApplicationArea again on individual fields is redundant and adds unnecessary noise to the object definition.",
+      "properties": {
+        "severity": "Warning",
+        "warningLevel": "1",
+        "defaultSeverity": "Warning",
+        "title": "ApplicationArea matches the page-level ApplicationArea and can be removed",
+        "category": "Design",
+        "helpLink": "https://alcops.dev/docs/analyzers/lintercop/lc0020/",
+        "isEnabledByDefault": "True",
+        "isSuppressedInSource": "False"
+      }
+    },
+    {
+      "ruleId": "LC0020",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "/home/stefan/Documents/Repos/community/techDays2026/TaskFramework/.worktrees/step-5-start/TaskFramework/src/Vouchers/VoucherEntryCard.Page.al",
+              "region": {
+                "startLine": 19,
+                "startColumn": 59,
+                "endLine": 19,
+                "endColumn": 81
+              }
+            }
+          ]
+        }
+      ],
+      "shortMessage": "ApplicationArea matches the page-level ApplicationArea and can be removed",
+      "fullMessage": "When a ApplicationArea is defined on a page, it automatically applies to all fields of that page. Setting the same ApplicationArea again on individual fields is redundant and adds unnecessary noise to the object definition.",
+      "properties": {
+        "severity": "Warning",
+        "warningLevel": "1",
+        "defaultSeverity": "Warning",
+        "title": "ApplicationArea matches the page-level ApplicationArea and can be removed",
+        "category": "Design",
+        "helpLink": "https://alcops.dev/docs/analyzers/lintercop/lc0020/",
+        "isEnabledByDefault": "True",
+        "isSuppressedInSource": "False"
+      }
+    },
+    {
+      "ruleId": "LC0020",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "/home/stefan/Documents/Repos/community/techDays2026/TaskFramework/.worktrees/step-5-start/TaskFramework/src/Vouchers/VoucherEntries.Page.al",
+              "region": {
+                "startLine": 16,
+                "startColumn": 59,
+                "endLine": 16,
+                "endColumn": 81
+              }
+            }
+          ]
+        }
+      ],
+      "shortMessage": "ApplicationArea matches the page-level ApplicationArea and can be removed",
+      "fullMessage": "When a ApplicationArea is defined on a page, it automatically applies to all fields of that page. Setting the same ApplicationArea again on individual fields is redundant and adds unnecessary noise to the object definition.",
+      "properties": {
+        "severity": "Warning",
+        "warningLevel": "1",
+        "defaultSeverity": "Warning",
+        "title": "ApplicationArea matches the page-level ApplicationArea and can be removed",
+        "category": "Design",
+        "helpLink": "https://alcops.dev/docs/analyzers/lintercop/lc0020/",
+        "isEnabledByDefault": "True",
+        "isSuppressedInSource": "False"
+      }
+    },
+    {
+      "ruleId": "LC0020",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "/home/stefan/Documents/Repos/community/techDays2026/TaskFramework/.worktrees/step-5-start/TaskFramework/src/Setup/TaskFrameworkSetup.Page.al",
+              "region": {
+                "startLine": 17,
+                "startColumn": 67,
+                "endLine": 17,
+                "endColumn": 89
+              }
+            }
+          ]
+        }
+      ],
+      "shortMessage": "ApplicationArea matches the page-level ApplicationArea and can be removed",
+      "fullMessage": "When a ApplicationArea is defined on a page, it automatically applies to all fields of that page. Setting the same ApplicationArea again on individual fields is redundant and adds unnecessary noise to the object definition.",
+      "properties": {
+        "severity": "Warning",
+        "warningLevel": "1",
+        "defaultSeverity": "Warning",
+        "title": "ApplicationArea matches the page-level ApplicationArea and can be removed",
+        "category": "Design",
+        "helpLink": "https://alcops.dev/docs/analyzers/lintercop/lc0020/",
+        "isEnabledByDefault": "True",
+        "isSuppressedInSource": "False"
+      }
+    },
+    {
+      "ruleId": "LC0020",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "/home/stefan/Documents/Repos/community/techDays2026/TaskFramework/.worktrees/step-5-start/TaskFramework/src/Core/Archive/TaskLogArchive.page.al",
+              "region": {
+                "startLine": 17,
+                "startColumn": 55,
+                "endLine": 17,
+                "endColumn": 77
+              }
+            }
+          ]
+        }
+      ],
+      "shortMessage": "ApplicationArea matches the page-level ApplicationArea and can be removed",
+      "fullMessage": "When a ApplicationArea is defined on a page, it automatically applies to all fields of that page. Setting the same ApplicationArea again on individual fields is redundant and adds unnecessary noise to the object definition.",
+      "properties": {
+        "severity": "Warning",
+        "warningLevel": "1",
+        "defaultSeverity": "Warning",
+        "title": "ApplicationArea matches the page-level ApplicationArea and can be removed",
+        "category": "Design",
+        "helpLink": "https://alcops.dev/docs/analyzers/lintercop/lc0020/",
+        "isEnabledByDefault": "True",
+        "isSuppressedInSource": "False"
+      }
+    },
+    {
+      "ruleId": "LC0020",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "/home/stefan/Documents/Repos/community/techDays2026/TaskFramework/.worktrees/step-5-start/TaskFramework/src/Core/TaskLogEntries.page.al",
+              "region": {
+                "startLine": 18,
+                "startColumn": 77,
+                "endLine": 18,
+                "endColumn": 99
+              }
+            }
+          ]
+        }
+      ],
+      "shortMessage": "ApplicationArea matches the page-level ApplicationArea and can be removed",
+      "fullMessage": "When a ApplicationArea is defined on a page, it automatically applies to all fields of that page. Setting the same ApplicationArea again on individual fields is redundant and adds unnecessary noise to the object definition.",
+      "properties": {
+        "severity": "Warning",
+        "warningLevel": "1",
+        "defaultSeverity": "Warning",
+        "title": "ApplicationArea matches the page-level ApplicationArea and can be removed",
+        "category": "Design",
+        "helpLink": "https://alcops.dev/docs/analyzers/lintercop/lc0020/",
+        "isEnabledByDefault": "True",
+        "isSuppressedInSource": "False"
+      }
+    },
+    {
+      "ruleId": "LC0020",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "/home/stefan/Documents/Repos/community/techDays2026/TaskFramework/.worktrees/step-5-start/TaskFramework/src/Core/TaskLogEntryCard.page.al",
+              "region": {
+                "startLine": 16,
+                "startColumn": 77,
+                "endLine": 16,
+                "endColumn": 99
+              }
+            }
+          ]
+        }
+      ],
+      "shortMessage": "ApplicationArea matches the page-level ApplicationArea and can be removed",
+      "fullMessage": "When a ApplicationArea is defined on a page, it automatically applies to all fields of that page. Setting the same ApplicationArea again on individual fields is redundant and adds unnecessary noise to the object definition.",
+      "properties": {
+        "severity": "Warning",
+        "warningLevel": "1",
+        "defaultSeverity": "Warning",
+        "title": "ApplicationArea matches the page-level ApplicationArea and can be removed",
+        "category": "Design",
+        "helpLink": "https://alcops.dev/docs/analyzers/lintercop/lc0020/",
+        "isEnabledByDefault": "True",
+        "isSuppressedInSource": "False"
+      }
+    },
+    {
+      "ruleId": "LC0020",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "/home/stefan/Documents/Repos/community/techDays2026/TaskFramework/.worktrees/step-5-start/TaskFramework/src/Vouchers/VoucherEntryCard.Page.al",
+              "region": {
+                "startLine": 20,
+                "startColumn": 61,
+                "endLine": 20,
+                "endColumn": 83
+              }
+            }
+          ]
+        }
+      ],
+      "shortMessage": "ApplicationArea matches the page-level ApplicationArea and can be removed",
+      "fullMessage": "When a ApplicationArea is defined on a page, it automatically applies to all fields of that page. Setting the same ApplicationArea again on individual fields is redundant and adds unnecessary noise to the object definition.",
+      "properties": {
+        "severity": "Warning",
+        "warningLevel": "1",
+        "defaultSeverity": "Warning",
+        "title": "ApplicationArea matches the page-level ApplicationArea and can be removed",
+        "category": "Design",
+        "helpLink": "https://alcops.dev/docs/analyzers/lintercop/lc0020/",
+        "isEnabledByDefault": "True",
+        "isSuppressedInSource": "False"
+      }
+    },
+    {
+      "ruleId": "LC0020",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "/home/stefan/Documents/Repos/community/techDays2026/TaskFramework/.worktrees/step-5-start/TaskFramework/src/Vouchers/VoucherEntries.Page.al",
+              "region": {
+                "startLine": 17,
+                "startColumn": 61,
+                "endLine": 17,
+                "endColumn": 83
+              }
+            }
+          ]
+        }
+      ],
+      "shortMessage": "ApplicationArea matches the page-level ApplicationArea and can be removed",
+      "fullMessage": "When a ApplicationArea is defined on a page, it automatically applies to all fields of that page. Setting the same ApplicationArea again on individual fields is redundant and adds unnecessary noise to the object definition.",
+      "properties": {
+        "severity": "Warning",
+        "warningLevel": "1",
+        "defaultSeverity": "Warning",
+        "title": "ApplicationArea matches the page-level ApplicationArea and can be removed",
+        "category": "Design",
+        "helpLink": "https://alcops.dev/docs/analyzers/lintercop/lc0020/",
+        "isEnabledByDefault": "True",
+        "isSuppressedInSource": "False"
+      }
+    },
+    {
+      "ruleId": "LC0020",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "/home/stefan/Documents/Repos/community/techDays2026/TaskFramework/.worktrees/step-5-start/TaskFramework/src/Core/TaskLogEntries.page.al",
+              "region": {
+                "startLine": 19,
+                "startColumn": 45,
+                "endLine": 19,
+                "endColumn": 67
+              }
+            }
+          ]
+        }
+      ],
+      "shortMessage": "ApplicationArea matches the page-level ApplicationArea and can be removed",
+      "fullMessage": "When a ApplicationArea is defined on a page, it automatically applies to all fields of that page. Setting the same ApplicationArea again on individual fields is redundant and adds unnecessary noise to the object definition.",
+      "properties": {
+        "severity": "Warning",
+        "warningLevel": "1",
+        "defaultSeverity": "Warning",
+        "title": "ApplicationArea matches the page-level ApplicationArea and can be removed",
+        "category": "Design",
+        "helpLink": "https://alcops.dev/docs/analyzers/lintercop/lc0020/",
+        "isEnabledByDefault": "True",
+        "isSuppressedInSource": "False"
+      }
+    },
+    {
+      "ruleId": "LC0020",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "/home/stefan/Documents/Repos/community/techDays2026/TaskFramework/.worktrees/step-5-start/TaskFramework/src/Core/Archive/TaskLogArchive.page.al",
+              "region": {
+                "startLine": 18,
+                "startColumn": 45,
+                "endLine": 18,
+                "endColumn": 67
+              }
+            }
+          ]
+        }
+      ],
+      "shortMessage": "ApplicationArea matches the page-level ApplicationArea and can be removed",
+      "fullMessage": "When a ApplicationArea is defined on a page, it automatically applies to all fields of that page. Setting the same ApplicationArea again on individual fields is redundant and adds unnecessary noise to the object definition.",
+      "properties": {
+        "severity": "Warning",
+        "warningLevel": "1",
+        "defaultSeverity": "Warning",
+        "title": "ApplicationArea matches the page-level ApplicationArea and can be removed",
+        "category": "Design",
+        "helpLink": "https://alcops.dev/docs/analyzers/lintercop/lc0020/",
+        "isEnabledByDefault": "True",
+        "isSuppressedInSource": "False"
+      }
+    },
+    {
+      "ruleId": "LC0020",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "/home/stefan/Documents/Repos/community/techDays2026/TaskFramework/.worktrees/step-5-start/TaskFramework/src/Setup/TaskFrameworkSetup.Page.al",
+              "region": {
+                "startLine": 18,
+                "startColumn": 75,
+                "endLine": 18,
+                "endColumn": 97
+              }
+            }
+          ]
+        }
+      ],
+      "shortMessage": "ApplicationArea matches the page-level ApplicationArea and can be removed",
+      "fullMessage": "When a ApplicationArea is defined on a page, it automatically applies to all fields of that page. Setting the same ApplicationArea again on individual fields is redundant and adds unnecessary noise to the object definition.",
+      "properties": {
+        "severity": "Warning",
+        "warningLevel": "1",
+        "defaultSeverity": "Warning",
+        "title": "ApplicationArea matches the page-level ApplicationArea and can be removed",
+        "category": "Design",
+        "helpLink": "https://alcops.dev/docs/analyzers/lintercop/lc0020/",
+        "isEnabledByDefault": "True",
+        "isSuppressedInSource": "False"
+      }
+    },
+    {
+      "ruleId": "LC0020",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "/home/stefan/Documents/Repos/community/techDays2026/TaskFramework/.worktrees/step-5-start/TaskFramework/src/Vouchers/VoucherEntryCard.Page.al",
+              "region": {
+                "startLine": 21,
+                "startColumn": 45,
+                "endLine": 21,
+                "endColumn": 67
+              }
+            }
+          ]
+        }
+      ],
+      "shortMessage": "ApplicationArea matches the page-level ApplicationArea and can be removed",
+      "fullMessage": "When a ApplicationArea is defined on a page, it automatically applies to all fields of that page. Setting the same ApplicationArea again on individual fields is redundant and adds unnecessary noise to the object definition.",
+      "properties": {
+        "severity": "Warning",
+        "warningLevel": "1",
+        "defaultSeverity": "Warning",
+        "title": "ApplicationArea matches the page-level ApplicationArea and can be removed",
+        "category": "Design",
+        "helpLink": "https://alcops.dev/docs/analyzers/lintercop/lc0020/",
+        "isEnabledByDefault": "True",
+        "isSuppressedInSource": "False"
+      }
+    },
+    {
+      "ruleId": "LC0020",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "/home/stefan/Documents/Repos/community/techDays2026/TaskFramework/.worktrees/step-5-start/TaskFramework/src/Core/TaskLogEntryCard.page.al",
+              "region": {
+                "startLine": 17,
+                "startColumn": 45,
+                "endLine": 17,
+                "endColumn": 67
+              }
+            }
+          ]
+        }
+      ],
+      "shortMessage": "ApplicationArea matches the page-level ApplicationArea and can be removed",
+      "fullMessage": "When a ApplicationArea is defined on a page, it automatically applies to all fields of that page. Setting the same ApplicationArea again on individual fields is redundant and adds unnecessary noise to the object definition.",
+      "properties": {
+        "severity": "Warning",
+        "warningLevel": "1",
+        "defaultSeverity": "Warning",
+        "title": "ApplicationArea matches the page-level ApplicationArea and can be removed",
+        "category": "Design",
+        "helpLink": "https://alcops.dev/docs/analyzers/lintercop/lc0020/",
+        "isEnabledByDefault": "True",
+        "isSuppressedInSource": "False"
+      }
+    },
+    {
+      "ruleId": "LC0020",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "/home/stefan/Documents/Repos/community/techDays2026/TaskFramework/.worktrees/step-5-start/TaskFramework/src/Vouchers/VoucherEntries.Page.al",
+              "region": {
+                "startLine": 18,
+                "startColumn": 45,
+                "endLine": 18,
+                "endColumn": 67
+              }
+            }
+          ]
+        }
+      ],
+      "shortMessage": "ApplicationArea matches the page-level ApplicationArea and can be removed",
+      "fullMessage": "When a ApplicationArea is defined on a page, it automatically applies to all fields of that page. Setting the same ApplicationArea again on individual fields is redundant and adds unnecessary noise to the object definition.",
+      "properties": {
+        "severity": "Warning",
+        "warningLevel": "1",
+        "defaultSeverity": "Warning",
+        "title": "ApplicationArea matches the page-level ApplicationArea and can be removed",
+        "category": "Design",
+        "helpLink": "https://alcops.dev/docs/analyzers/lintercop/lc0020/",
+        "isEnabledByDefault": "True",
+        "isSuppressedInSource": "False"
+      }
+    },
+    {
+      "ruleId": "LC0020",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "/home/stefan/Documents/Repos/community/techDays2026/TaskFramework/.worktrees/step-5-start/TaskFramework/src/Vouchers/VoucherEntryCard.Page.al",
+              "region": {
+                "startLine": 22,
+                "startColumn": 61,
+                "endLine": 22,
+                "endColumn": 83
+              }
+            }
+          ]
+        }
+      ],
+      "shortMessage": "ApplicationArea matches the page-level ApplicationArea and can be removed",
+      "fullMessage": "When a ApplicationArea is defined on a page, it automatically applies to all fields of that page. Setting the same ApplicationArea again on individual fields is redundant and adds unnecessary noise to the object definition.",
+      "properties": {
+        "severity": "Warning",
+        "warningLevel": "1",
+        "defaultSeverity": "Warning",
+        "title": "ApplicationArea matches the page-level ApplicationArea and can be removed",
+        "category": "Design",
+        "helpLink": "https://alcops.dev/docs/analyzers/lintercop/lc0020/",
+        "isEnabledByDefault": "True",
+        "isSuppressedInSource": "False"
+      }
+    },
+    {
+      "ruleId": "LC0020",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "/home/stefan/Documents/Repos/community/techDays2026/TaskFramework/.worktrees/step-5-start/TaskFramework/src/Core/TaskLogEntries.page.al",
+              "region": {
+                "startLine": 20,
+                "startColumn": 55,
+                "endLine": 20,
+                "endColumn": 77
+              }
+            }
+          ]
+        }
+      ],
+      "shortMessage": "ApplicationArea matches the page-level ApplicationArea and can be removed",
+      "fullMessage": "When a ApplicationArea is defined on a page, it automatically applies to all fields of that page. Setting the same ApplicationArea again on individual fields is redundant and adds unnecessary noise to the object definition.",
+      "properties": {
+        "severity": "Warning",
+        "warningLevel": "1",
+        "defaultSeverity": "Warning",
+        "title": "ApplicationArea matches the page-level ApplicationArea and can be removed",
+        "category": "Design",
+        "helpLink": "https://alcops.dev/docs/analyzers/lintercop/lc0020/",
+        "isEnabledByDefault": "True",
+        "isSuppressedInSource": "False"
+      }
+    },
+    {
+      "ruleId": "LC0020",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "/home/stefan/Documents/Repos/community/techDays2026/TaskFramework/.worktrees/step-5-start/TaskFramework/src/Core/Archive/TaskLogArchive.page.al",
+              "region": {
+                "startLine": 19,
+                "startColumn": 65,
+                "endLine": 19,
+                "endColumn": 87
+              }
+            }
+          ]
+        }
+      ],
+      "shortMessage": "ApplicationArea matches the page-level ApplicationArea and can be removed",
+      "fullMessage": "When a ApplicationArea is defined on a page, it automatically applies to all fields of that page. Setting the same ApplicationArea again on individual fields is redundant and adds unnecessary noise to the object definition.",
+      "properties": {
+        "severity": "Warning",
+        "warningLevel": "1",
+        "defaultSeverity": "Warning",
+        "title": "ApplicationArea matches the page-level ApplicationArea and can be removed",
+        "category": "Design",
+        "helpLink": "https://alcops.dev/docs/analyzers/lintercop/lc0020/",
+        "isEnabledByDefault": "True",
+        "isSuppressedInSource": "False"
+      }
+    },
+    {
+      "ruleId": "LC0020",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "/home/stefan/Documents/Repos/community/techDays2026/TaskFramework/.worktrees/step-5-start/TaskFramework/src/Setup/TaskFrameworkSetup.Page.al",
+              "region": {
+                "startLine": 19,
+                "startColumn": 71,
+                "endLine": 19,
+                "endColumn": 93
+              }
+            }
+          ]
+        }
+      ],
+      "shortMessage": "ApplicationArea matches the page-level ApplicationArea and can be removed",
+      "fullMessage": "When a ApplicationArea is defined on a page, it automatically applies to all fields of that page. Setting the same ApplicationArea again on individual fields is redundant and adds unnecessary noise to the object definition.",
+      "properties": {
+        "severity": "Warning",
+        "warningLevel": "1",
+        "defaultSeverity": "Warning",
+        "title": "ApplicationArea matches the page-level ApplicationArea and can be removed",
+        "category": "Design",
+        "helpLink": "https://alcops.dev/docs/analyzers/lintercop/lc0020/",
+        "isEnabledByDefault": "True",
+        "isSuppressedInSource": "False"
+      }
+    },
+    {
+      "ruleId": "LC0020",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "/home/stefan/Documents/Repos/community/techDays2026/TaskFramework/.worktrees/step-5-start/TaskFramework/src/Core/TaskLogEntryCard.page.al",
+              "region": {
+                "startLine": 18,
+                "startColumn": 55,
+                "endLine": 18,
+                "endColumn": 77
+              }
+            }
+          ]
+        }
+      ],
+      "shortMessage": "ApplicationArea matches the page-level ApplicationArea and can be removed",
+      "fullMessage": "When a ApplicationArea is defined on a page, it automatically applies to all fields of that page. Setting the same ApplicationArea again on individual fields is redundant and adds unnecessary noise to the object definition.",
+      "properties": {
+        "severity": "Warning",
+        "warningLevel": "1",
+        "defaultSeverity": "Warning",
+        "title": "ApplicationArea matches the page-level ApplicationArea and can be removed",
+        "category": "Design",
+        "helpLink": "https://alcops.dev/docs/analyzers/lintercop/lc0020/",
+        "isEnabledByDefault": "True",
+        "isSuppressedInSource": "False"
+      }
+    },
+    {
+      "ruleId": "LC0020",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "/home/stefan/Documents/Repos/community/techDays2026/TaskFramework/.worktrees/step-5-start/TaskFramework/src/Vouchers/VoucherEntries.Page.al",
+              "region": {
+                "startLine": 19,
+                "startColumn": 61,
+                "endLine": 19,
+                "endColumn": 83
+              }
+            }
+          ]
+        }
+      ],
+      "shortMessage": "ApplicationArea matches the page-level ApplicationArea and can be removed",
+      "fullMessage": "When a ApplicationArea is defined on a page, it automatically applies to all fields of that page. Setting the same ApplicationArea again on individual fields is redundant and adds unnecessary noise to the object definition.",
+      "properties": {
+        "severity": "Warning",
+        "warningLevel": "1",
+        "defaultSeverity": "Warning",
+        "title": "ApplicationArea matches the page-level ApplicationArea and can be removed",
+        "category": "Design",
+        "helpLink": "https://alcops.dev/docs/analyzers/lintercop/lc0020/",
+        "isEnabledByDefault": "True",
+        "isSuppressedInSource": "False"
+      }
+    },
+    {
+      "ruleId": "LC0020",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "/home/stefan/Documents/Repos/community/techDays2026/TaskFramework/.worktrees/step-5-start/TaskFramework/src/Core/Archive/TaskLogArchive.page.al",
+              "region": {
+                "startLine": 20,
+                "startColumn": 55,
+                "endLine": 20,
+                "endColumn": 77
+              }
+            }
+          ]
+        }
+      ],
+      "shortMessage": "ApplicationArea matches the page-level ApplicationArea and can be removed",
+      "fullMessage": "When a ApplicationArea is defined on a page, it automatically applies to all fields of that page. Setting the same ApplicationArea again on individual fields is redundant and adds unnecessary noise to the object definition.",
+      "properties": {
+        "severity": "Warning",
+        "warningLevel": "1",
+        "defaultSeverity": "Warning",
+        "title": "ApplicationArea matches the page-level ApplicationArea and can be removed",
+        "category": "Design",
+        "helpLink": "https://alcops.dev/docs/analyzers/lintercop/lc0020/",
+        "isEnabledByDefault": "True",
+        "isSuppressedInSource": "False"
+      }
+    },
+    {
+      "ruleId": "LC0020",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "/home/stefan/Documents/Repos/community/techDays2026/TaskFramework/.worktrees/step-5-start/TaskFramework/src/Vouchers/VoucherEntryCard.Page.al",
+              "region": {
+                "startLine": 23,
+                "startColumn": 45,
+                "endLine": 23,
+                "endColumn": 67
+              }
+            }
+          ]
+        }
+      ],
+      "shortMessage": "ApplicationArea matches the page-level ApplicationArea and can be removed",
+      "fullMessage": "When a ApplicationArea is defined on a page, it automatically applies to all fields of that page. Setting the same ApplicationArea again on individual fields is redundant and adds unnecessary noise to the object definition.",
+      "properties": {
+        "severity": "Warning",
+        "warningLevel": "1",
+        "defaultSeverity": "Warning",
+        "title": "ApplicationArea matches the page-level ApplicationArea and can be removed",
+        "category": "Design",
+        "helpLink": "https://alcops.dev/docs/analyzers/lintercop/lc0020/",
+        "isEnabledByDefault": "True",
+        "isSuppressedInSource": "False"
+      }
+    },
+    {
+      "ruleId": "LC0020",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "/home/stefan/Documents/Repos/community/techDays2026/TaskFramework/.worktrees/step-5-start/TaskFramework/src/Core/TaskLogEntries.page.al",
+              "region": {
+                "startLine": 21,
+                "startColumn": 57,
+                "endLine": 21,
+                "endColumn": 79
+              }
+            }
+          ]
+        }
+      ],
+      "shortMessage": "ApplicationArea matches the page-level ApplicationArea and can be removed",
+      "fullMessage": "When a ApplicationArea is defined on a page, it automatically applies to all fields of that page. Setting the same ApplicationArea again on individual fields is redundant and adds unnecessary noise to the object definition.",
+      "properties": {
+        "severity": "Warning",
+        "warningLevel": "1",
+        "defaultSeverity": "Warning",
+        "title": "ApplicationArea matches the page-level ApplicationArea and can be removed",
+        "category": "Design",
+        "helpLink": "https://alcops.dev/docs/analyzers/lintercop/lc0020/",
+        "isEnabledByDefault": "True",
+        "isSuppressedInSource": "False"
+      }
+    },
+    {
+      "ruleId": "LC0020",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "/home/stefan/Documents/Repos/community/techDays2026/TaskFramework/.worktrees/step-5-start/TaskFramework/src/Setup/TaskFrameworkSetup.Page.al",
+              "region": {
+                "startLine": 20,
+                "startColumn": 79,
+                "endLine": 20,
+                "endColumn": 101
+              }
+            }
+          ]
+        }
+      ],
+      "shortMessage": "ApplicationArea matches the page-level ApplicationArea and can be removed",
+      "fullMessage": "When a ApplicationArea is defined on a page, it automatically applies to all fields of that page. Setting the same ApplicationArea again on individual fields is redundant and adds unnecessary noise to the object definition.",
+      "properties": {
+        "severity": "Warning",
+        "warningLevel": "1",
+        "defaultSeverity": "Warning",
+        "title": "ApplicationArea matches the page-level ApplicationArea and can be removed",
+        "category": "Design",
+        "helpLink": "https://alcops.dev/docs/analyzers/lintercop/lc0020/",
+        "isEnabledByDefault": "True",
+        "isSuppressedInSource": "False"
+      }
+    },
+    {
+      "ruleId": "LC0020",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "/home/stefan/Documents/Repos/community/techDays2026/TaskFramework/.worktrees/step-5-start/TaskFramework/src/Core/TaskLogEntryCard.page.al",
+              "region": {
+                "startLine": 19,
+                "startColumn": 57,
+                "endLine": 19,
+                "endColumn": 79
+              }
+            }
+          ]
+        }
+      ],
+      "shortMessage": "ApplicationArea matches the page-level ApplicationArea and can be removed",
+      "fullMessage": "When a ApplicationArea is defined on a page, it automatically applies to all fields of that page. Setting the same ApplicationArea again on individual fields is redundant and adds unnecessary noise to the object definition.",
+      "properties": {
+        "severity": "Warning",
+        "warningLevel": "1",
+        "defaultSeverity": "Warning",
+        "title": "ApplicationArea matches the page-level ApplicationArea and can be removed",
+        "category": "Design",
+        "helpLink": "https://alcops.dev/docs/analyzers/lintercop/lc0020/",
+        "isEnabledByDefault": "True",
+        "isSuppressedInSource": "False"
+      }
+    },
+    {
+      "ruleId": "LC0020",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "/home/stefan/Documents/Repos/community/techDays2026/TaskFramework/.worktrees/step-5-start/TaskFramework/src/Vouchers/VoucherEntries.Page.al",
+              "region": {
+                "startLine": 20,
+                "startColumn": 45,
+                "endLine": 20,
+                "endColumn": 67
+              }
+            }
+          ]
+        }
+      ],
+      "shortMessage": "ApplicationArea matches the page-level ApplicationArea and can be removed",
+      "fullMessage": "When a ApplicationArea is defined on a page, it automatically applies to all fields of that page. Setting the same ApplicationArea again on individual fields is redundant and adds unnecessary noise to the object definition.",
+      "properties": {
+        "severity": "Warning",
+        "warningLevel": "1",
+        "defaultSeverity": "Warning",
+        "title": "ApplicationArea matches the page-level ApplicationArea and can be removed",
+        "category": "Design",
+        "helpLink": "https://alcops.dev/docs/analyzers/lintercop/lc0020/",
+        "isEnabledByDefault": "True",
+        "isSuppressedInSource": "False"
+      }
+    },
+    {
+      "ruleId": "LC0020",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "/home/stefan/Documents/Repos/community/techDays2026/TaskFramework/.worktrees/step-5-start/TaskFramework/src/Vouchers/VoucherEntryCard.Page.al",
+              "region": {
+                "startLine": 24,
+                "startColumn": 55,
+                "endLine": 24,
+                "endColumn": 77
+              }
+            }
+          ]
+        }
+      ],
+      "shortMessage": "ApplicationArea matches the page-level ApplicationArea and can be removed",
+      "fullMessage": "When a ApplicationArea is defined on a page, it automatically applies to all fields of that page. Setting the same ApplicationArea again on individual fields is redundant and adds unnecessary noise to the object definition.",
+      "properties": {
+        "severity": "Warning",
+        "warningLevel": "1",
+        "defaultSeverity": "Warning",
+        "title": "ApplicationArea matches the page-level ApplicationArea and can be removed",
+        "category": "Design",
+        "helpLink": "https://alcops.dev/docs/analyzers/lintercop/lc0020/",
+        "isEnabledByDefault": "True",
+        "isSuppressedInSource": "False"
+      }
+    },
+    {
+      "ruleId": "LC0020",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "/home/stefan/Documents/Repos/community/techDays2026/TaskFramework/.worktrees/step-5-start/TaskFramework/src/Core/Archive/TaskLogArchive.page.al",
+              "region": {
+                "startLine": 21,
+                "startColumn": 59,
+                "endLine": 21,
+                "endColumn": 81
+              }
+            }
+          ]
+        }
+      ],
+      "shortMessage": "ApplicationArea matches the page-level ApplicationArea and can be removed",
+      "fullMessage": "When a ApplicationArea is defined on a page, it automatically applies to all fields of that page. Setting the same ApplicationArea again on individual fields is redundant and adds unnecessary noise to the object definition.",
+      "properties": {
+        "severity": "Warning",
+        "warningLevel": "1",
+        "defaultSeverity": "Warning",
+        "title": "ApplicationArea matches the page-level ApplicationArea and can be removed",
+        "category": "Design",
+        "helpLink": "https://alcops.dev/docs/analyzers/lintercop/lc0020/",
+        "isEnabledByDefault": "True",
+        "isSuppressedInSource": "False"
+      }
+    },
+    {
+      "ruleId": "LC0020",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "/home/stefan/Documents/Repos/community/techDays2026/TaskFramework/.worktrees/step-5-start/TaskFramework/src/Core/TaskLogEntries.page.al",
+              "region": {
+                "startLine": 22,
+                "startColumn": 51,
+                "endLine": 22,
+                "endColumn": 73
+              }
+            }
+          ]
+        }
+      ],
+      "shortMessage": "ApplicationArea matches the page-level ApplicationArea and can be removed",
+      "fullMessage": "When a ApplicationArea is defined on a page, it automatically applies to all fields of that page. Setting the same ApplicationArea again on individual fields is redundant and adds unnecessary noise to the object definition.",
+      "properties": {
+        "severity": "Warning",
+        "warningLevel": "1",
+        "defaultSeverity": "Warning",
+        "title": "ApplicationArea matches the page-level ApplicationArea and can be removed",
+        "category": "Design",
+        "helpLink": "https://alcops.dev/docs/analyzers/lintercop/lc0020/",
+        "isEnabledByDefault": "True",
+        "isSuppressedInSource": "False"
+      }
+    },
+    {
+      "ruleId": "LC0020",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "/home/stefan/Documents/Repos/community/techDays2026/TaskFramework/.worktrees/step-5-start/TaskFramework/src/Vouchers/VoucherEntries.Page.al",
+              "region": {
+                "startLine": 21,
+                "startColumn": 55,
+                "endLine": 21,
+                "endColumn": 77
+              }
+            }
+          ]
+        }
+      ],
+      "shortMessage": "ApplicationArea matches the page-level ApplicationArea and can be removed",
+      "fullMessage": "When a ApplicationArea is defined on a page, it automatically applies to all fields of that page. Setting the same ApplicationArea again on individual fields is redundant and adds unnecessary noise to the object definition.",
+      "properties": {
+        "severity": "Warning",
+        "warningLevel": "1",
+        "defaultSeverity": "Warning",
+        "title": "ApplicationArea matches the page-level ApplicationArea and can be removed",
+        "category": "Design",
+        "helpLink": "https://alcops.dev/docs/analyzers/lintercop/lc0020/",
+        "isEnabledByDefault": "True",
+        "isSuppressedInSource": "False"
+      }
+    },
+    {
+      "ruleId": "LC0020",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "/home/stefan/Documents/Repos/community/techDays2026/TaskFramework/.worktrees/step-5-start/TaskFramework/src/Core/TaskLogEntryCard.page.al",
+              "region": {
+                "startLine": 20,
+                "startColumn": 79,
+                "endLine": 20,
+                "endColumn": 101
+              }
+            }
+          ]
+        }
+      ],
+      "shortMessage": "ApplicationArea matches the page-level ApplicationArea and can be removed",
+      "fullMessage": "When a ApplicationArea is defined on a page, it automatically applies to all fields of that page. Setting the same ApplicationArea again on individual fields is redundant and adds unnecessary noise to the object definition.",
+      "properties": {
+        "severity": "Warning",
+        "warningLevel": "1",
+        "defaultSeverity": "Warning",
+        "title": "ApplicationArea matches the page-level ApplicationArea and can be removed",
+        "category": "Design",
+        "helpLink": "https://alcops.dev/docs/analyzers/lintercop/lc0020/",
+        "isEnabledByDefault": "True",
+        "isSuppressedInSource": "False"
+      }
+    },
+    {
+      "ruleId": "LC0020",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "/home/stefan/Documents/Repos/community/techDays2026/TaskFramework/.worktrees/step-5-start/TaskFramework/src/Setup/TaskFrameworkSetup.Page.al",
+              "region": {
+                "startLine": 25,
+                "startColumn": 93,
+                "endLine": 25,
+                "endColumn": 115
+              }
+            }
+          ]
+        }
+      ],
+      "shortMessage": "ApplicationArea matches the page-level ApplicationArea and can be removed",
+      "fullMessage": "When a ApplicationArea is defined on a page, it automatically applies to all fields of that page. Setting the same ApplicationArea again on individual fields is redundant and adds unnecessary noise to the object definition.",
+      "properties": {
+        "severity": "Warning",
+        "warningLevel": "1",
+        "defaultSeverity": "Warning",
+        "title": "ApplicationArea matches the page-level ApplicationArea and can be removed",
+        "category": "Design",
+        "helpLink": "https://alcops.dev/docs/analyzers/lintercop/lc0020/",
+        "isEnabledByDefault": "True",
+        "isSuppressedInSource": "False"
+      }
+    },
+    {
+      "ruleId": "LC0020",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "/home/stefan/Documents/Repos/community/techDays2026/TaskFramework/.worktrees/step-5-start/TaskFramework/src/Core/Archive/TaskLogArchive.page.al",
+              "region": {
+                "startLine": 22,
+                "startColumn": 65,
+                "endLine": 22,
+                "endColumn": 87
+              }
+            }
+          ]
+        }
+      ],
+      "shortMessage": "ApplicationArea matches the page-level ApplicationArea and can be removed",
+      "fullMessage": "When a ApplicationArea is defined on a page, it automatically applies to all fields of that page. Setting the same ApplicationArea again on individual fields is redundant and adds unnecessary noise to the object definition.",
+      "properties": {
+        "severity": "Warning",
+        "warningLevel": "1",
+        "defaultSeverity": "Warning",
+        "title": "ApplicationArea matches the page-level ApplicationArea and can be removed",
+        "category": "Design",
+        "helpLink": "https://alcops.dev/docs/analyzers/lintercop/lc0020/",
+        "isEnabledByDefault": "True",
+        "isSuppressedInSource": "False"
+      }
+    },
+    {
+      "ruleId": "LC0020",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "/home/stefan/Documents/Repos/community/techDays2026/TaskFramework/.worktrees/step-5-start/TaskFramework/src/Vouchers/VoucherEntryCard.Page.al",
+              "region": {
+                "startLine": 25,
+                "startColumn": 61,
+                "endLine": 25,
+                "endColumn": 83
+              }
+            }
+          ]
+        }
+      ],
+      "shortMessage": "ApplicationArea matches the page-level ApplicationArea and can be removed",
+      "fullMessage": "When a ApplicationArea is defined on a page, it automatically applies to all fields of that page. Setting the same ApplicationArea again on individual fields is redundant and adds unnecessary noise to the object definition.",
+      "properties": {
+        "severity": "Warning",
+        "warningLevel": "1",
+        "defaultSeverity": "Warning",
+        "title": "ApplicationArea matches the page-level ApplicationArea and can be removed",
+        "category": "Design",
+        "helpLink": "https://alcops.dev/docs/analyzers/lintercop/lc0020/",
+        "isEnabledByDefault": "True",
+        "isSuppressedInSource": "False"
+      }
+    },
+    {
+      "ruleId": "LC0020",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "/home/stefan/Documents/Repos/community/techDays2026/TaskFramework/.worktrees/step-5-start/TaskFramework/src/Core/TaskLogEntries.page.al",
+              "region": {
+                "startLine": 23,
+                "startColumn": 65,
+                "endLine": 23,
+                "endColumn": 87
+              }
+            }
+          ]
+        }
+      ],
+      "shortMessage": "ApplicationArea matches the page-level ApplicationArea and can be removed",
+      "fullMessage": "When a ApplicationArea is defined on a page, it automatically applies to all fields of that page. Setting the same ApplicationArea again on individual fields is redundant and adds unnecessary noise to the object definition.",
+      "properties": {
+        "severity": "Warning",
+        "warningLevel": "1",
+        "defaultSeverity": "Warning",
+        "title": "ApplicationArea matches the page-level ApplicationArea and can be removed",
+        "category": "Design",
+        "helpLink": "https://alcops.dev/docs/analyzers/lintercop/lc0020/",
+        "isEnabledByDefault": "True",
+        "isSuppressedInSource": "False"
+      }
+    },
+    {
+      "ruleId": "LC0020",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "/home/stefan/Documents/Repos/community/techDays2026/TaskFramework/.worktrees/step-5-start/TaskFramework/src/Core/TaskLogEntryCard.page.al",
+              "region": {
+                "startLine": 21,
+                "startColumn": 83,
+                "endLine": 21,
+                "endColumn": 105
+              }
+            }
+          ]
+        }
+      ],
+      "shortMessage": "ApplicationArea matches the page-level ApplicationArea and can be removed",
+      "fullMessage": "When a ApplicationArea is defined on a page, it automatically applies to all fields of that page. Setting the same ApplicationArea again on individual fields is redundant and adds unnecessary noise to the object definition.",
+      "properties": {
+        "severity": "Warning",
+        "warningLevel": "1",
+        "defaultSeverity": "Warning",
+        "title": "ApplicationArea matches the page-level ApplicationArea and can be removed",
+        "category": "Design",
+        "helpLink": "https://alcops.dev/docs/analyzers/lintercop/lc0020/",
+        "isEnabledByDefault": "True",
+        "isSuppressedInSource": "False"
+      }
+    },
+    {
+      "ruleId": "LC0020",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "/home/stefan/Documents/Repos/community/techDays2026/TaskFramework/.worktrees/step-5-start/TaskFramework/src/Core/Archive/TaskLogArchive.page.al",
+              "region": {
+                "startLine": 23,
+                "startColumn": 51,
+                "endLine": 23,
+                "endColumn": 73
+              }
+            }
+          ]
+        }
+      ],
+      "shortMessage": "ApplicationArea matches the page-level ApplicationArea and can be removed",
+      "fullMessage": "When a ApplicationArea is defined on a page, it automatically applies to all fields of that page. Setting the same ApplicationArea again on individual fields is redundant and adds unnecessary noise to the object definition.",
+      "properties": {
+        "severity": "Warning",
+        "warningLevel": "1",
+        "defaultSeverity": "Warning",
+        "title": "ApplicationArea matches the page-level ApplicationArea and can be removed",
+        "category": "Design",
+        "helpLink": "https://alcops.dev/docs/analyzers/lintercop/lc0020/",
+        "isEnabledByDefault": "True",
+        "isSuppressedInSource": "False"
+      }
+    },
+    {
+      "ruleId": "LC0020",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "/home/stefan/Documents/Repos/community/techDays2026/TaskFramework/.worktrees/step-5-start/TaskFramework/src/Core/TaskLogEntries.page.al",
+              "region": {
+                "startLine": 24,
+                "startColumn": 59,
+                "endLine": 24,
+                "endColumn": 81
+              }
+            }
+          ]
+        }
+      ],
+      "shortMessage": "ApplicationArea matches the page-level ApplicationArea and can be removed",
+      "fullMessage": "When a ApplicationArea is defined on a page, it automatically applies to all fields of that page. Setting the same ApplicationArea again on individual fields is redundant and adds unnecessary noise to the object definition.",
+      "properties": {
+        "severity": "Warning",
+        "warningLevel": "1",
+        "defaultSeverity": "Warning",
+        "title": "ApplicationArea matches the page-level ApplicationArea and can be removed",
+        "category": "Design",
+        "helpLink": "https://alcops.dev/docs/analyzers/lintercop/lc0020/",
+        "isEnabledByDefault": "True",
+        "isSuppressedInSource": "False"
+      }
+    },
+    {
+      "ruleId": "LC0020",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "/home/stefan/Documents/Repos/community/techDays2026/TaskFramework/.worktrees/step-5-start/TaskFramework/src/Setup/TaskFrameworkSetup.Page.al",
+              "region": {
+                "startLine": 26,
+                "startColumn": 71,
+                "endLine": 26,
+                "endColumn": 93
+              }
+            }
+          ]
+        }
+      ],
+      "shortMessage": "ApplicationArea matches the page-level ApplicationArea and can be removed",
+      "fullMessage": "When a ApplicationArea is defined on a page, it automatically applies to all fields of that page. Setting the same ApplicationArea again on individual fields is redundant and adds unnecessary noise to the object definition.",
+      "properties": {
+        "severity": "Warning",
+        "warningLevel": "1",
+        "defaultSeverity": "Warning",
+        "title": "ApplicationArea matches the page-level ApplicationArea and can be removed",
+        "category": "Design",
+        "helpLink": "https://alcops.dev/docs/analyzers/lintercop/lc0020/",
+        "isEnabledByDefault": "True",
+        "isSuppressedInSource": "False"
+      }
+    },
+    {
+      "ruleId": "LC0020",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "/home/stefan/Documents/Repos/community/techDays2026/TaskFramework/.worktrees/step-5-start/TaskFramework/src/Core/Archive/TaskLogArchive.page.al",
+              "region": {
+                "startLine": 24,
+                "startColumn": 57,
+                "endLine": 24,
+                "endColumn": 79
+              }
+            }
+          ]
+        }
+      ],
+      "shortMessage": "ApplicationArea matches the page-level ApplicationArea and can be removed",
+      "fullMessage": "When a ApplicationArea is defined on a page, it automatically applies to all fields of that page. Setting the same ApplicationArea again on individual fields is redundant and adds unnecessary noise to the object definition.",
+      "properties": {
+        "severity": "Warning",
+        "warningLevel": "1",
+        "defaultSeverity": "Warning",
+        "title": "ApplicationArea matches the page-level ApplicationArea and can be removed",
+        "category": "Design",
+        "helpLink": "https://alcops.dev/docs/analyzers/lintercop/lc0020/",
+        "isEnabledByDefault": "True",
+        "isSuppressedInSource": "False"
+      }
+    },
+    {
+      "ruleId": "LC0020",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "/home/stefan/Documents/Repos/community/techDays2026/TaskFramework/.worktrees/step-5-start/TaskFramework/src/Core/TaskLogEntries.page.al",
+              "region": {
+                "startLine": 25,
+                "startColumn": 73,
+                "endLine": 25,
+                "endColumn": 95
+              }
+            }
+          ]
+        }
+      ],
+      "shortMessage": "ApplicationArea matches the page-level ApplicationArea and can be removed",
+      "fullMessage": "When a ApplicationArea is defined on a page, it automatically applies to all fields of that page. Setting the same ApplicationArea again on individual fields is redundant and adds unnecessary noise to the object definition.",
+      "properties": {
+        "severity": "Warning",
+        "warningLevel": "1",
+        "defaultSeverity": "Warning",
+        "title": "ApplicationArea matches the page-level ApplicationArea and can be removed",
+        "category": "Design",
+        "helpLink": "https://alcops.dev/docs/analyzers/lintercop/lc0020/",
+        "isEnabledByDefault": "True",
+        "isSuppressedInSource": "False"
+      }
+    },
+    {
+      "ruleId": "LC0020",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "/home/stefan/Documents/Repos/community/techDays2026/TaskFramework/.worktrees/step-5-start/TaskFramework/src/Core/TaskLogEntryCard.page.al",
+              "region": {
+                "startLine": 22,
+                "startColumn": 73,
+                "endLine": 22,
+                "endColumn": 95
+              }
+            }
+          ]
+        }
+      ],
+      "shortMessage": "ApplicationArea matches the page-level ApplicationArea and can be removed",
+      "fullMessage": "When a ApplicationArea is defined on a page, it automatically applies to all fields of that page. Setting the same ApplicationArea again on individual fields is redundant and adds unnecessary noise to the object definition.",
+      "properties": {
+        "severity": "Warning",
+        "warningLevel": "1",
+        "defaultSeverity": "Warning",
+        "title": "ApplicationArea matches the page-level ApplicationArea and can be removed",
+        "category": "Design",
+        "helpLink": "https://alcops.dev/docs/analyzers/lintercop/lc0020/",
+        "isEnabledByDefault": "True",
+        "isSuppressedInSource": "False"
+      }
+    },
+    {
+      "ruleId": "LC0020",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "/home/stefan/Documents/Repos/community/techDays2026/TaskFramework/.worktrees/step-5-start/TaskFramework/src/Setup/TaskFrameworkSetup.Page.al",
+              "region": {
+                "startLine": 31,
+                "startColumn": 65,
+                "endLine": 31,
+                "endColumn": 87
+              }
+            }
+          ]
+        }
+      ],
+      "shortMessage": "ApplicationArea matches the page-level ApplicationArea and can be removed",
+      "fullMessage": "When a ApplicationArea is defined on a page, it automatically applies to all fields of that page. Setting the same ApplicationArea again on individual fields is redundant and adds unnecessary noise to the object definition.",
+      "properties": {
+        "severity": "Warning",
+        "warningLevel": "1",
+        "defaultSeverity": "Warning",
+        "title": "ApplicationArea matches the page-level ApplicationArea and can be removed",
+        "category": "Design",
+        "helpLink": "https://alcops.dev/docs/analyzers/lintercop/lc0020/",
+        "isEnabledByDefault": "True",
+        "isSuppressedInSource": "False"
+      }
+    },
+    {
+      "ruleId": "LC0020",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "/home/stefan/Documents/Repos/community/techDays2026/TaskFramework/.worktrees/step-5-start/TaskFramework/src/Core/TaskLogEntryCard.page.al",
+              "region": {
+                "startLine": 23,
+                "startColumn": 59,
+                "endLine": 23,
+                "endColumn": 81
+              }
+            }
+          ]
+        }
+      ],
+      "shortMessage": "ApplicationArea matches the page-level ApplicationArea and can be removed",
+      "fullMessage": "When a ApplicationArea is defined on a page, it automatically applies to all fields of that page. Setting the same ApplicationArea again on individual fields is redundant and adds unnecessary noise to the object definition.",
+      "properties": {
+        "severity": "Warning",
+        "warningLevel": "1",
+        "defaultSeverity": "Warning",
+        "title": "ApplicationArea matches the page-level ApplicationArea and can be removed",
+        "category": "Design",
+        "helpLink": "https://alcops.dev/docs/analyzers/lintercop/lc0020/",
+        "isEnabledByDefault": "True",
+        "isSuppressedInSource": "False"
+      }
+    },
+    {
+      "ruleId": "LC0020",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "/home/stefan/Documents/Repos/community/techDays2026/TaskFramework/.worktrees/step-5-start/TaskFramework/src/Setup/TaskFrameworkSetup.Page.al",
+              "region": {
+                "startLine": 32,
+                "startColumn": 57,
+                "endLine": 32,
+                "endColumn": 79
+              }
+            }
+          ]
+        }
+      ],
+      "shortMessage": "ApplicationArea matches the page-level ApplicationArea and can be removed",
+      "fullMessage": "When a ApplicationArea is defined on a page, it automatically applies to all fields of that page. Setting the same ApplicationArea again on individual fields is redundant and adds unnecessary noise to the object definition.",
+      "properties": {
+        "severity": "Warning",
+        "warningLevel": "1",
+        "defaultSeverity": "Warning",
+        "title": "ApplicationArea matches the page-level ApplicationArea and can be removed",
+        "category": "Design",
+        "helpLink": "https://alcops.dev/docs/analyzers/lintercop/lc0020/",
+        "isEnabledByDefault": "True",
+        "isSuppressedInSource": "False"
+      }
+    },
+    {
+      "ruleId": "LC0020",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "/home/stefan/Documents/Repos/community/techDays2026/TaskFramework/.worktrees/step-5-start/TaskFramework/src/Core/TaskLogEntryCard.page.al",
+              "region": {
+                "startLine": 24,
+                "startColumn": 63,
+                "endLine": 24,
+                "endColumn": 85
+              }
+            }
+          ]
+        }
+      ],
+      "shortMessage": "ApplicationArea matches the page-level ApplicationArea and can be removed",
+      "fullMessage": "When a ApplicationArea is defined on a page, it automatically applies to all fields of that page. Setting the same ApplicationArea again on individual fields is redundant and adds unnecessary noise to the object definition.",
+      "properties": {
+        "severity": "Warning",
+        "warningLevel": "1",
+        "defaultSeverity": "Warning",
+        "title": "ApplicationArea matches the page-level ApplicationArea and can be removed",
+        "category": "Design",
+        "helpLink": "https://alcops.dev/docs/analyzers/lintercop/lc0020/",
+        "isEnabledByDefault": "True",
+        "isSuppressedInSource": "False"
+      }
+    },
+    {
+      "ruleId": "LC0020",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "/home/stefan/Documents/Repos/community/techDays2026/TaskFramework/.worktrees/step-5-start/TaskFramework/src/Core/TaskLogEntryCard.page.al",
+              "region": {
+                "startLine": 25,
+                "startColumn": 51,
+                "endLine": 25,
+                "endColumn": 73
+              }
+            }
+          ]
+        }
+      ],
+      "shortMessage": "ApplicationArea matches the page-level ApplicationArea and can be removed",
+      "fullMessage": "When a ApplicationArea is defined on a page, it automatically applies to all fields of that page. Setting the same ApplicationArea again on individual fields is redundant and adds unnecessary noise to the object definition.",
+      "properties": {
+        "severity": "Warning",
+        "warningLevel": "1",
+        "defaultSeverity": "Warning",
+        "title": "ApplicationArea matches the page-level ApplicationArea and can be removed",
+        "category": "Design",
+        "helpLink": "https://alcops.dev/docs/analyzers/lintercop/lc0020/",
+        "isEnabledByDefault": "True",
+        "isSuppressedInSource": "False"
+      }
+    },
+    {
+      "ruleId": "LC0020",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "/home/stefan/Documents/Repos/community/techDays2026/TaskFramework/.worktrees/step-5-start/TaskFramework/src/Setup/TaskFrameworkSetup.Page.al",
+              "region": {
+                "startLine": 37,
+                "startColumn": 67,
+                "endLine": 37,
+                "endColumn": 89
+              }
+            }
+          ]
+        }
+      ],
+      "shortMessage": "ApplicationArea matches the page-level ApplicationArea and can be removed",
+      "fullMessage": "When a ApplicationArea is defined on a page, it automatically applies to all fields of that page. Setting the same ApplicationArea again on individual fields is redundant and adds unnecessary noise to the object definition.",
+      "properties": {
+        "severity": "Warning",
+        "warningLevel": "1",
+        "defaultSeverity": "Warning",
+        "title": "ApplicationArea matches the page-level ApplicationArea and can be removed",
+        "category": "Design",
+        "helpLink": "https://alcops.dev/docs/analyzers/lintercop/lc0020/",
+        "isEnabledByDefault": "True",
+        "isSuppressedInSource": "False"
+      }
+    },
+    {
+      "ruleId": "LC0020",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "/home/stefan/Documents/Repos/community/techDays2026/TaskFramework/.worktrees/step-5-start/TaskFramework/src/Setup/TaskFrameworkSetup.Page.al",
+              "region": {
+                "startLine": 38,
+                "startColumn": 65,
+                "endLine": 38,
+                "endColumn": 87
+              }
+            }
+          ]
+        }
+      ],
+      "shortMessage": "ApplicationArea matches the page-level ApplicationArea and can be removed",
+      "fullMessage": "When a ApplicationArea is defined on a page, it automatically applies to all fields of that page. Setting the same ApplicationArea again on individual fields is redundant and adds unnecessary noise to the object definition.",
+      "properties": {
+        "severity": "Warning",
+        "warningLevel": "1",
+        "defaultSeverity": "Warning",
+        "title": "ApplicationArea matches the page-level ApplicationArea and can be removed",
+        "category": "Design",
+        "helpLink": "https://alcops.dev/docs/analyzers/lintercop/lc0020/",
+        "isEnabledByDefault": "True",
+        "isSuppressedInSource": "False"
+      }
+    },
+    {
+      "ruleId": "LC0020",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "/home/stefan/Documents/Repos/community/techDays2026/TaskFramework/.worktrees/step-5-start/TaskFramework/src/Core/TaskLogEntryCard.page.al",
+              "region": {
+                "startLine": 26,
+                "startColumn": 65,
+                "endLine": 26,
+                "endColumn": 87
+              }
+            }
+          ]
+        }
+      ],
+      "shortMessage": "ApplicationArea matches the page-level ApplicationArea and can be removed",
+      "fullMessage": "When a ApplicationArea is defined on a page, it automatically applies to all fields of that page. Setting the same ApplicationArea again on individual fields is redundant and adds unnecessary noise to the object definition.",
+      "properties": {
+        "severity": "Warning",
+        "warningLevel": "1",
+        "defaultSeverity": "Warning",
+        "title": "ApplicationArea matches the page-level ApplicationArea and can be removed",
+        "category": "Design",
+        "helpLink": "https://alcops.dev/docs/analyzers/lintercop/lc0020/",
+        "isEnabledByDefault": "True",
+        "isSuppressedInSource": "False"
+      }
+    },
+    {
+      "ruleId": "LC0020",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "/home/stefan/Documents/Repos/community/techDays2026/TaskFramework/.worktrees/step-5-start/TaskFramework/src/Core/TaskLogEntryCard.page.al",
+              "region": {
+                "startLine": 27,
+                "startColumn": 85,
+                "endLine": 27,
+                "endColumn": 107
+              }
+            }
+          ]
+        }
+      ],
+      "shortMessage": "ApplicationArea matches the page-level ApplicationArea and can be removed",
+      "fullMessage": "When a ApplicationArea is defined on a page, it automatically applies to all fields of that page. Setting the same ApplicationArea again on individual fields is redundant and adds unnecessary noise to the object definition.",
+      "properties": {
+        "severity": "Warning",
+        "warningLevel": "1",
+        "defaultSeverity": "Warning",
+        "title": "ApplicationArea matches the page-level ApplicationArea and can be removed",
+        "category": "Design",
+        "helpLink": "https://alcops.dev/docs/analyzers/lintercop/lc0020/",
+        "isEnabledByDefault": "True",
+        "isSuppressedInSource": "False"
+      }
+    },
+    {
+      "ruleId": "LC0020",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "/home/stefan/Documents/Repos/community/techDays2026/TaskFramework/.worktrees/step-5-start/TaskFramework/src/Core/TaskLogEntryCard.page.al",
+              "region": {
+                "startLine": 28,
+                "startColumn": 93,
+                "endLine": 28,
+                "endColumn": 115
+              }
+            }
+          ]
+        }
+      ],
+      "shortMessage": "ApplicationArea matches the page-level ApplicationArea and can be removed",
+      "fullMessage": "When a ApplicationArea is defined on a page, it automatically applies to all fields of that page. Setting the same ApplicationArea again on individual fields is redundant and adds unnecessary noise to the object definition.",
+      "properties": {
+        "severity": "Warning",
+        "warningLevel": "1",
+        "defaultSeverity": "Warning",
+        "title": "ApplicationArea matches the page-level ApplicationArea and can be removed",
+        "category": "Design",
+        "helpLink": "https://alcops.dev/docs/analyzers/lintercop/lc0020/",
+        "isEnabledByDefault": "True",
+        "isSuppressedInSource": "False"
+      }
+    },
+    {
+      "ruleId": "PC0026",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "/home/stefan/Documents/Repos/community/techDays2026/TaskFramework/.worktrees/step-5-start/TaskFramework/src/Core/API/TaskEntryAPI.page.al",
+              "region": {
+                "startLine": 3,
+                "startColumn": 12,
+                "endLine": 3,
+                "endColumn": 28
+              }
+            }
+          ]
+        }
+      ],
+      "shortMessage": "\"Field 'Rec.SystemId' exposed with the name 'id' should always be included on API Pages.\"",
+      "fullMessage": "API pages must expose a minimal set of mandatory system fields to ensure correct identification, change tracking, and webhook support.",
+      "properties": {
+        "severity": "Warning",
+        "warningLevel": "1",
+        "defaultSeverity": "Warning",
+        "title": "Mandatory fields must be exposed on API pages.",
+        "category": "Design",
+        "helpLink": "https://alcops.dev/docs/analyzers/platformcop/pc0026/",
+        "isEnabledByDefault": "True",
+        "isSuppressedInSource": "False"
+      }
+    },
+    {
+      "ruleId": "PC0026",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "/home/stefan/Documents/Repos/community/techDays2026/TaskFramework/.worktrees/step-5-start/TaskFramework/src/Core/API/TaskEntryAPI.page.al",
+              "region": {
+                "startLine": 3,
+                "startColumn": 12,
+                "endLine": 3,
+                "endColumn": 28
+              }
+            }
+          ]
+        }
+      ],
+      "shortMessage": "\"Field 'Rec.SystemModifiedAt' exposed with the name 'lastModifiedDateTime' should always be included on API Pages.\"",
+      "fullMessage": "API pages must expose a minimal set of mandatory system fields to ensure correct identification, change tracking, and webhook support.",
+      "properties": {
+        "severity": "Warning",
+        "warningLevel": "1",
+        "defaultSeverity": "Warning",
+        "title": "Mandatory fields must be exposed on API pages.",
+        "category": "Design",
+        "helpLink": "https://alcops.dev/docs/analyzers/platformcop/pc0026/",
+        "isEnabledByDefault": "True",
+        "isSuppressedInSource": "False"
+      }
+    },
+    {
+      "ruleId": "LC0040",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "/home/stefan/Documents/Repos/community/techDays2026/TaskFramework/.worktrees/step-5-start/TaskFramework/src/Processing/LogRetentionProcessor.Codeunit.al",
+              "region": {
+                "startLine": 17,
+                "startColumn": 17,
+                "endLine": 17,
+                "endColumn": 26
+              }
+            }
+          ]
+        }
+      ],
+      "shortMessage": "The method call 'DeleteAll' does not explicitly specify the RunTrigger parameter. Set RunTrigger explicitly instead of the implicit default value of false.",
+      "fullMessage": "This rule enforces explicitly specifying the RunTrigger parameter when calling methods such as Insert, Modify, ModifyAll, Delete, and DeleteAll. These methods allow omitting the RunTrigger parameter, which implicitly defaults to false.",
+      "properties": {
+        "severity": "Warning",
+        "warningLevel": "1",
+        "defaultSeverity": "Warning",
+        "title": "The method call '{0}' does not explicitly specify the RunTrigger parameter. Set RunTrigger explicitly instead of the implicit default value of false.",
+        "category": "Design",
+        "helpLink": "https://alcops.dev/docs/analyzers/lintercop/lc0040/",
+        "isEnabledByDefault": "True",
+        "isSuppressedInSource": "False"
+      }
+    },
+    {
+      "ruleId": "LC0040",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "/home/stefan/Documents/Repos/community/techDays2026/TaskFramework/.worktrees/step-5-start/TaskFramework/src/Processing/LogRetentionProcessor.Codeunit.al",
+              "region": {
+                "startLine": 20,
+                "startColumn": 22,
+                "endLine": 20,
+                "endColumn": 28
+              }
+            }
+          ]
+        }
+      ],
+      "shortMessage": "The method call 'Modify' does not explicitly specify the RunTrigger parameter. Set RunTrigger explicitly instead of the implicit default value of false.",
+      "fullMessage": "This rule enforces explicitly specifying the RunTrigger parameter when calling methods such as Insert, Modify, ModifyAll, Delete, and DeleteAll. These methods allow omitting the RunTrigger parameter, which implicitly defaults to false.",
+      "properties": {
+        "severity": "Warning",
+        "warningLevel": "1",
+        "defaultSeverity": "Warning",
+        "title": "The method call '{0}' does not explicitly specify the RunTrigger parameter. Set RunTrigger explicitly instead of the implicit default value of false.",
+        "category": "Design",
+        "helpLink": "https://alcops.dev/docs/analyzers/lintercop/lc0040/",
+        "isEnabledByDefault": "True",
+        "isSuppressedInSource": "False"
+      }
+    },
+    {
+      "ruleId": "LC0040",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "/home/stefan/Documents/Repos/community/techDays2026/TaskFramework/.worktrees/step-5-start/TaskFramework/src/Processing/TaskProcessor.Codeunit.al",
+              "region": {
+                "startLine": 80,
+                "startColumn": 22,
+                "endLine": 80,
+                "endColumn": 28
+              }
+            }
+          ]
+        }
+      ],
+      "shortMessage": "The method call 'Modify' does not explicitly specify the RunTrigger parameter. Set RunTrigger explicitly instead of the implicit default value of false.",
+      "fullMessage": "This rule enforces explicitly specifying the RunTrigger parameter when calling methods such as Insert, Modify, ModifyAll, Delete, and DeleteAll. These methods allow omitting the RunTrigger parameter, which implicitly defaults to false.",
+      "properties": {
+        "severity": "Warning",
+        "warningLevel": "1",
+        "defaultSeverity": "Warning",
+        "title": "The method call '{0}' does not explicitly specify the RunTrigger parameter. Set RunTrigger explicitly instead of the implicit default value of false.",
+        "category": "Design",
+        "helpLink": "https://alcops.dev/docs/analyzers/lintercop/lc0040/",
+        "isEnabledByDefault": "True",
+        "isSuppressedInSource": "False"
+      }
+    },
+    {
+      "ruleId": "FC0003",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "/home/stefan/Documents/Repos/community/techDays2026/TaskFramework/.worktrees/step-5-start/TaskFramework/src/Processing/TaskProcessor.Codeunit.al",
+              "region": {
+                "startLine": 27,
+                "startColumn": 79,
+                "endLine": 27,
+                "endColumn": 94
+              }
+            }
+          ]
+        }
+      ],
+      "shortMessage": "You must specify open and close parenthesis after 'CurrentDateTime'.",
+      "fullMessage": "Use parenthesis in a function call even if the function does not have any parameters.",
+      "properties": {
+        "severity": "Warning",
+        "warningLevel": "1",
+        "defaultSeverity": "Warning",
+        "title": "Function calls should have parenthesis even if they do not have any parameters",
+        "category": "Design",
+        "helpLink": "https://alcops.dev/docs/analyzers/formattingcop/fc0003/",
+        "isEnabledByDefault": "True",
+        "isSuppressedInSource": "False"
+      }
+    },
+    {
+      "ruleId": "FC0003",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "/home/stefan/Documents/Repos/community/techDays2026/TaskFramework/.worktrees/step-5-start/TaskFramework/src/Core/TaskLogEntries.page.al",
+              "region": {
+                "startLine": 63,
+                "startColumn": 50,
+                "endLine": 63,
+                "endColumn": 65
+              }
+            }
+          ]
+        }
+      ],
+      "shortMessage": "You must specify open and close parenthesis after 'CurrentDateTime'.",
+      "fullMessage": "Use parenthesis in a function call even if the function does not have any parameters.",
+      "properties": {
+        "severity": "Warning",
+        "warningLevel": "1",
+        "defaultSeverity": "Warning",
+        "title": "Function calls should have parenthesis even if they do not have any parameters",
+        "category": "Design",
+        "helpLink": "https://alcops.dev/docs/analyzers/formattingcop/fc0003/",
+        "isEnabledByDefault": "True",
+        "isSuppressedInSource": "False"
+      }
+    },
+    {
+      "ruleId": "FC0003",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "/home/stefan/Documents/Repos/community/techDays2026/TaskFramework/.worktrees/step-5-start/TaskFramework/src/Processing/TaskProcessor.Codeunit.al",
+              "region": {
+                "startLine": 77,
+                "startColumn": 53,
+                "endLine": 77,
+                "endColumn": 68
+              }
+            }
+          ]
+        }
+      ],
+      "shortMessage": "You must specify open and close parenthesis after 'CurrentDateTime'.",
+      "fullMessage": "Use parenthesis in a function call even if the function does not have any parameters.",
+      "properties": {
+        "severity": "Warning",
+        "warningLevel": "1",
+        "defaultSeverity": "Warning",
+        "title": "Function calls should have parenthesis even if they do not have any parameters",
+        "category": "Design",
+        "helpLink": "https://alcops.dev/docs/analyzers/formattingcop/fc0003/",
+        "isEnabledByDefault": "True",
+        "isSuppressedInSource": "False"
+      }
+    },
+    {
+      "ruleId": "FC0003",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "/home/stefan/Documents/Repos/community/techDays2026/TaskFramework/.worktrees/step-5-start/TaskFramework/src/Processing/TaskProcessor.Codeunit.al",
+              "region": {
+                "startLine": 79,
+                "startColumn": 55,
+                "endLine": 79,
+                "endColumn": 70
+              }
+            }
+          ]
+        }
+      ],
+      "shortMessage": "You must specify open and close parenthesis after 'CurrentDateTime'.",
+      "fullMessage": "Use parenthesis in a function call even if the function does not have any parameters.",
+      "properties": {
+        "severity": "Warning",
+        "warningLevel": "1",
+        "defaultSeverity": "Warning",
+        "title": "Function calls should have parenthesis even if they do not have any parameters",
+        "category": "Design",
+        "helpLink": "https://alcops.dev/docs/analyzers/formattingcop/fc0003/",
+        "isEnabledByDefault": "True",
+        "isSuppressedInSource": "False"
+      }
+    },
+    {
+      "ruleId": "LC0040",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "/home/stefan/Documents/Repos/community/techDays2026/TaskFramework/.worktrees/step-5-start/TaskFramework/src/Processing/TaskProcessor.Codeunit.al",
+              "region": {
+                "startLine": 105,
+                "startColumn": 22,
+                "endLine": 105,
+                "endColumn": 28
+              }
+            }
+          ]
+        }
+      ],
+      "shortMessage": "The method call 'Insert' does not explicitly specify the RunTrigger parameter. Set RunTrigger explicitly instead of the implicit default value of false.",
+      "fullMessage": "This rule enforces explicitly specifying the RunTrigger parameter when calling methods such as Insert, Modify, ModifyAll, Delete, and DeleteAll. These methods allow omitting the RunTrigger parameter, which implicitly defaults to false.",
+      "properties": {
+        "severity": "Warning",
+        "warningLevel": "1",
+        "defaultSeverity": "Warning",
+        "title": "The method call '{0}' does not explicitly specify the RunTrigger parameter. Set RunTrigger explicitly instead of the implicit default value of false.",
+        "category": "Design",
+        "helpLink": "https://alcops.dev/docs/analyzers/lintercop/lc0040/",
+        "isEnabledByDefault": "True",
+        "isSuppressedInSource": "False"
+      }
+    },
+    {
+      "ruleId": "FC0003",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "/home/stefan/Documents/Repos/community/techDays2026/TaskFramework/.worktrees/step-5-start/TaskFramework/src/Processing/TaskProcessor.Codeunit.al",
+              "region": {
+                "startLine": 103,
+                "startColumn": 39,
+                "endLine": 103,
+                "endColumn": 54
+              }
+            }
+          ]
+        }
+      ],
+      "shortMessage": "You must specify open and close parenthesis after 'CurrentDateTime'.",
+      "fullMessage": "Use parenthesis in a function call even if the function does not have any parameters.",
+      "properties": {
+        "severity": "Warning",
+        "warningLevel": "1",
+        "defaultSeverity": "Warning",
+        "title": "Function calls should have parenthesis even if they do not have any parameters",
+        "category": "Design",
+        "helpLink": "https://alcops.dev/docs/analyzers/formattingcop/fc0003/",
+        "isEnabledByDefault": "True",
+        "isSuppressedInSource": "False"
+      }
+    },
+    {
+      "ruleId": "LC0040",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "/home/stefan/Documents/Repos/community/techDays2026/TaskFramework/.worktrees/step-5-start/TaskFramework/src/Vouchers/PostVouchers.Codeunit.al",
+              "region": {
+                "startLine": 27,
+                "startColumn": 22,
+                "endLine": 27,
+                "endColumn": 28
+              }
+            }
+          ]
+        }
+      ],
+      "shortMessage": "The method call 'Modify' does not explicitly specify the RunTrigger parameter. Set RunTrigger explicitly instead of the implicit default value of false.",
+      "fullMessage": "This rule enforces explicitly specifying the RunTrigger parameter when calling methods such as Insert, Modify, ModifyAll, Delete, and DeleteAll. These methods allow omitting the RunTrigger parameter, which implicitly defaults to false.",
+      "properties": {
+        "severity": "Warning",
+        "warningLevel": "1",
+        "defaultSeverity": "Warning",
+        "title": "The method call '{0}' does not explicitly specify the RunTrigger parameter. Set RunTrigger explicitly instead of the implicit default value of false.",
+        "category": "Design",
+        "helpLink": "https://alcops.dev/docs/analyzers/lintercop/lc0040/",
+        "isEnabledByDefault": "True",
+        "isSuppressedInSource": "False"
+      }
+    },
+    {
+      "ruleId": "LC0040",
+      "locations": [
+        {
+          "analysisTarget": [
+            {
+              "uri": "/home/stefan/Documents/Repos/community/techDays2026/TaskFramework/.worktrees/step-5-start/TaskFramework/src/Setup/TaskFrameworkSetup.Page.al",
+              "region": {
+                "startLine": 49,
+                "startColumn": 19,
+                "endLine": 49,
+                "endColumn": 25
+              }
+            }
+          ]
+        }
+      ],
+      "shortMessage": "The method call 'Insert' does not explicitly specify the RunTrigger parameter. Set RunTrigger explicitly instead of the implicit default value of false.",
+      "fullMessage": "This rule enforces explicitly specifying the RunTrigger parameter when calling methods such as Insert, Modify, ModifyAll, Delete, and DeleteAll. These methods allow omitting the RunTrigger parameter, which implicitly defaults to false.",
+      "properties": {
+        "severity": "Warning",
+        "warningLevel": "1",
+        "defaultSeverity": "Warning",
+        "title": "The method call '{0}' does not explicitly specify the RunTrigger parameter. Set RunTrigger explicitly instead of the implicit default value of false.",
+        "category": "Design",
+        "helpLink": "https://alcops.dev/docs/analyzers/lintercop/lc0040/",
+        "isEnabledByDefault": "True",
+        "isSuppressedInSource": "False"
+      }
+    }
+  ]
+}

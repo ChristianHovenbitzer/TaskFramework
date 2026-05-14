@@ -1,5 +1,6 @@
 codeunit 60002 "Install Task Framework"
 {
+    Access = Internal;
     Subtype = Install;
 
     trigger OnInstallAppPerCompany()
@@ -23,7 +24,7 @@ codeunit 60002 "Install Task Framework"
             SetupRec."Enable Batches" := true;
             SetupRec."Batch Size" := 10;
             SetupRec."Archive Enabled" := true;
-            SetupRec.Insert();
+            SetupRec.Insert(false);
         end;
     end;
 
@@ -99,7 +100,7 @@ codeunit 60002 "Install Task Framework"
         TaskLogEntry."Task Processing Type" := "Task Processing Type"::VendorImport;
         TaskLogEntry.Status := "Task Processing Status"::Pending;
         TaskLogEntry.Description := 'Import vendor from webshop';
-        TaskLogEntry."Created At" := CurrentDateTime;
+        TaskLogEntry."Created At" := CurrentDateTime();
         TaskLogEntry.Verbosity := TaskLogEntry.Verbosity::Normal;
         TaskLogEntry."Correlation Id" := CreateGuid();
         TaskLogEntry."Archive After Processing" := true;
@@ -107,7 +108,7 @@ codeunit 60002 "Install Task Framework"
         TaskLogEntry.CalcFields(Payload);
         TaskLogEntry.Payload.CreateOutStream(OutStr, TextEncoding::UTF8);
         OutStr.WriteText('NAME=Workshop Vendor GmbH;CITY=Munich;COUNTRY=DE');
-        TaskLogEntry.Modify();
+        TaskLogEntry.Modify(false);
 
         // Entry 2: Completed document import
         TaskLogEntry.Init();
@@ -115,8 +116,8 @@ codeunit 60002 "Install Task Framework"
         TaskLogEntry."Task Processing Type" := "Task Processing Type"::DocumentImport;
         TaskLogEntry.Status := "Task Processing Status"::Complete;
         TaskLogEntry.Description := 'Voucher import batch 2026-03-01';
-        TaskLogEntry."Created At" := CurrentDateTime;
-        TaskLogEntry."Processing Completed At" := CurrentDateTime;
+        TaskLogEntry."Created At" := CurrentDateTime();
+        TaskLogEntry."Processing Completed At" := CurrentDateTime();
         TaskLogEntry.Verbosity := TaskLogEntry.Verbosity::Detailed;
         TaskLogEntry."Correlation Id" := CreateGuid();
         TaskLogEntry."Archive After Processing" := true;
@@ -124,7 +125,7 @@ codeunit 60002 "Install Task Framework"
         TaskLogEntry.CalcFields(Payload);
         TaskLogEntry.Payload.CreateOutStream(OutStr, TextEncoding::UTF8);
         OutStr.WriteText('VOUCHERNO=VOUCH-010;CUSTOMERNO=10000;AMOUNT=100.00');
-        TaskLogEntry.Modify();
+        TaskLogEntry.Modify(false);
 
         // Entry 3: Failed log retention
         TaskLogEntry.Init();
@@ -132,7 +133,7 @@ codeunit 60002 "Install Task Framework"
         TaskLogEntry."Task Processing Type" := "Task Processing Type"::LogRetention;
         TaskLogEntry.Status := "Task Processing Status"::Failed;
         TaskLogEntry.Description := 'Weekly cleanup';
-        TaskLogEntry."Created At" := CurrentDateTime;
+        TaskLogEntry."Created At" := CurrentDateTime();
         TaskLogEntry."Last Error Message" := 'An error occurred.';
         TaskLogEntry.Verbosity := TaskLogEntry.Verbosity::Minimal;
         TaskLogEntry."Correlation Id" := CreateGuid();
@@ -144,7 +145,7 @@ codeunit 60002 "Install Task Framework"
         TaskLogEntry."Task Processing Type" := "Task Processing Type"::VendorImport;
         TaskLogEntry.Status := "Task Processing Status"::Pending;
         TaskLogEntry.Description := 'Scheduled nightly import';
-        TaskLogEntry."Created At" := CurrentDateTime;
+        TaskLogEntry."Created At" := CurrentDateTime();
         TaskLogEntry.Verbosity := TaskLogEntry.Verbosity::Normal;
         TaskLogEntry."Correlation Id" := CreateGuid();
         TaskLogEntry."Earliest Processing DateTime" := CreateDateTime(CalcDate('<+1D>', Today()), 020000T);
@@ -152,6 +153,6 @@ codeunit 60002 "Install Task Framework"
         TaskLogEntry.CalcFields(Payload);
         TaskLogEntry.Payload.CreateOutStream(OutStr, TextEncoding::UTF8);
         OutStr.WriteText('NAME=Nightly Import Vendor;CITY=Berlin;COUNTRY=DE');
-        TaskLogEntry.Modify();
+        TaskLogEntry.Modify(false);
     end;
 }

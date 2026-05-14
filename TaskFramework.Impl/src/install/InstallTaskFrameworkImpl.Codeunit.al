@@ -7,6 +7,7 @@
 // vendors, documents, or accounting — all of that lives here.
 codeunit 60000 "Install Task Framework Impl"
 {
+    Access = Internal;
     Subtype = Install;
 
     trigger OnInstallAppPerDatabase()

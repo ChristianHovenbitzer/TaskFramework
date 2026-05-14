@@ -24,6 +24,6 @@ codeunit 50001 "Post Vouchers"
         // block above — posting should create a Ledger Entry row, not mutate status.
         VoucherEntry.Status := VoucherEntry.Status::Posted;
         VoucherEntry."Posting Date" := WorkDate();
-        VoucherEntry.Modify();
+        VoucherEntry.Modify(false);
     end;
 }
