@@ -3,6 +3,7 @@ page 50001 "Task Log Entry Card"
     PageType = Card;
     SourceTable = "Task Log Entry";
     Caption = 'Task Log Entry';
+    ApplicationArea = All;
 
     layout
     {

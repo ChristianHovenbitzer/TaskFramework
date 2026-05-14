@@ -12,3 +12,4 @@
 !/test/dependencies/*
 !/app/dependencies/*
 */.snapshots/
+.dev/

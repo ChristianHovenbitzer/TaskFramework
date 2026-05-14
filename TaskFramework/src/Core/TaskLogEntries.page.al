@@ -57,7 +57,7 @@ page 50000 "Task Log Entries"
                     TaskLogEntry.Init();
                     TaskLogEntry."Task Processing Type" := TaskLogEntry."Task Processing Type"::LogRetention;
                     TaskLogEntry.Status := TaskLogEntry.Status::Pending;
-                    TaskLogEntry.Description := 'Sample Task';
+                    TaskLogEntry.Description := SampleTaskDescLbl;
                     TaskLogEntry."Created At" := CurrentDateTime();
                     TaskLogEntry.Insert(true);
                     CurrPage.Update(false);
@@ -65,4 +65,7 @@ page 50000 "Task Log Entries"
             }
         }
     }
+
+    var
+        SampleTaskDescLbl: Label 'Sample Task';
 }
