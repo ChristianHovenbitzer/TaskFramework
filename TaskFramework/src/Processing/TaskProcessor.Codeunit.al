@@ -10,6 +10,7 @@ codeunit 50000 "Task Processor" implements "ITask Processor", "ITask Log Updater
     #region Process Task Entry
     var
         TaskProcessingState: Codeunit "Task Processing State";
+        DueDatePendingFilterTok: Label '%1|<%2', Locked = true;
 
     procedure GetTaskProcessingState(): Codeunit "Task Processing State"
     begin
@@ -25,7 +26,7 @@ codeunit 50000 "Task Processor" implements "ITask Processor", "ITask Log Updater
         Clear(TaskProcessingState);
 
         TaskLogEntry.SetRange(Status, TaskLogEntry.Status::Pending);
-        TaskLogEntry.SetFilter("Earliest Processing DateTime", '%1|<%2', 0DT, CurrentDateTime);
+        TaskLogEntry.SetFilter("Earliest Processing DateTime", DueDatePendingFilterTok, 0DT, CurrentDateTime());
         if TaskLogEntry.FindSet(true) then
             repeat
                 ProcessTaskEntry(TaskLogEntry);
@@ -64,10 +65,10 @@ codeunit 50000 "Task Processor" implements "ITask Processor", "ITask Log Updater
     begin
         TaskLogEntry.Status := NewStatus;
         if NewStatus = TaskLogEntry.Status::Processing then
-            TaskLogEntry."Processing Started At" := CurrentDateTime
+            TaskLogEntry."Processing Started At" := CurrentDateTime()
         else
-            TaskLogEntry."Processing Completed At" := CurrentDateTime;
-        TaskLogEntry.Modify();
+            TaskLogEntry."Processing Completed At" := CurrentDateTime();
+        TaskLogEntry.Modify(false);
     end;
     #endregion
 
@@ -76,6 +77,9 @@ codeunit 50000 "Task Processor" implements "ITask Processor", "ITask Log Updater
     var
         ArchiveEntry: Record "Task Log Archive";
     begin
+        if not TaskLogEntry."Archive After Processing" then
+            exit;
+
         ArchiveEntry.Init();
         ArchiveEntry."Entry No." := TaskLogEntry."Entry No.";
         ArchiveEntry."Task Type" := TaskLogEntry."Task Processing Type";
@@ -90,9 +94,9 @@ codeunit 50000 "Task Processor" implements "ITask Processor", "ITask Log Updater
         ArchiveEntry."Correlation Id" := TaskLogEntry."Correlation Id";
         ArchiveEntry."Archive After Processing" := TaskLogEntry."Archive After Processing";
         ArchiveEntry."Earliest Processing DateTime" := TaskLogEntry."Earliest Processing DateTime";
-        ArchiveEntry."Archived At" := CurrentDateTime;
+        ArchiveEntry."Archived At" := CurrentDateTime();
         ArchiveEntry."Archive Reason" := ArchiveEntry."Archive Reason"::Processed;
-        ArchiveEntry.Insert();
+        ArchiveEntry.Insert(false);
     end;
     #endregion
 

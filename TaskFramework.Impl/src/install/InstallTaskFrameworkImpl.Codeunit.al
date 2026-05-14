@@ -2,6 +2,7 @@
 // Step 3 already landed the concrete processors + Task Type enum extension here.
 codeunit 60000 "Install Task Framework Impl"
 {
+    Access = Internal;
     Subtype = Install;
 
     trigger OnInstallAppPerDatabase()
