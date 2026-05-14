@@ -3,6 +3,7 @@ page 50001 "Task Log Entry Card"
     PageType = Card;
     SourceTable = "Task Log Entry";
     Caption = 'Task Log Entry';
+    ApplicationArea = All;
 
     layout
     {
@@ -45,7 +46,7 @@ page 50001 "Task Log Entry Card"
                     //
                     // TODO: (Step 2 - Separation of Concerns)
                     if Rec.Status <> Rec.Status::Pending then
-                        Error('Only Pending tasks can be processed.');
+                        Error(OnlyPendingErr);
 
                     Rec.Status := Rec.Status::Processing;
                     Rec."Processing Started At" := CurrentDateTime();
@@ -55,9 +56,9 @@ page 50001 "Task Log Entry Card"
                     // And it only handles VendorImport, the others just get marked Complete
                     case Rec."Task Processing Type" of
                         Rec."Task Processing Type"::VendorImport:
-                            Message('Vendor import would run here. Check Task Log Entries list to run all.');
+                            Message(VendorImportMsg);
                         else
-                            Message('Task type %1 processed (simulated).', Rec."Task Processing Type");
+                            Message(TaskTypeProcessedMsg, Rec."Task Processing Type");
                     end;
 
                     Rec.Status := Rec.Status::Complete;
@@ -67,4 +68,9 @@ page 50001 "Task Log Entry Card"
             }
         }
     }
+
+    var
+        OnlyPendingErr: Label 'Only Pending tasks can be processed.';
+        VendorImportMsg: Label 'Vendor import would run here. Check Task Log Entries list to run all.';
+        TaskTypeProcessedMsg: Label 'Task type %1 processed (simulated).';
 }

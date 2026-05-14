@@ -51,7 +51,7 @@ page 50004 "Voucher Entries"
                             VoucherEntry.Modify(false);
                             PostCount += 1;
                         until VoucherEntry.Next() = 0;
-                    Message('Posted %1 voucher(s).', PostCount);
+                    Message(PostedVouchersMsg, PostCount);
                 end;
             }
 
@@ -74,4 +74,7 @@ page 50004 "Voucher Entries"
             }
         }
     }
+
+    var
+        PostedVouchersMsg: Label 'Posted %1 voucher(s).';
 }

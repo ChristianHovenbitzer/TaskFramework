@@ -5,6 +5,21 @@ using Microsoft.Purchases.Vendor;
 // - Adding a new task type means editing this codeunit in the framework app
 codeunit 50000 "Task Processor"
 {
+    var
+        UnknownTaskTypeErr: Label 'Unknown task type: %1';
+        ImportedVendorNameLbl: Label 'Imported Vendor %1';
+        ImportedViaTaskLbl: Label 'Imported via task %1';
+        CleanupDescLbl: Label 'Cleaned up archive entries older than %1 days.';
+        DueDatePendingFilterTok: Label '%1|<%2', Locked = true;
+        RetentionDateFormulaTok: Label '<-%1D>', Locked = true;
+        ArchivedBeforeFilterTok: Label '<%1', Locked = true;
+        PayloadKeyNameTok: Label 'NAME', Locked = true;
+        PayloadKeyCityTok: Label 'CITY', Locked = true;
+        PayloadKeyVoucherNoTok: Label 'VOUCHERNO', Locked = true;
+        PayloadKeyCustomerNoTok: Label 'CUSTOMERNO', Locked = true;
+        PayloadKeyAmountTok: Label 'AMOUNT', Locked = true;
+        VoucherNoTaskFormatTok: Label 'VOUCH-TASK-%1', Locked = true;
+
     // ANTI-PATTERN: Publishing an event AND subscribing to it in the same codeunit.
     // There is zero benefit to this — just call the function directly.
     // "Never publish and subscribe to events within the same app." — Christian
@@ -34,7 +49,7 @@ codeunit 50000 "Task Processor"
         // var on this codeunit, Clear() it here, and call IncrementProcessedCount /
         // SetLastProcessed inside the loop after ProcessTaskEntry.
         TaskLogEntry.SetRange(Status, TaskLogEntry.Status::Pending);
-        TaskLogEntry.SetFilter("Earliest Processing DateTime", '%1|<%2', 0DT, CurrentDateTime());
+        TaskLogEntry.SetFilter("Earliest Processing DateTime", DueDatePendingFilterTok, 0DT, CurrentDateTime());
         if TaskLogEntry.FindSet(true) then
             repeat
                 ProcessTaskEntry(TaskLogEntry);
@@ -66,21 +81,23 @@ codeunit 50000 "Task Processor"
             "Task Processing Type"::DocumentImport:
                 ProcessDocumentImport(TaskLogEntry);
             else
-                Error('Unknown task type: %1', TaskLogEntry."Task Processing Type");
+                Error(UnknownTaskTypeErr, TaskLogEntry."Task Processing Type");
         end;
 
         TaskLogEntry.Status := TaskLogEntry.Status::Complete;
         TaskLogEntry."Processing Completed At" := CurrentDateTime();
         TaskLogEntry.Modify(false);
 
-        if TaskLogEntry."Archive After Processing" then
-            ArchiveEntry(TaskLogEntry);
+        ArchiveEntry(TaskLogEntry);
     end;
 
     local procedure ArchiveEntry(var TaskLogEntry: Record "Task Log Entry")
     var
         Archive: Record "Task Log Archive";
     begin
+        if not TaskLogEntry."Archive After Processing" then
+            exit;
+
         Archive.Init();
         Archive."Entry No." := TaskLogEntry."Entry No.";
         Archive."Task Type" := TaskLogEntry."Task Processing Type";
@@ -117,11 +134,11 @@ codeunit 50000 "Task Processor"
         end;
 
         // Crude "parsing" — another anti-pattern
-        VendorName := CopyStr(ExtractValue(PayloadText, 'NAME'), 1, 100);
-        VendorCity := CopyStr(ExtractValue(PayloadText, 'CITY'), 1, 50);
+        VendorName := CopyStr(ExtractValue(PayloadText, PayloadKeyNameTok), 1, 100);
+        VendorCity := CopyStr(ExtractValue(PayloadText, PayloadKeyCityTok), 1, 50);
 
         if VendorName = '' then
-            VendorName := 'Imported Vendor ' + Format(TaskLogEntry."Entry No.");
+            VendorName := StrSubstNo(ImportedVendorNameLbl, TaskLogEntry."Entry No.");
 
         Vendor.Init();
         Vendor.Name := VendorName;
@@ -139,12 +156,12 @@ codeunit 50000 "Task Processor"
         //
         // TODO: (Step 2 - Separation of Concerns)
         RetentionDays := 30;
-        CutoffDate := CalcDate('<-' + Format(RetentionDays) + 'D>', Today());
+        CutoffDate := CalcDate(StrSubstNo(RetentionDateFormulaTok, RetentionDays), Today());
 
-        Archive.SetFilter("Archived At", '<%1', CreateDateTime(CutoffDate, 0T));
+        Archive.SetFilter("Archived At", ArchivedBeforeFilterTok, CreateDateTime(CutoffDate, 0T));
         Archive.DeleteAll(false);
 
-        TaskLogEntry.Description := 'Cleaned up archive entries older than ' + Format(RetentionDays) + ' days.';
+        TaskLogEntry.Description := StrSubstNo(CleanupDescLbl, RetentionDays);
         TaskLogEntry.Modify(false);
     end;
 
@@ -166,18 +183,18 @@ codeunit 50000 "Task Processor"
             InStr.ReadText(PayloadText);
         end;
 
-        VoucherNo := CopyStr(ExtractValue(PayloadText, 'VOUCHERNO'), 1, 20);
-        CustomerNo := CopyStr(ExtractValue(PayloadText, 'CUSTOMERNO'), 1, 20);
-        Evaluate(Amount, ExtractValue(PayloadText, 'AMOUNT'));
+        VoucherNo := CopyStr(ExtractValue(PayloadText, PayloadKeyVoucherNoTok), 1, 20);
+        CustomerNo := CopyStr(ExtractValue(PayloadText, PayloadKeyCustomerNoTok), 1, 20);
+        Evaluate(Amount, ExtractValue(PayloadText, PayloadKeyAmountTok));
 
         if VoucherNo = '' then
-            VoucherNo := 'VOUCH-TASK-' + Format(TaskLogEntry."Entry No.");
+            VoucherNo := StrSubstNo(VoucherNoTaskFormatTok, TaskLogEntry."Entry No.");
 
         VoucherEntry.Init();
         VoucherEntry."Voucher No." := VoucherNo;
         VoucherEntry."Customer No." := CustomerNo;
         VoucherEntry.Amount := Amount;
-        VoucherEntry.Description := 'Imported via task ' + Format(TaskLogEntry."Entry No.");
+        VoucherEntry.Description := StrSubstNo(ImportedViaTaskLbl, TaskLogEntry."Entry No.");
         VoucherEntry.Insert(true);
 
         // Immediately post — no staging, no review, no batch validation

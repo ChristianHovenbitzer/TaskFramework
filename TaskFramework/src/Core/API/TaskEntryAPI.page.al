@@ -10,6 +10,7 @@ page 50045 "Task Entry API"
     EntitySetName = 'taskEntries';
     SourceTable = "Task Log Entry";
     Caption = 'Task Entry API';
+    ApplicationArea = All;
     ODataKeyFields = SystemId;
     InsertAllowed = true;
     ModifyAllowed = false;
