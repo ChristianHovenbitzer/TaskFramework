@@ -1,14 +1,14 @@
-# Step 4.5 — Dependency Injection by Hand — Cheat Sheet
+# Step 3.5 — Dependency Injection by Hand — Cheat Sheet
 
-> Companion to the "While You Code — Step 4.5" slide. More room here for details and hints.
+> Companion to the "While You Code — Step 3.5" slide. More room here for details and hints.
 > **No copy-paste-ready code on purpose** — type it yourself, that's where the learning happens.
 
 ## What you're building in this step
 
-Step 3 made the *what* swappable (which processor runs for a task type). Step 4.5
+Step 3 made the *what* swappable (which processor runs for a task type). Step 3.5
 makes the *how* swappable: status updates, archiving, and the processor lookup each
 become an injectable role. No Factory yet — the caller passes the implementations
-in by hand. That keeps the leap small; Step 5 adds the Factory so nobody has to
+in by hand. That keeps the leap small; Step 4 adds the Factory so nobody has to
 pass three arguments forever.
 
 By the end:
@@ -103,7 +103,7 @@ Leave these — later steps own them:
 Step 3 used the enum-as-factory shortcut to dispatch processors. That works for *one*
 axis of variability — which task type runs which body. The moment you need a *second*
 axis — same task type but a mocked status updater, or a mocked archiver — the enum
-binding can't help you. Step 4.5 carves the named seams (the role interfaces) and
+binding can't help you. Step 3.5 carves the named seams (the role interfaces) and
 wires them by hand, so the dependency is *visible* in the signature. Step 5 hides
 that wiring behind a Factory; Step 8 cashes it in when the test suite arrives. Doing
 the injection by hand first means the Factory arrives as an *ergonomic* improvement,
