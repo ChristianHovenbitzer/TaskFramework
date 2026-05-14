@@ -68,6 +68,23 @@ These problems are **intentionally baked in** so the audience can spot them.
 
 ---
 
+## Step 3.5 — Dependency Injection by Hand
+
+**Patterns: 1.1 Dependency Injection · ISP — Interface Segregation**
+
+Splits the *how* of processing into injectable roles — manual DI, no Factory yet (that's Step 4).
+
+| # | Item | File | Status |
+|---|---|---|:---:|
+| 1.1 | `ITask Log Updater` role interface — `UpdateStatus(var TaskLogEntry; NewStatus)` | `src/Processing/Factory/ITaskLogUpdater.interface.al` | ✅ |
+| 1.1 | `ITask Archiver` role interface — `Archive(var TaskLogEntry)` | `src/Processing/Factory/ITaskArchiver.interface.al` | ✅ |
+| 1.1 | `Task Processor` implements `ITask Processor`, `ITask Log Updater`, `ITask Archiver` | `src/Processing/TaskProcessor.Codeunit.al` | ✅ |
+| 1.1 | `UpdateStatus` / `Archive` / `ProcessTask` extracted as interface-shaped procedures | `src/Processing/TaskProcessor.Codeunit.al` | ✅ |
+| 1.1 | `ProcessTaskEntry` overload taking the three roles as parameters — manual DI | `src/Processing/TaskProcessor.Codeunit.al` | ✅ |
+| 1.1 | `ProcessTaskEntry` body routes status / dispatch / archive through injected roles | `src/Processing/TaskProcessor.Codeunit.al` | ✅ |
+
+---
+
 ## Step 4 — Factory Routing
 
 **Pattern: 1.2 Factory**
