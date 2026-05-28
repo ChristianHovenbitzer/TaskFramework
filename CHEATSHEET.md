@@ -77,7 +77,7 @@ Same code path either way — there is no "test-only branch" hiding inside `Task
 - The body refactor is mechanical: build `UpdateStatus` end-to-end first, then `Archive`, then `ProcessTask`. Each one empties a few more lines out of `ProcessTaskEntry`.
 - Last resort: `git checkout step-3.5-end` and diff against your work.
 
-## Out of scope today
+## Out of scope for now
 
 Leave these — later steps own them:
 - A Factory that picks which implementation runs for each role, so callers stop passing three arguments — Step 4
