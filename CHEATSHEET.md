@@ -76,7 +76,7 @@ Same code path either way — there is no "test-only branch" hiding inside `Task
 - Compiler error "X does not implement Y": you forgot to add the role to the codeunit's `implements` list, or the procedure signature doesn't match the interface exactly.
 - Last resort: `git checkout step-4-end` and diff against your work.
 
-## Out of scope today
+## Out of scope for now
 
 Leave these — later steps own them:
 - Mock-based tests that exploit the Factory — Step 8
