@@ -5,112 +5,110 @@
 
 ## What you're building in this step
 
-Replace the monster `CASE` in `Task Processor` with an interface. Each task type
-gets its own codeunit implementing `ITask Processor`. The `Task Type` enum binds
-each value to its implementation, so a single line —
-`Processor := TaskLogEntry."Task Processing Type"` — replaces the entire routing block.
+Kill the monster `case` in `Task Processor`. Replace it with one line of interface dispatch driven by the enum.
 
-By the end: the framework still owns generic infrastructure work (log retention,
-a default fallback) but **knows nothing about Vendors, Vouchers, or Documents**.
-That business-specific code lives in the Implementation app, plugged in via an
-enum extension.
+After Step 3:
+
+1. The framework knows `None` and `LogRetention`. Nothing else. No `VendorImport`, no `DocumentImport`.
+2. Adding a fourth task type means one enum extension value plus one codeunit in the consuming app. Zero edits to the framework.
+3. `Task Processor.ProcessTaskEntry` shrinks and stops mentioning vendors, documents, or any other domain.
+4. Vendors and documents live in `TaskFramework.Impl`. The framework no longer compiles a single `Record Vendor` reference.
 
 ## Files you'll touch
 
-**New (in Framework app):**
-- `TaskFramework/src/Processing/ITaskProcessor.Interface.al` — the contract
-- `TaskFramework/src/Processing/DefaultTaskProcessor.Codeunit.al` — fallback for `None` and unbound values; required because the enum's `DefaultImplementation` references it
-- `TaskFramework/src/Processing/LogRetentionProcessor.Codeunit.al` — generic infrastructure, stays in the framework
-
-**New (in Impl app):**
-- `TaskFramework.Impl/src/processors/VendorImportProcessor.Codeunit.al` — `internal`, `implements "ITask Processor"`
-- `TaskFramework.Impl/src/processors/DocumentImportProcessor.Codeunit.al` — same shape
-- `TaskFramework.Impl/src/processors/TaskTypeExt.EnumExt.al` — adds `VendorImport` and `DocumentImport` to the enum
-
-**Modified (Framework app):**
-- `TaskFramework/src/Core/TaskType.Enum.al` — `Extensible = true`, `implements "ITask Processor"`, `DefaultImplementation = ...`, bind `None` and `LogRetention` to their impls; **delete** the `VendorImport` and `DocumentImport` values (they move to the extension)
-- `TaskFramework/src/Processing/TaskProcessor.Codeunit.al` — the monster shrinks; CASE goes, per-type local procedures go, `ExtractValue` goes
-- `TaskFramework/src/Core/TaskLogEntries.page.al` — the New action's default `Task Processing Type` must switch from `VendorImport` (which is now an extension value the framework can't see) to `LogRetention`
-
-**Moved out of Framework:**
-- `TaskFramework/src/Install/InstallTaskFramework.codeunit.al` → `TaskFramework.Impl/src/install/InstallTaskFramework.codeunit.al` — the install codeunit seeds Vendor/Voucher demo data, so it belongs in the Impl app
+- [TaskType.Enum.al](TaskFramework/src/Core/TaskType.Enum.al) — make the enum extensible, bind it to the interface, and reduce framework-owned values to `None` and `LogRetention`
+- [TaskProcessor.Codeunit.al](TaskFramework/src/Processing/TaskProcessor.Codeunit.al) — collapse the routing block to interface dispatch and remove domain-specific procedures
+- [TaskLogEntries.page.al](TaskFramework/src/Core/TaskLogEntries.page.al) — change the default task type for the New action
+- [ITaskProcessor.Interface.al](TaskFramework/src/Processing/ITaskProcessor.Interface.al) — new interface contract
+- [DefaultTaskProcessor.Codeunit.al](TaskFramework/src/Processing/DefaultTaskProcessor.Codeunit.al) — new fallback implementation in the Framework app
+- [LogRetentionProcessor.Codeunit.al](TaskFramework/src/Processing/LogRetentionProcessor.Codeunit.al) — extract log-retention processing into its own Framework processor
+- [VendorImportProcessor.Codeunit.al](TaskFramework.Impl/src/processors/VendorImportProcessor.Codeunit.al) — new Impl-app processor
+- [DocumentImportProcessor.Codeunit.al](TaskFramework.Impl/src/processors/DocumentImportProcessor.Codeunit.al) — new Impl-app processor
+- [TaskTypeExt.EnumExt.al](TaskFramework.Impl/src/processors/TaskTypeExt.EnumExt.al) — enum extension for business-specific task types
+- [InstallTaskFramework.codeunit.al](TaskFramework/src/Install/InstallTaskFramework.codeunit.al) — move this out of the Framework app
+- [InstallTaskFramework.codeunit.al](TaskFramework.Impl/src/install/InstallTaskFramework.codeunit.al) — relocated install codeunit in the Impl app
 
 ## Tasks (in order)
 
 ### 1. Define the interface
 **Goal:** declare the contract every task type must satisfy.
-**Where:** new file `TaskFramework/src/Processing/ITaskProcessor.Interface.al`.
-**Hint:** one method — `ProcessTask(var TaskLogEntry: Record "Task Log Entry")`. That's the whole interface for now. Resist the urge to add error or telemetry parameters — that comes later.
+**Where:** [ITaskProcessor.Interface.al](TaskFramework/src/Processing/ITaskProcessor.Interface.al).
+**Hint:** one method only:
 
-### 2. Create the processor codeunits — codeunit *first*, then enum
-**Goal:** five new codeunits, each implementing `ITask Processor`, all `Access = Internal` (only the enum is public).
+```al
+procedure ProcessTask(var TaskLogEntry: Record "Task Log Entry");
+```
 
-In the **Framework app** (`TaskFramework/src/Processing/`):
-- `Default Task Processor` — handles the `None` value and any unbound enum values. Body: `Error('No processor registered for task type %1.', TaskLogEntry."Task Processing Type")`.
-- `Log Retention Processor` — generic archive cleanup; body is the old `ProcessLogRetention` content from `TaskProcessor.Codeunit.al`.
+No return value, no `IsHandled`, no error string. The contract is "do the thing, or `Error()`."
 
-In the **Impl app** (`TaskFramework.Impl/src/processors/`):
-- `Vendor Import Processor` — body is the old `ProcessVendorImport`.
-- `Document Import Processor` — body is the old `ProcessDocumentImport`.
+### 2. Create the processor codeunits — codeunit first, enum second
+**Goal:** new processor codeunits in both apps, all `Access = Internal`.
 
-**Why this order matters:** create the codeunit *before* the enum extension references it. If you extend the enum first, the `Implementation = "ITask Processor" = "Vendor Import Processor"` line points at a codeunit that doesn't exist yet — symbol references break and the compiler complains in confusing ways.
+In the **Framework app**:
+- [DefaultTaskProcessor.Codeunit.al](TaskFramework/src/Processing/DefaultTaskProcessor.Codeunit.al) — fallback for `None` and unbound values
+- [LogRetentionProcessor.Codeunit.al](TaskFramework/src/Processing/LogRetentionProcessor.Codeunit.al) — move the old `ProcessLogRetention` body here
 
-**Hint:** the crude `ExtractValue` helper can live as a `local procedure` in each processor that needs it (Vendor and Document do; LogRetention doesn't), or as a single shared utility — your call. End branch keeps it as a duplicated local — fine for now, can be refactored later.
+In the **Impl app**:
+- [VendorImportProcessor.Codeunit.al](TaskFramework.Impl/src/processors/VendorImportProcessor.Codeunit.al) — move the old `ProcessVendorImport` body here
+- [DocumentImportProcessor.Codeunit.al](TaskFramework.Impl/src/processors/DocumentImportProcessor.Codeunit.al) — move the old `ProcessDocumentImport` body here
 
-### 3. Wire the enum to the interface
+**Why this order matters:** create the codeunit before the enum or enum extension references it. Otherwise the `Implementation = "ITask Processor" = "..."` binding points at a codeunit that does not exist yet.
+
+**Hint:** keep `ExtractValue` as a local helper inside the processors that need it. Do not pre-abstract it here.
+
+### 3. Bind the enum to the interface
 **Goal:** the enum implements the interface and routes to the new codeunits.
-**Where:** `TaskFramework/src/Core/TaskType.Enum.al` and the new enum extension in Impl.
+**Where:** [TaskType.Enum.al](TaskFramework/src/Core/TaskType.Enum.al) and [TaskTypeExt.EnumExt.al](TaskFramework.Impl/src/processors/TaskTypeExt.EnumExt.al).
 
 On the framework enum:
-- Flip `Extensible = false` to `true`.
-- Add `implements "ITask Processor"` to the enum header.
-- Add `DefaultImplementation = "ITask Processor" = "Default Task Processor";`.
-- On `None`, add `Implementation = "ITask Processor" = "Default Task Processor"`.
-- Keep `LogRetention` and bind it: `Implementation = "ITask Processor" = "Log Retention Processor"`.
-- **Delete the `VendorImport` and `DocumentImport` values** — they're moving to the Impl app.
+- flip `Extensible = false` to `true`
+- add `implements "ITask Processor"`
+- add `DefaultImplementation = "ITask Processor" = "Default Task Processor"`
+- bind `None` to `Default Task Processor`
+- keep `LogRetention` and bind it to `Log Retention Processor`
+- delete `VendorImport` and `DocumentImport` from the framework enum
 
-In the Impl app, create `TaskTypeExt.EnumExt.al`:
-```
-enumextension 60000 "Task Type Ext." extends "Task Processing Type"
-```
-with `value(60000; VendorImport)` and `value(60001; DocumentImport)`, each binding to its processor codeunit via `Implementation = "ITask Processor" = "..."`.
+In the Impl app:
+- create the enum extension
+- add `VendorImport` and `DocumentImport`
+- bind each extension value to its processor
 
-**Decision point:** business-specific values belong in the extension, not in the framework enum. `LogRetention` stays in the framework because retention is generic infrastructure — it has no business semantics. This split is what makes the Impl app a true plug-in.
+**Why this split matters:** business-specific values belong in the extension, not in the framework enum. `LogRetention` stays in the framework because it is infrastructure, not business logic.
 
-### 4. Slim down Task Processor — kill the monster
+### 4. Move the install codeunit to Impl
+**Goal:** the framework app stops seeding Vendor and Voucher demo data.
+**Where:** move [InstallTaskFramework.codeunit.al](TaskFramework/src/Install/InstallTaskFramework.codeunit.al) to [TaskFramework.Impl/src/install/InstallTaskFramework.codeunit.al](TaskFramework.Impl/src/install/InstallTaskFramework.codeunit.al).
+**Hint:** the codeunit ID must move to the Impl range. The framework app should no longer compile against business-specific task types or demo data.
+
+### 5. Slim down Task Processor — kill the monster
 **Goal:** the entire CASE block becomes one line.
-**Where:** `TaskFramework/src/Processing/TaskProcessor.Codeunit.al`.
-**Hint:** declare `Processor: Interface "ITask Processor"`, assign `Processor := TaskLogEntry."Task Processing Type"` (enum→interface), call `Processor.ProcessTask(TaskLogEntry)`. Delete `ProcessVendorImport`, `ProcessLogRetention`, `ProcessDocumentImport`, and `ExtractValue`. The framework no longer needs the `using Microsoft.Purchases.Vendor;` line — drop it.
-**Heads-up:** once you delete `VendorImport` from the framework enum, the framework's `TaskLogEntries` page can no longer reference it. The New action defaults to `Task Processing Type::VendorImport` — change that to `LogRetention`, which is still in the framework enum.
-
-### 5. Move the Install codeunit out of the framework
-**Goal:** the framework app stops seeding Vendor and Voucher demo data — that's the Impl app's concern.
-**Where:** move `TaskFramework/src/Install/InstallTaskFramework.codeunit.al` to `TaskFramework.Impl/src/install/InstallTaskFramework.codeunit.al`.
-**Hint:** change the codeunit ID from the framework range (50002) to the impl range (60002), and delete the now-empty `TaskFramework/src/Install/` folder. The existing minimal `Install Task Framework Impl` codeunit (60000) can stay alongside it.
-**Why this matters:** seeding `VOUCH-001`, `Workshop Vendor GmbH`, etc. requires the Voucher Entry table and the business-specific enum values — the framework can't reach those once they're in the Impl app's enum extension. The install belongs where the data lives.
+**Where:** [TaskProcessor.Codeunit.al](TaskFramework/src/Processing/TaskProcessor.Codeunit.al).
+**Hint:** declare `Processor: Interface "ITask Processor"`, assign `Processor := TaskLogEntry."Task Processing Type"`, call `Processor.ProcessTask(TaskLogEntry)`. Delete the CASE block, the per-type local procedures, and `ExtractValue`.
+**Also fix:** [TaskLogEntries.page.al](TaskFramework/src/Core/TaskLogEntries.page.al) can no longer default new rows to `VendorImport`, because that value moved into the extension. Change the default to `LogRetention`.
 
 ## Done when
 
 - [ ] `ITask Processor` interface exists in the Framework app
 - [ ] `Default Task Processor` and `Log Retention Processor` exist in the Framework app, both `internal`
 - [ ] `Vendor Import Processor` and `Document Import Processor` exist in the Impl app, both `internal`
-- [ ] The framework's `Task Type` enum: `Extensible = true`, implements the interface, has `DefaultImplementation`, contains only `None` and `LogRetention`, and binds each to its impl
-- [ ] The Impl app's enum extension adds `VendorImport` and `DocumentImport`, each bound to its processor
-- [ ] `Task Processor` no longer contains a CASE on Task Type, no per-type local procedures, no `using Microsoft.Purchases.Vendor`
-- [ ] `TaskLogEntries` page New action defaults to `LogRetention` (was `VendorImport`)
+- [ ] The framework enum is extensible, implements the interface, has `DefaultImplementation`, and contains only `None` and `LogRetention`
+- [ ] The Impl app enum extension adds `VendorImport` and `DocumentImport`, each bound to its processor
+- [ ] `Task Processor` no longer contains a CASE on task type, no per-type local procedures, and no `using Microsoft.Purchases.Vendor`
+- [ ] `TaskLogEntries` defaults to `LogRetention`
 - [ ] The framework's Install codeunit has been moved to the Impl app
 - [ ] App compiles, install runs, "Process All Pending" still works for all three task types
 
 ## If you get stuck
 
-- See `STEP-3.md` (in the Framework app folder) for Christian's longer reference write-up — it covers the same ground in more depth.
 - The `// TODO: (Step 3 …)` markers in the code mark the precise spots to edit.
 - Ordering trap: codeunit must exist before the enum tries to bind to it. If symbols look weird, save and rebuild after each new file.
 - Last resort: `git checkout step-3-end` and diff against your work.
 
-## Heads-up: where Step 3 stops
+## Out of scope today
 
-The Impl app's install codeunit and the framework page actions still reference
-specific task types by name (`VendorImport`, `LogRetention`, `DocumentImport`).
-That's fine — the Impl app *should* know about its own types, and Step 4
-(Factory) addresses what's left of the hardcoding inside the framework.
+- The `OnBeforeProcessTask` self-published event — Step 7
+- `Task Processor.ProcessTaskEntry` resolves the interface inline. A factory makes that swappable for tests — Step 4
+- The Impl processors still hand-parse payloads with `ExtractValue` — Step 5
+- `Post Vouchers` still flips a status flag — Step 5
+- `Error()` in `Default Task Processor` still aborts a batch — Step 6
+- No tests yet for the new processors — Step 8
