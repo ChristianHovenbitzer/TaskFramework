@@ -104,7 +104,7 @@ In the Impl app:
 - Ordering trap: codeunit must exist before the enum tries to bind to it. If symbols look weird, save and rebuild after each new file.
 - Last resort: `git checkout step-3-end` and diff against your work.
 
-## Out of scope today
+## Out of scope for now
 
 - The `OnBeforeProcessTask` self-published event — Step 7
 - `Task Processor.ProcessTaskEntry` resolves the interface inline. A factory makes that swappable for tests — Step 4
