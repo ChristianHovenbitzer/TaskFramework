@@ -94,7 +94,7 @@ Optional. Flatten any `if ... then begin ... end else ...` blocks you touch usin
 - The remaining `// TODO: (Step 2 …)` markers in the code mark the precise spots to edit.
 - Last resort: `git checkout step-2-end` and diff against your work.
 
-## Out of scope today
+## Out of scope for now
 
 - The monster `case` in `Task Processor` — Step 3 / 4
 - `ProcessVendorImport` and `ProcessDocumentImport` in the framework — Step 3
