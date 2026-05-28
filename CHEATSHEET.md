@@ -5,69 +5,99 @@
 
 ## What you're building in this step
 
-Get business logic out of pages. Move hardcoded values to a Setup record. Drop the
-`SingleInstance` state codeunit (it's a hint that something architectural is wrong —
-state evaporates on session end and Job Queue doesn't even share a session).
+Pull the prototype apart so the next steps have somewhere to plug in. Three shifts:
 
-By the end: pages call codeunits, codeunits read config from a record, no in-memory
-state floating around.
+1. Configuration moves from code into the Setup table.
+2. Pages stop running business logic; codeunits own it.
+3. State and side effects live where the call graph can reach them — not inside a `SingleInstance` that nobody owns.
+
+Done right, every page action shrinks to a single delegating call, and `Task Processor` is the front door for everyone else.
 
 ## Files you'll touch
 
-- `TaskFramework/src/Core/TaskLogEntryCard.page.al` — strip inline logic from the Process action
-- `TaskFramework/src/Vouchers/VoucherEntries.Page.al` — collapse two posting paths into one
-- `TaskFramework/src/Processing/TaskProcessor.Codeunit.al` — read retention from Setup; drop the self-subscribed state subscriber
-- `TaskFramework/src/Processing/TaskProcessingState.Codeunit.al` — remove `SingleInstance`, repurpose as a normal codeunit (or delete entirely)
-- `TaskFramework/src/Setup/TaskFrameworkSetup.Table.al` — add the retention field if it isn't there yet
+- [TaskFrameworkSetup.Table.al](TaskFramework/src/Setup/TaskFrameworkSetup.Table.al) — add the retention field and a small helper to read Setup without ceremony
+- [TaskFrameworkSetup.Page.al](TaskFramework/src/Setup/TaskFrameworkSetup.Page.al) — surface the retention field in the existing `Archive` group
+- [TaskProcessor.Codeunit.al](TaskFramework/src/Processing/TaskProcessor.Codeunit.al) — read retention from Setup; reshape how processing state is owned and updated; remove the in-app self-subscriber
+- [TaskProcessingState.Codeunit.al](TaskFramework/src/Processing/TaskProcessingState.Codeunit.al) — drop `SingleInstance`
+- [TaskLogEntryCard.page.al](TaskFramework/src/Core/TaskLogEntryCard.page.al) — shrink the Process action to one delegating call
+- [VoucherEntries.Page.al](TaskFramework/src/Vouchers/VoucherEntries.Page.al) — collapse the two posting paths into one
 
 ## Tasks (in order)
 
-### 1. Page → Codeunit on Task Log Entry Card
+### 1. Add a Log Retention setup field
+**Goal:** configuration moves into Setup instead of living as a hardcoded literal.
+**Where:** [TaskFrameworkSetup.Table.al](TaskFramework/src/Setup/TaskFrameworkSetup.Table.al) and [TaskFrameworkSetup.Page.al](TaskFramework/src/Setup/TaskFrameworkSetup.Page.al).
+**Hint:** add a field for "days of archive history to keep" and surface it under the existing `Archive` group. Match the current hardcoded value as `InitValue` so upgrades do not silently change behavior.
+**Also add:** a small helper on the Setup table:
+
+```al
+procedure GetRecordOnce(): Record "Task Framework Setup"
+```
+
+Get-or-Insert in two lines. Return `Rec` so callers can read fields straight off the result. This becomes the standard read path for Setup.
+
+> **Discuss:** what should `0` mean — keep nothing, or keep everything? Decide once. `MinValue = 1` makes the question go away.
+
+### 2. Read retention from Setup
+**Goal:** kill the hardcoded `RetentionDays := 30;`.
+**Where:** [TaskProcessor.Codeunit.al](TaskFramework/src/Processing/TaskProcessor.Codeunit.al), inside `ProcessLogRetention`.
+**Hint:** call your new `GetRecordOnce()` helper and read `"Retention Days"` from the returned record. The format string below it can stay; it now mirrors whatever Setup says.
+
+### 3. Reshape the Task Processing State codeunit
+**Goal:** keep the codeunit, but stop treating it like a leaky singleton.
+**Where:** [TaskProcessingState.Codeunit.al](TaskFramework/src/Processing/TaskProcessingState.Codeunit.al) and [TaskProcessor.Codeunit.al](TaskFramework/src/Processing/TaskProcessor.Codeunit.al).
+**Problem A — `SingleInstance` leakage:** `SingleInstance = true` makes the codeunit a per-session singleton. State leaks across batches and breaks the moment Job Queue, background sessions, or page background tasks run the processor.
+**Fix A:** drop the `SingleInstance` property. The codeunit becomes a normal instance again.
+
+**Problem B — wrong call path:** `Task Processor` publishes `OnBeforeProcessTask`, then subscribes to its *own* event in the same app just to bump the counter. That gives no extension benefit and is the wrong shape.
+**Fix B:** delete the `HandleBeforeProcess` subscriber. Move the counter updates into the framework's own code path.
+
+**The intended shape in `Task Processor`:**
+- hold `Task Processing State` as a member variable of `Task Processor`
+- after each successful `ProcessTaskEntry`, call `IncrementProcessedCount` and `SetLastProcessed` directly from the loop
+- expose a `GetTaskProcessingState()` getter so callers can read the metrics without grabbing a fresh instance
+- pass the state codeunit into the `OnBeforeProcessTask` event signature so legitimate external subscribers can inspect the same state instance later
+
+### 4. Remove the in-app subscriber, keep the event
+**Goal:** keep the extension point, remove the self-consumption.
+**Where:** [TaskProcessor.Codeunit.al](TaskFramework/src/Processing/TaskProcessor.Codeunit.al).
+**Hint:** delete `HandleBeforeProcess`. Keep the `OnBeforeProcessTask` event declaration. Keep the publish call inside `ProcessTaskEntry`. Step 7 will revisit the event's role; Step 2 only fixes the self-subscription.
+
+### 5. Empty the Process action on the Task Log Entry Card
 **Goal:** the Process action becomes one line.
-**Where:** `TaskLogEntryCard.page.al` — the `OnAction` of the Process action.
-**Hint:** the codeunit and procedure already exist (`TaskProcessor.ProcessTaskEntry`). The page should just call it with `Rec`.
-**Done when:** no business logic remains in the page; the action body is a single codeunit call.
+**Where:** [TaskLogEntryCard.page.al](TaskFramework/src/Core/TaskLogEntryCard.page.al).
+**Hint:** the codeunit and procedure already exist. The page should just call `TaskProcessor.ProcessTaskEntry(Rec)`.
+**Done when:** no business logic remains in the page.
 
-### 2. Consolidate the Voucher posting actions
+### 6. Collapse to one posting path on Voucher Entries
 **Goal:** one posting path, not two.
-**Where:** `VoucherEntries.Page.al`.
-**Hint:** the page has two actions today — `PostSelected` (loops the selection and flips status inline) and `PostViaCodeunit` (calls `PostVouchers` for the current record). Collapse to a single action: keep the selection-loop shape, but replace the inline status flipping with a call to `PostVouchers.PostVoucher(VoucherEntry)` inside the loop. Delete the second action entirely.
-**Why this matters:** two paths = two behaviors when you'd want exactly one. Page-level "shortcuts" diverge from the real implementation over time.
+**Where:** [VoucherEntries.Page.al](TaskFramework/src/Vouchers/VoucherEntries.Page.al).
+**Hint:** drop the broken second action. Keep the selection-loop shape, but replace inline status flipping with a call to `PostVouchers.PostVoucher(VoucherEntry)` inside the loop. No status changes on the page, no posting-date assignment, no duplicate behavior.
 
-### 3. Read retention days from Setup
-**Goal:** kill `RetentionDays := 30;`.
-**Where:** `TaskProcessor.Codeunit.al`, inside `ProcessLogRetention`.
-**Hint:** add a retention-days field on `Task Framework Setup` if it doesn't exist; surface it on the setup page; read it via `Setup.GetRecordOnce()` (or `Get` + Init pattern). The Setup record is seeded by the install codeunit.
-**Done when:** the value comes from the setup record, the field is editable on the setup page, and changing it changes runtime behavior.
+> **Discuss:** the page now has one action. Is the `Post Vouchers` codeunit the facade, or just the implementation? In this codebase, with one consumer, they are effectively the same thing. Step 5 changes the answer when the journal pipeline arrives.
 
-### 4. Drop SingleInstance
-**Goal:** `Task Processing State` is no longer `SingleInstance = true`, and the same-app self-subscription is gone.
-**Where:** `TaskProcessingState.Codeunit.al` and `TaskProcessor.Codeunit.al`.
-**Hint:**
-- Remove `SingleInstance = true` from `Task Processing State`. Keep it as a normal codeunit.
-- In `Task Processor`, hold the state as a local `var` field on the codeunit and `Clear()` it at the start of `ProcessAllPendingTasks`.
-- Move the `IncrementProcessedCount` / `SetLastProcessed` calls inline into `ProcessAllPendingTasks` after each `ProcessTaskEntry`.
-- Delete the `HandleBeforeProcess` event subscriber — that's the self-subscription anti-pattern.
-- **Keep** the `OnBeforeProcessTask` integration event itself. It's a legitimate extension point for other apps; only the in-app subscriber is the smell. While you're there, refine its signature to also pass the state codeunit so subscribers can read it.
-**Why this matters:** `SingleInstance` state vanishes when the session ends. Background sessions / Job Queue see a fresh instance every time. State that needs to survive belongs in a table. The self-subscription is unrelated — it's the *publisher and subscriber living in the same app* that's the anti-pattern; the publisher alone is fine.
+### Buffer — guard clauses
+Optional. Flatten any `if ... then begin ... end else ...` blocks you touch using early `exit;` guards.
 
-## Done when
+## Verification
 
 - [ ] `Task Log Entry Card` Process action contains no logic beyond a codeunit call
 - [ ] `Voucher Entries` has one posting action, calling `PostVouchers.PostVoucher`
 - [ ] Retention days comes from `Task Framework Setup`; the field is editable on the page
-- [ ] `SingleInstance = true` no longer appears anywhere
-- [ ] The `HandleBeforeProcess` self-subscriber is gone (publisher stays as an extension point)
+- [ ] `Task Processing State` exists, is not `SingleInstance`, and is held by `Task Processor`
+- [ ] The `HandleBeforeProcess` self-subscriber is gone
+- [ ] The `OnBeforeProcessTask` event still exists and is still called
 - [ ] App compiles, app installs, "Process All Pending" still works end-to-end
 
 ## If you get stuck
 
-- See `docs/pattern-status.md` Step 2 section — the ❌ rows are exactly what you're filling in.
 - The remaining `// TODO: (Step 2 …)` markers in the code mark the precise spots to edit.
 - Last resort: `git checkout step-2-end` and diff against your work.
 
 ## Out of scope today
 
-Facade. In modern AL, `internal` + interfaces (Step 3) cover what a Facade did. We'll
-revisit this in Step 3 — for now, don't add a Facade codeunit just because the catalog
-mentions one.
+- The monster `case` in `Task Processor` — Step 3 / 4
+- `ProcessVendorImport` and `ProcessDocumentImport` in the framework — Step 3
+- `Post Vouchers` faking posting via status flip — Step 5
+- Single `Error()` aborting the batch — Step 6
+- The role of `OnBeforeProcessTask` as an extension point — Step 7
