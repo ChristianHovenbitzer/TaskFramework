@@ -30,22 +30,22 @@ Messages page. Nothing posts because two blocking errors exist.
 ## Files you'll touch
 
 **Modified (Impl app):**
-- `TaskFramework.Impl/src/vouchers/posting/VoucherJnlCheckLineImpl.codeunit.al` — annotate with `[ErrorBehavior(Collect)]`, replace `TestField` with `ErrorMessageMgt.LogErrorMessage` / `LogWarning`
-- `TaskFramework.Impl/src/vouchers/posting/VoucherJnlPostBatchImpl.codeunit.al` — annotate with `[ErrorBehavior(Collect)]`, activate the handler before phase 1, check `HasErrors` after phase 1, abort cleanly if any
+- [VoucherJnlCheckLineImpl.codeunit.al](TaskFramework.Impl/src/vouchers/posting/VoucherJnlCheckLineImpl.codeunit.al) — annotate with `[ErrorBehavior(Collect)]`, replace `TestField` with `ErrorMessageMgt.LogErrorMessage` / `LogWarning`
+- [VoucherJnlPostBatchImpl.codeunit.al](TaskFramework.Impl/src/vouchers/posting/VoucherJnlPostBatchImpl.codeunit.al) — annotate with `[ErrorBehavior(Collect)]`, activate the handler before phase 1, check `HasErrors` after phase 1, abort cleanly if any
 
 **Available but not used in this step:**
-- `TaskFramework/src/Core/Errors/TaskErrorLog.Table.al` — a custom error-log table from earlier prototyping. We do **not** use it in Step 6; BC's built-in mechanism is enough. Left in place for participants who want to extend later.
+- [TaskErrorLog.Table.al](TaskFramework/src/Core/Errors/TaskErrorLog.Table.al) — a custom error-log table from earlier prototyping. We do **not** use it in Step 6; BC's built-in mechanism is enough. Left in place for participants who want to extend later.
 
 ## Tasks (in order)
 
 ### 1. Annotate Check Line for collection
 **Goal:** every validation in `RunCheck` collects rather than throws on the first miss.
-**Where:** `VoucherJnlCheckLineImpl.codeunit.al`.
+**Where:** [VoucherJnlCheckLineImpl.codeunit.al](TaskFramework.Impl/src/vouchers/posting/VoucherJnlCheckLineImpl.codeunit.al).
 **Hint:** add `[ErrorBehavior(ErrorBehavior::Collect)]` immediately above the `procedure RunCheck(...)` declaration. This is what makes any `Error()` raised inside (or any `LogErrorMessage` call) accumulate into the active error message handler instead of throwing immediately.
 
 ### 2. Replace `TestField` with `LogErrorMessage` / `LogWarning`
 **Goal:** each validation fault becomes a structured entry on the error handler.
-**Where:** still `VoucherJnlCheckLineImpl.codeunit.al`.
+**Where:** still [VoucherJnlCheckLineImpl.codeunit.al](TaskFramework.Impl/src/vouchers/posting/VoucherJnlCheckLineImpl.codeunit.al).
 **Hint:** declare a local `ErrorMessageMgt: Codeunit "Error Message Management"` variable. Replace each `TestField` with an `if ... = '' then ErrorMessageMgt.LogErrorMessage(...)` block. Six positional parameters: context field no., the formatted message, the source record, the source field no., a help URL (pass `''`).
 - Customer No. blank → `LogErrorMessage` (blocking)
 - Amount zero → `LogErrorMessage` (blocking)
@@ -56,7 +56,7 @@ Compose the message via `StrSubstNo` so it includes the field caption *and* the 
 
 ### 3. Activate the handler in Post Batch and abort if blocking errors exist
 **Goal:** `Post Batch` opts in to error collection, runs Check Line for every line, then decides.
-**Where:** `VoucherJnlPostBatchImpl.codeunit.al`.
+**Where:** [VoucherJnlPostBatchImpl.codeunit.al](TaskFramework.Impl/src/vouchers/posting/VoucherJnlPostBatchImpl.codeunit.al).
 **Hint:**
 - Add `[ErrorBehavior(ErrorBehavior::Collect)]` above `procedure PostBatch`.
 - Declare locals `ErrorMessageMgt: Codeunit "Error Message Management"` and `ErrorMessageHandler: Codeunit "Error Message Handler"`.
@@ -101,7 +101,7 @@ Compose the message via `StrSubstNo` so it includes the field caption *and* the 
 - Forgetting `ErrorMessageMgt.Activate(ErrorMessageHandler)` means the page never shows anything and `HasErrors` is always false. The Activate call wires the local handler into the global stream.
 - Last resort: `git checkout step-6-end`.
 
-## Out of scope today
+## Out of scope for now
 
 - **Error handler architecture as a general framework concern** (deferred from the 2026-03-13 sync — three options were on the table: enum on the task, interface param on the processor, implementation-controlled). Step 6 just wires journal-validation errors; framework-wide error policy is a separate decision.
 - **The `Task Error Log` table** that was prototyped earlier. Step 6's solution doesn't write to it. Treat it as dead code for the workshop; remove later if it stays unused.
