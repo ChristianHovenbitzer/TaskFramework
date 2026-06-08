@@ -1,7 +1,9 @@
 # Step 5 — Real Posting Pipeline — Cheat Sheet
 
 > Companion to the "While You Code — Step 5" slide. More room here for details and hints.
-> **No copy-paste-ready code on purpose** — type it yourself, that's where the learning happens.
+> **The repetitive boilerplate (all three facades + the Check Line pair) is provided** so
+> your time goes to the parts that teach. For everything you *do* write, the hints are
+> deliberately not copy-paste-ready — typing it yourself is where the learning happens.
 
 ## What you're building in this step
 
@@ -31,14 +33,23 @@ different table*, not because we hid the buttons.
 
 ## What you'll build
 
-**New codeunit pairs in `TaskFramework.Impl/src/vouchers/posting/`** (each pair = one public facade calling one `Access = Internal` Impl):
+The pipeline is **three codeunit pairs** in `TaskFramework.Impl/src/vouchers/posting/`.
+Each pair = one public facade calling one `Access = Internal` Impl. To keep the step
+focused on the posting *logic* rather than boilerplate, some of these are already
+provided — read them, don't retype them.
 
-- [VoucherJnlCheckLine.codeunit.al](TaskFramework.Impl/src/vouchers/posting/VoucherJnlCheckLine.codeunit.al) and [VoucherJnlCheckLineImpl.codeunit.al](TaskFramework.Impl/src/vouchers/posting/VoucherJnlCheckLineImpl.codeunit.al) — validate one journal line
-- [VoucherJnlPostLine.codeunit.al](TaskFramework.Impl/src/vouchers/posting/VoucherJnlPostLine.codeunit.al) and [VoucherJnlPostLineImpl.codeunit.al](TaskFramework.Impl/src/vouchers/posting/VoucherJnlPostLineImpl.codeunit.al) — create one ledger entry from one journal line
-- [VoucherJnlPostBatch.codeunit.al](TaskFramework.Impl/src/vouchers/posting/VoucherJnlPostBatch.codeunit.al) and [VoucherJnlPostBatchImpl.codeunit.al](TaskFramework.Impl/src/vouchers/posting/VoucherJnlPostBatchImpl.codeunit.al) — orchestrator: check all → register → post all → update register → cleanup
+**Provided complete — read these as your reference (already in the branch):**
 
-Optional / "if there's time":
-- [VoucherJnlPostPreview.Codeunit.al](TaskFramework.Impl/src/vouchers/posting/VoucherJnlPostPreview.Codeunit.al), [VoucherPostPreviewHandler.Codeunit.al](TaskFramework.Impl/src/vouchers/posting/VoucherPostPreviewHandler.Codeunit.al), and [VoucherPostingPreview.Page.al](TaskFramework.Impl/src/vouchers/posting/VoucherPostingPreview.Page.al) — standard BC posting preview pattern. Demonstrates how `[CommitBehavior(CommitBehavior::Error)]` plus manual event subscriptions let you "post in memory" and show the resulting ledger entries without actually committing.
+- [VoucherJnlCheckLine.codeunit.al](TaskFramework.Impl/src/vouchers/posting/VoucherJnlCheckLine.codeunit.al) **+** [VoucherJnlCheckLineImpl.codeunit.al](TaskFramework.Impl/src/vouchers/posting/VoucherJnlCheckLineImpl.codeunit.al) — the **whole Check Line pair**, done. This is your worked example of the Public/Impl pattern: open both, see how the facade just forwards to the internal Impl, and how `RunCheck` validates with `TestField`. You build the next two pairs the same way.
+- [VoucherJnlPostLine.codeunit.al](TaskFramework.Impl/src/vouchers/posting/VoucherJnlPostLine.codeunit.al) and [VoucherJnlPostBatch.codeunit.al](TaskFramework.Impl/src/vouchers/posting/VoucherJnlPostBatch.codeunit.al) — the **two remaining facades** are provided too (all facades are identical boilerplate). They already reference Impls that **don't exist yet** — that's expected, the branch won't compile until you write them.
+
+**You build (the substance of this step):**
+
+- [VoucherJnlPostLineImpl.codeunit.al](TaskFramework.Impl/src/vouchers/posting/VoucherJnlPostLineImpl.codeunit.al) — create one ledger entry from one journal line *(Task 2)*
+- [VoucherJnlPostBatchImpl.codeunit.al](TaskFramework.Impl/src/vouchers/posting/VoucherJnlPostBatchImpl.codeunit.al) — the orchestrator: check all → register → post all → update register → cleanup *(Task 3)*
+
+Optional / "if there's time" — **not provided**, build from scratch:
+- `VoucherJnlPostPreview.Codeunit.al`, `VoucherPostPreviewHandler.Codeunit.al`, and `VoucherPostingPreview.Page.al` — standard BC posting preview pattern. Demonstrates how `[CommitBehavior(CommitBehavior::Error)]` plus manual event subscriptions let you "post in memory" and show the resulting ledger entries without actually committing.
 
 **Modified:**
 - [DocumentImportProcessor.codeunit.al](TaskFramework.Impl/src/processors/DocumentImportProcessor.codeunit.al) — builds a journal line inline, then calls Post Batch instead of writing to the old Voucher Entry
@@ -52,31 +63,34 @@ Optional / "if there's time":
 
 ## Tasks (in order)
 
-### 1. Voucher Jnl.-Check Line (pair)
-**Goal:** validate one journal line via the BC `TableNo` + `OnRun` invocation pattern; the Impl uses `TestField` for missing data so errors carry the field name automatically.
+### 1. Voucher Jnl.-Check Line (pair) — READ, don't write
+**This pair is provided complete.** Open both files and study them — they are your
+template for Tasks 2 and 3.
 **Where:** [VoucherJnlCheckLineImpl.codeunit.al](TaskFramework.Impl/src/vouchers/posting/VoucherJnlCheckLineImpl.codeunit.al) and [VoucherJnlCheckLine.codeunit.al](TaskFramework.Impl/src/vouchers/posting/VoucherJnlCheckLine.codeunit.al).
-**Hint:** the Impl has `TableNo = "Voucher Journal Line"` plus an `OnRun` trigger that delegates to `RunCheck(Rec)`. `RunCheck` calls `TestField` on `"Customer No."`, `Amount`, `"Posting Date"`. The public facade is a thin wrapper that holds an `Impl` codeunit variable and forwards every call.
-**Why a pair?** Public/Impl is the BC-standard split: the public codeunit is the stable callable surface; the Impl carries the logic and is internal-only so other apps can't depend on it. Mirrors how MS does Gen. Jnl. posting.
+**What to notice:**
+- The Impl has `Access = Internal`, `TableNo = "Voucher Journal Line"`, and an `OnRun` trigger that delegates to `RunCheck(Rec)`. `RunCheck` validates with `TestField` on `"Customer No."`, `Amount`, `"Posting Date"` — `TestField` is chosen so each error names the field automatically.
+- The public facade is a thin wrapper: it holds a `var ...Impl: Codeunit` and forwards every call. Nothing else.
+**Why a pair?** Public/Impl is the BC-standard split: the public codeunit is the stable callable surface; the Impl carries the logic and is internal-only so other apps can't depend on it. Mirrors how MS does Gen. Jnl. posting. **Tasks 2 and 3 follow this exact shape — the facades are already provided, so you only write their Impls.**
 
-### 2. Voucher Jnl.-Post Line (pair)
+### 2. Voucher Jnl.-Post Line Impl — YOU build this
 **Goal:** turn one validated journal line into one ledger entry, tagged with the current Register No.
-**Where:** [VoucherJnlPostLineImpl.codeunit.al](TaskFramework.Impl/src/vouchers/posting/VoucherJnlPostLineImpl.codeunit.al) and [VoucherJnlPostLine.codeunit.al](TaskFramework.Impl/src/vouchers/posting/VoucherJnlPostLine.codeunit.al).
-**Hint — Impl carries:**
+**The facade** [VoucherJnlPostLine.codeunit.al](TaskFramework.Impl/src/vouchers/posting/VoucherJnlPostLine.codeunit.al) **is already provided** — open it to see exactly which procedures your Impl must expose (it just forwards `RunPosting`, `InitNextEntryNo`, `SetNextRegisterNo`, `GetNextEntryNo`). Your job is to create [VoucherJnlPostLineImpl.codeunit.al](TaskFramework.Impl/src/vouchers/posting/VoucherJnlPostLineImpl.codeunit.al) (`Access = Internal`, same pattern as the Check Line Impl) with the bodies.
+**Hint — the Impl carries:**
 - `RunPosting(VoucherJnlLine; RegisterNo)` — increments `NextEntryNo`, then `Init → Validate(Entry No.) → Validate(...) → Insert(true)` on `Voucher Ledger Entry`. Raises `OnAfterPostVoucherLine` after insert (the preview handler subscribes to this).
 - `InitNextEntryNo()` — locks the table and reads the highest existing Entry No. Call this once per posting run before looping.
 - `SetNextRegisterNo(...)` — stores the register number for the loop that follows.
 **Don't:** wire G/L posting (Gen. Jnl. Line). Leave a comment noting that's where it would go and move on. The pattern is the point, not the accounting.
 
-### 3. Voucher Jnl.-Post Batch (pair) — the orchestrator
+### 3. Voucher Jnl.-Post Batch Impl — YOU build this (the heart of the step)
 **Goal:** the public entry point. Validates all lines (collecting *all* errors), then creates a register, posts all lines under it, updates the register's entry-range, cleans up.
-**Where:** [VoucherJnlPostBatchImpl.codeunit.al](TaskFramework.Impl/src/vouchers/posting/VoucherJnlPostBatchImpl.codeunit.al) and [VoucherJnlPostBatch.codeunit.al](TaskFramework.Impl/src/vouchers/posting/VoucherJnlPostBatch.codeunit.al).
+**The facade** [VoucherJnlPostBatch.codeunit.al](TaskFramework.Impl/src/vouchers/posting/VoucherJnlPostBatch.codeunit.al) **is already provided** (it forwards `PostBatch` and declares the cross-table permissions). Your job is [VoucherJnlPostBatchImpl.codeunit.al](TaskFramework.Impl/src/vouchers/posting/VoucherJnlPostBatchImpl.codeunit.al) — this is the real work of Step 5, so take your time here.
 **Hint — five phases on the Impl, in order:**
   1. **Phase 1: Validate all lines.** `[ErrorBehavior(ErrorBehavior::Collect)]` on the procedure plus `ErrorMessageMgt.Activate(ErrorMessageHandler)` lets `TestField` errors accumulate in the handler instead of throwing. Loop the journal lines, call `CheckLine.RunCheck` on each. After the loop, if `ErrorMessageHandler.HasErrors` then `ShowErrors()` and `Error('')` to abort cleanly.
   2. **Phase 2: Create register.** Lock + read last `Voucher Register`, compute next `No.`, init/insert a new register row.
   3. **Phase 3: Post.** `PostLine.SetNextRegisterNo` + `PostLine.InitNextEntryNo`, then loop the journal lines and call `PostLine.RunPosting`. Track first/last entry no.
   4. **Phase 4: Update register.** Set the register's `From Entry No.` / `To Entry No.` and `Modify(true)`.
   5. **Phase 5: Cleanup.** `VoucherJnlLine.DeleteAll(true)` — the journal is consumed.
-  Plus, after Phase 5: if `PostPreview.IsActive()` then `PostPreview.ThrowError()` (only relevant if you do the optional preview task).
+  *(Skip the preview hook for now — the optional preview task adds an `if PostPreview.IsActive() then PostPreview.ThrowError()` here, but only build that if you reach Task 7.)*
 **Why two loops over the same lines:** validation must complete fully — and aggregate every error — before any ledger entry is created. Bail-out on phase 1 leaves no half-posted state.
 
 ### 4. Wire Document Import Processor through the new pipeline
@@ -96,7 +110,7 @@ Optional / "if there's time":
 
 ### 7. (Optional) Posting preview
 **Goal:** demonstrate the BC-standard "post-and-show-without-committing" pattern.
-**Where:** [VoucherJnlPostPreview.Codeunit.al](TaskFramework.Impl/src/vouchers/posting/VoucherJnlPostPreview.Codeunit.al), [VoucherPostPreviewHandler.Codeunit.al](TaskFramework.Impl/src/vouchers/posting/VoucherPostPreviewHandler.Codeunit.al), and [VoucherPostingPreview.Page.al](TaskFramework.Impl/src/vouchers/posting/VoucherPostingPreview.Page.al).
+**Where:** create from scratch — `VoucherJnlPostPreview.Codeunit.al`, `VoucherPostPreviewHandler.Codeunit.al`, and `VoucherPostingPreview.Page.al` in the `posting/` folder. (Not provided on this branch; `git checkout step-5-end` to see a finished version.)
 **Hint — the trick is twofold:**
 - `[CommitBehavior(CommitBehavior::Error)]` on the preview-start procedure causes any `Commit()` to error out — so even if posting "succeeds" nothing actually persists.
 - A manual `EventSubscriberInstance = Manual` handler subscribes to `OnAfterPostVoucherLine` (raised by Post Line Impl). It captures every would-be ledger entry into a temporary record. The preview throws a sentinel "Preview mode." error to roll the transaction back, then the page shows the captured temp records.
@@ -105,8 +119,8 @@ This is genuinely advanced; treat it as a stretch goal if the room is fast.
 
 ## Done when
 
-- [ ] Six new codeunits — three Public + three Impl pairs — exist in `TaskFramework.Impl/src/vouchers/posting/`
-- [ ] Check Line uses `TestField` (not `Error()`) so missing-field errors carry the field name
+- [ ] You wrote the two Impls — `Voucher Jnl.-Post Line Impl` and `Voucher Jnl.-Post Batch Impl` — in `TaskFramework.Impl/src/vouchers/posting/` (the three facades + Check Line Impl were provided)
+- [ ] Both new Impls are `Access = Internal` and follow the same Public/Impl shape as the provided Check Line pair
 - [ ] Post Batch's validate phase runs under `[ErrorBehavior(ErrorBehavior::Collect)]` and shows all errors via `ErrorMessageHandler.ShowErrors()` before aborting
 - [ ] Document Import Processor builds journal lines inline and calls `PostBatchImpl.Run` (no direct Voucher Entry creation)
 - [ ] Old `Voucher Entry` table, page, card, and `Post Vouchers` codeunit are deleted from the Framework app
