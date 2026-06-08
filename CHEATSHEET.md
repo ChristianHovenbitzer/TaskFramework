@@ -33,7 +33,7 @@ from outside, and individual units are tested in isolation.
 - [TaskFrameworkUnitTests.Codeunit.al](TaskFramework.Tests/src/TaskFrameworkUnitTests.Codeunit.al) — new test codeunit with one comprehensive test per production unit
 
 **Rewritten (Test app):**
-- [TaskFrameworkTests.Codeunit.al](TaskFramework.Tests/src/TaskFrameworkTests.Codeunit.al) — replace the anti-pattern integration tests with spy-based orchestration tests. The old tests don't survive — their value is contrast in the slides, not in the repo.
+- [TaskFrameworkTests.Codeunit.al](TaskFramework.Tests/src/TaskFrameworkTests.Codeunit.al) — replace the anti-pattern integration tests with spy-based orchestration tests. The old tests are removed — their job was to show the contrast, which you've now refactored away.
 
 **Modified (Framework / Impl app — small follow-up cleanup):**
 - [TaskProcessor.codeunit.al](TaskFramework/src/Processing/TaskProcessor.codeunit.al) — remove the leftover same-app self-subscriber on `OnBeforeProcessTask`
@@ -110,11 +110,7 @@ You'll keep the test names (`TestProcessVendorImportTask`, etc.) but the bodies 
 - `Factory.Set*(MockRunner)` requires the parameter type to match the interface, so `MockRunner` *must* declare `implements "ITask Log Updater", "ITask Archiver", "ITask Processor"`. Compile error here usually means a missing interface declaration.
 - Last resort: `git checkout step-8-end`.
 
-## Speaker discussion at wrap-up
-
-Stefan vs Christian on **unit vs integration**:
-- Stefan — integration tests prove the real system works; mocks can give false confidence.
-- Christian — unit tests are faster and pinpoint what broke; integration tests are slow and brittle.
+## Why both test styles exist
 
 Both flavors live in the test app: orchestration tests use the spy; per-unit tests
 hit the real types when needed. The architecture supports either philosophy — that's
@@ -123,5 +119,5 @@ the payoff of the work in Steps 3, 4, and 6, not the tests themselves.
 ## Out of scope for now
 
 - A general mock framework (Moq-style). A codeunit that records its inputs is enough.
-- Test Library / Helper patterns — Christian's call: deprioritised. Tiny local `Test Assert` is enough.
+- Test Library / Helper patterns — deprioritised for this workshop. A tiny local `Test Assert` is enough.
 - Mocking the posting pipeline (Check Line / Post Line / Post Batch). Doable in principle, the same way — left as a stretch goal if time permits.
