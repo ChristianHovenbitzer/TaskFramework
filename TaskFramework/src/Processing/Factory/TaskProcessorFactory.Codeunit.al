@@ -4,8 +4,6 @@
 // is Task Processor itself, which implements all three role interfaces.
 codeunit 50008 "Task Processor Factory" implements "ITask Processor Factory"
 {
-    Access = Internal;
-
     var
         Default: Codeunit "Task Processor";
 
