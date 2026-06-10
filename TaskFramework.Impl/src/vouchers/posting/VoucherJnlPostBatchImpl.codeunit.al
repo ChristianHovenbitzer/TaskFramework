@@ -17,14 +17,12 @@ codeunit 60012 "Voucher Jnl.-Post Batch Impl"
         PostBatch(Rec);
     end;
 
-    [ErrorBehavior(ErrorBehavior::Collect)]
     procedure PostBatch(var VoucherJnlLine: Record "Voucher Journal Line")
     var
         CheckLine: Codeunit "Voucher Jnl.-Check Line Impl";
         PostLine: Codeunit "Voucher Jnl.-Post Line Impl";
         PostPreview: Codeunit "Voucher Jnl.-Post Preview";
         ErrorMessageMgt: Codeunit "Error Message Management";
-        ErrorMessageHandler: Codeunit "Error Message Handler";
         Register: Record "Voucher Register";
         NextRegisterNo: Integer;
         FirstEntryNo: Integer;
@@ -33,17 +31,10 @@ codeunit 60012 "Voucher Jnl.-Post Batch Impl"
         if not VoucherJnlLine.FindSet() then
             Error(NothingToPostErr);
 
-        // Phase 1: Validate all lines, collecting all errors
-        ErrorMessageMgt.Activate(ErrorMessageHandler);
+        // Phase 1: Check all lines 
         repeat
             CheckLine.RunCheck(VoucherJnlLine);
         until VoucherJnlLine.Next() = 0;
-
-        if ErrorMessageHandler.HasErrors() then begin
-            ErrorMessageHandler.ShowErrors();
-            Error('');
-        end;
-
 
         // Phase 2: Create register
         NextRegisterNo := GetNextRegisterNo();
