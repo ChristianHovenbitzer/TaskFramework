@@ -33,5 +33,13 @@
     "includeSourceInSymbolFile": true
   },
   "target": "Cloud",
-  "application": "27.0.0.0"
+  "application": "27.0.0.0",
+  "internalsVisibleTo": [
+    {
+      
+  "id": "a1b2c3d4-0003-4000-8000-000000000003",
+  "name": "Task Framework Tests",
+  "publisher": "Techdays Workshop"
+    }
+  ]
 }

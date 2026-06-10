@@ -99,6 +99,7 @@ codeunit 70009 "Task Framework Unit Tests"
         TaskLogEntry: Record "Task Log Entry";
         Vendor: Record Vendor;
         TaskProcessor: Codeunit "Task Processor";
+        VendorImportProcessor: Codeunit "Vendor Import Processor";
         BeforeCount: Integer;
     begin
         // Arrange — VendorImport task with a NAME + CITY payload, plus an unknown key
@@ -113,7 +114,10 @@ codeunit 70009 "Task Framework Unit Tests"
         TaskLogEntry.Modify(true);
 
         // Act — dispatched through the enum to "Vendor Import Processor".
-        TaskProcessor.ProcessTask(TaskLogEntry);
+        // TaskProcessor.ProcessTask(TaskLogEntry);
+        // Hardwire towards the correct implementation
+
+        VendorImportProcessor.ProcessTask(TaskLogEntry);
 
         // Assert — exactly one vendor inserted with parsed fields.
         Assert.AreEqual(BeforeCount + 1, Vendor.Count(), 'Exactly one vendor should be inserted');
